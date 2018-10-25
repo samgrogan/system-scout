@@ -60,6 +60,10 @@
       <Project>{86e95ba9-70ce-4df5-ae2d-868fba4c0207}</Project>
       <Name>WinScoutLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinScoutUnmanagedWrapperLib\WinScoutUnmanagedWrapperLib.vcxproj">
+      <Project>{cb14211d-9b10-46d8-b4b5-238b83910d5f}</Project>
+      <Name>WinScoutUnmanagedWrapperLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
