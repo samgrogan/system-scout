@@ -11,6 +11,7 @@ namespace WinScoutLibTest
         public void TestMethod1()
         {
             TestClass test = new TestClass();
+            test.TestMethod1();
         }
     }
 }
