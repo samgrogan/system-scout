@@ -3,8 +3,13 @@
 #include "Msi.h"
 
 using namespace System;
+using namespace System::Collections;
+using namespace System::Collections::Generic;
 
-public ref class 
+ref class InstalledProduct {
+public:
+	property System::String ^ProductCode;
+};
 
 int main(array<System::String ^> ^args)
 {
@@ -16,9 +21,11 @@ int main(array<System::String ^> ^args)
 
 	//if (args[0] == "software")
 	{
+		List<InstalledProduct ^> ^installedProducts = gcnew List<InstalledProduct ^>();
+
 		UINT ret;
 		DWORD dwIndex = 0;
-		DWORD dwContext = MSIINSTALLCONTEXT_ALL;
+		const DWORD dwContext = MSIINSTALLCONTEXT_ALL;
 		wchar_t szInstalledProductCode[39] = { 0 };
 		wchar_t szSid[128] = { 0 };
 		const wchar_t* szUserSid = L"s-1-1-0";
@@ -31,7 +38,7 @@ int main(array<System::String ^> ^args)
 			cchSid = sizeof(szSid) / sizeof(szSid[0]);
 
 			ret = MsiEnumProductsEx(
-				NULL,
+				nullptr,
 				szUserSid,
 				dwContext,
 				dwIndex,
@@ -44,10 +51,9 @@ int main(array<System::String ^> ^args)
 			if (ret == ERROR_SUCCESS)
 			{
 				Console::WriteLine("Enumerated Product " + dwIndex);
-				Console::Write(L"\t");
-				Console::WriteLine(szInstalledProductCode);
-				Console::Write(L"\t");
-				Console::WriteLine(szSid);
+
+				InstalledProduct ^installedProduct = gcnew InstalledProduct();
+				installedProduct->ProductCode = gcnew System::String(szInstalledProductCode);
 
 				//wchar_t* name = MsiGetProductInfoEx(
 				//	szInstalledProductCode,
@@ -62,6 +68,8 @@ int main(array<System::String ^> ^args)
 				//	dwInstalledContext,
 				//	INSTALLPROPERTY_VERSIONSTRING
 				//);
+
+				Console::WriteLine(installedProduct->ProductCode);
 
 				dwIndex++;
 			} else {
