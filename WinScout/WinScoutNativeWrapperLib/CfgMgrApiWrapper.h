@@ -1,9 +1,10 @@
 #pragma once
+#include <windows.h>
 #include <cfgmgr32.h>
 
-namespace CfgMgrApi {
+namespace WinScoutNativeWrapper {
 
-	public enum class ReturnValue : int {
+	public enum class CfgMgrReturnValue : int {
 		Success = CR_SUCCESS,
 		Default = CR_DEFAULT,
 		OutOfMemory = CR_OUT_OF_MEMORY,
@@ -66,11 +67,10 @@ namespace CfgMgrApi {
 		InvalidStructureSize = CR_INVALID_STRUCTURE_SIZE
 	};
 
-	ref class ChgMgrApiWrapper
-	{
+	ref class CfgMgrApiWrapper {
 	public:
-		ChgMgrApiWrapper();
+		CfgMgrApiWrapper();
 		int GetDeviceIDListSize();
 	};
 
-} // 
+}

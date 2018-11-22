@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinScoutLib", "WinScoutLib\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinScoutLibTest", "WinScoutLibTest\WinScoutLibTest.csproj", "{13986788-CEA0-45D4-8425-CC012AC24012}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinScoutUnmanagedWrapperLib", "WinScoutUnmanagedWrapperLib\WinScoutUnmanagedWrapperLib.vcxproj", "{CB14211D-9B10-46D8-B4B5-238B83910D5F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinScoutNativeWrapperLib", "WinScoutNativeWrapperLib\WinScoutNativeWrapperLib.vcxproj", "{CB14211D-9B10-46D8-B4B5-238B83910D5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinScout", "WinScout\WinScout.csproj", "{C89F0D56-7B34-4154-B76B-F87D1C298D7C}"
 EndProject

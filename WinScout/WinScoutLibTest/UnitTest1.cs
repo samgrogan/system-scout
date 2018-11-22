@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WinScoutUnmanagedWrapperLib;
+using WinScoutNativeWrapper;
 
 namespace WinScoutLibTest
 {
@@ -10,8 +10,7 @@ namespace WinScoutLibTest
         [TestMethod]
         public void TestMethod1()
         {
-            TestClass test = new TestClass();
-            test.TestMethod1();
+
         }
     }
 }

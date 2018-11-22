@@ -158,6 +158,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WinScoutNativeWrapperLib\WinScoutNativeWrapperLib.vcxproj">
+      <Project>{cb14211d-9b10-46d8-b4b5-238b83910d5f}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

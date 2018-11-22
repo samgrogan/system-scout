@@ -1,9 +1,14 @@
 #include "stdafx.h"
 #include "CfgMgrApiWrapper.h"
 
-
-CfgMgrApi::ChgMgrApiWrapper::ChgMgrApiWrapper()
+// Default constructor
+WinScoutNativeWrapper::CfgMgrApiWrapper::CfgMgrApiWrapper()
 {
+}
+
+// 
+int WinScoutNativeWrapper::CfgMgrApiWrapper::GetDeviceIDListSize() {
+	return 0;
 }
 
 //CONFIGRET cr = CR_SUCCESS;
