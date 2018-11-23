@@ -16,9 +16,14 @@ namespace WinScoutNativeWrapper {
 
 	ref class MsiApiWrapper {
 	public:
+		// Default constructor
 		MsiApiWrapper();
 
-		List<InstalledProduct ^> ^EnumInstalledProducts();
+		// Returns information about the installed products in the given context
+		List<InstalledProduct ^>^ EnumInstalledProducts();
+
+	private:
+		System::String^ GetInstalledProductProperty(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty);
 	};
 
 }
