@@ -6,9 +6,12 @@ using namespace System::Collections;
 using namespace System::Collections::Generic;
 using namespace WinScoutNativeWrapper;
 
+// Default constructor
 MsiApiWrapper::MsiApiWrapper() {}
 
+// Returns a list of installed products, and their properties
 List<InstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
+
 	// List of installed products to return
 	List<InstalledProduct ^>^ installedProducts = gcnew List<InstalledProduct ^>();
 
@@ -39,10 +42,18 @@ List<InstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 		if (ret == ERROR_SUCCESS) {
 			InstalledProduct^ installedProduct = gcnew InstalledProduct();
 			installedProduct->ProductCode = gcnew System::String(szInstalledProductCode);
-			installedProduct->ProductName = GetInstalledProductProperty(
-				szInstalledProductCode, (cchSid == 0 ? nullptr : szSid), dwInstalledContext,
-				INSTALLPROPERTY_INSTALLEDPRODUCTNAME);
 
+			// Try to get the product name
+			try {
+				installedProduct->ProductName = GetInstalledProductProperty(
+					szInstalledProductCode, (cchSid == 0 ? nullptr : szSid), dwInstalledContext,
+					INSTALLPROPERTY_INSTALLEDPRODUCTNAME);
+			}
+			catch (Exception^ ex) {
+				installedProduct->ProductName = gcnew System::String(INSTALLED_PRODUCT_UNKNOWN_PROPERTY);
+			}
+
+			installedProducts->Add(installedProduct);
 			dwIndex++;
 		}
 		else {

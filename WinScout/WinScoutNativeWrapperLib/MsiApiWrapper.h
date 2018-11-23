@@ -6,6 +6,8 @@ using namespace System;
 using namespace System::Collections;
 using namespace System::Collections::Generic;
 
+#define INSTALLED_PRODUCT_UNKNOWN_PROPERTY	L"Unknown"
+
 namespace WinScoutNativeWrapper {
 
 	public ref class InstalledProduct {
