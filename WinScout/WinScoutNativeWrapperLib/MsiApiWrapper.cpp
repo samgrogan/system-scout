@@ -10,10 +10,10 @@ using namespace WinScoutNativeWrapper;
 MsiApiWrapper::MsiApiWrapper() {}
 
 // Returns a list of installed products, and their properties
-List<InstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
+List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 
 	// List of installed products to return
-	List<InstalledProduct ^>^ installedProducts = gcnew List<InstalledProduct ^>();
+	List<MsiInstalledProduct ^>^ installedProducts = gcnew List<MsiInstalledProduct ^>();
 
 	UINT ret;
 	DWORD dwIndex = 0;
@@ -40,7 +40,7 @@ List<InstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 		);
 
 		if (ret == ERROR_SUCCESS) {
-			InstalledProduct^ installedProduct = gcnew InstalledProduct();
+			MsiInstalledProduct^ installedProduct = gcnew MsiInstalledProduct();
 			installedProduct->ProductCode = gcnew System::String(szInstalledProductCode);
 
 			// Try to get the product name

@@ -10,7 +10,7 @@ using namespace System::Collections::Generic;
 
 namespace WinScoutNativeWrapper {
 
-	public ref class InstalledProduct {
+	public ref class MsiInstalledProduct {
 	public:
 		property System::String ^ProductCode;
 		property System::String ^ProductName;
@@ -22,10 +22,18 @@ namespace WinScoutNativeWrapper {
 		MsiApiWrapper();
 
 		// Returns information about the installed products in the given context
-		List<InstalledProduct ^>^ EnumInstalledProducts();
+		List<MsiInstalledProduct ^>^ EnumInstalledProducts();
+		List<MsiInstalledProduct ^>^ EnumInstalledProducts();
+
+
+		// Returns the properties of a given product guid
+		MsiInstalledProduct^ GetInstalledProductFromProductCode(wchar_t* szProductCode);
+		MsiInstalledProduct^ GetInstalledProductFromProductCode(System::String^ productCode);
 
 	private:
+		// Try to get the given property for the given product
 		System::String^ GetInstalledProductProperty(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty);
+		System::String^ GetInstalledProductPropertyWithDefault(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty, System::String defaultValue);
 	};
 
 }

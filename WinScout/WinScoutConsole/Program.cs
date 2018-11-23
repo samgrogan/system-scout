@@ -11,7 +11,7 @@ namespace WinScoutConsole {
         static void Main(string[] args) {
 
             // Get a list of installed products
-            InstalledProductsController installedProductsController = new InstalledProductsController();
+            InstalledProductsCollection installedProductsController = new InstalledProductsCollection();
             List<InstalledProduct> installedProducts = installedProductsController.EnumInstalledProducts();
 
             foreach (InstalledProduct installedProduct in installedProducts) {
