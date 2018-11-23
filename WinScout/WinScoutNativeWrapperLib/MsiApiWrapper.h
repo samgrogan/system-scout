@@ -8,13 +8,13 @@ using namespace System::Collections::Generic;
 
 namespace WinScoutNativeWrapper {
 
-	ref class InstalledProduct {
+	public ref class InstalledProduct {
 	public:
 		property System::String ^ProductCode;
 		property System::String ^ProductName;
 	};
 
-	ref class MsiApiWrapper {
+	public ref class MsiApiWrapper {
 	public:
 		// Default constructor
 		MsiApiWrapper();

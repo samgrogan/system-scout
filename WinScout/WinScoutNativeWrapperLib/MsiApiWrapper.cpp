@@ -6,8 +6,7 @@ using namespace System::Collections;
 using namespace System::Collections::Generic;
 using namespace WinScoutNativeWrapper;
 
-MsiApiWrapper::MsiApiWrapper() {
-}
+MsiApiWrapper::MsiApiWrapper() {}
 
 List<InstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 	// List of installed products to return
@@ -38,44 +37,33 @@ List<InstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 		);
 
 		if (ret == ERROR_SUCCESS) {
-			Console::WriteLine("Enumerated Product " + dwIndex);
-
 			InstalledProduct^ installedProduct = gcnew InstalledProduct();
 			installedProduct->ProductCode = gcnew System::String(szInstalledProductCode);
 			installedProduct->ProductName = GetInstalledProductProperty(
-				szInstalledProductCode, (cchSid == 0 ? NULL : szSid), dwInstalledContext,
+				szInstalledProductCode, (cchSid == 0 ? nullptr : szSid), dwInstalledContext,
 				INSTALLPROPERTY_INSTALLEDPRODUCTNAME);
-
-			Console::WriteLine(installedProduct->ProductCode + L"|" + installedProduct->ProductName);
 
 			dwIndex++;
 		}
 		else {
 			switch (ret) {
-			case ERROR_ACCESS_DENIED:
-				Console::WriteLine("MsiEnumProductsEx returned ERROR_ACCESS_DENIED");
-				break;
-			case ERROR_BAD_CONFIGURATION:
-				Console::WriteLine("MsiEnumProductsEx returned ERROR_BAD_CONFIGURATION");
-				break;
-			case ERROR_INVALID_PARAMETER:
-				Console::WriteLine("MsiEnumProductsEx returned ERROR_INVALID_PARAMETER");
-				break;
-			case ERROR_NO_MORE_ITEMS:
-				Console::WriteLine("MsiEnumProductsEx returned ERROR_NO_MORE_ITEMS");
-				break;
-			case ERROR_MORE_DATA:
-				Console::WriteLine("MsiEnumProductsEx returned ERROR_MORE_DATA");
-				break;
-			case ERROR_UNKNOWN_PRODUCT:
-				Console::WriteLine("MsiEnumProductsEx returned ERROR_UNKNOWN_PRODUCT");
-				break;
-			case ERROR_FUNCTION_FAILED:
-				Console::WriteLine("MsiEnumProductsEx returned ERROR_FUNCTION_FAILED");
-				break;
-			default:
-				Console::WriteLine("Unknown return value from MsiEnumProductsEx");
-				break;
+				case ERROR_ACCESS_DENIED:
+					throw gcnew Exception("MsiEnumProductsEx returned ERROR_ACCESS_DENIED");
+				case ERROR_BAD_CONFIGURATION:
+					throw gcnew Exception("MsiEnumProductsEx returned ERROR_BAD_CONFIGURATION");
+				case ERROR_INVALID_PARAMETER:
+					throw gcnew Exception("MsiEnumProductsEx returned ERROR_INVALID_PARAMETER");
+				case ERROR_NO_MORE_ITEMS:
+					// This is the expected completion of the loop
+					break;
+				case ERROR_MORE_DATA:
+					throw gcnew Exception("MsiEnumProductsEx returned ERROR_MORE_DATA");
+				case ERROR_UNKNOWN_PRODUCT:
+					throw gcnew Exception("MsiEnumProductsEx returned ERROR_UNKNOWN_PRODUCT");
+				case ERROR_FUNCTION_FAILED:
+					throw gcnew Exception("MsiEnumProductsEx returned ERROR_FUNCTION_FAILED");
+				default:
+					throw gcnew Exception("Unknown return value from MsiEnumProductsEx");
 			}
 		}
 	}
@@ -102,37 +90,22 @@ System::String^ MsiApiWrapper::GetInstalledProductProperty(wchar_t* szProductCod
 	if (ret == ERROR_SUCCESS) {
 		return gcnew System::String(value);
 	}
-	else {
-		switch (ret) {
+	switch (ret) {
 		case ERROR_ACCESS_DENIED:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_ACCESS_DENIED");
-			break;
+			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_ACCESS_DENIED");
 		case ERROR_BAD_CONFIGURATION:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_BAD_CONFIGURATION");
-			break;
+			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_BAD_CONFIGURATION");
 		case ERROR_INVALID_PARAMETER:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_INVALID_PARAMETER");
-			break;
+			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_INVALID_PARAMETER");
 		case ERROR_MORE_DATA:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_MORE_DATA");
-			break;
-		case ERROR_SUCCESS:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_SUCCESS");
-			break;
+			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_MORE_DATA");
 		case ERROR_UNKNOWN_PRODUCT:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_UNKNOWN_PRODUCT");
-			break;
+			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_UNKNOWN_PRODUCT");
 		case ERROR_UNKNOWN_PROPERTY:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_UNKNOWN_PROPERTY");
-			break;
+			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_UNKNOWN_PROPERTY");
 		case ERROR_FUNCTION_FAILED:
-			Console::WriteLine("MsiGetProductInfoEx returned ERROR_FUNCTION_FAILED");
-			break;
+			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_FUNCTION_FAILED");
 		default:
-			Console::WriteLine("Unknown return value from MsiGetProductInfoEx");
-			break;
-		}
+			throw gcnew Exception("Unknown return value from MsiGetProductInfoEx");
 	}
-
-	return nullptr;
 }
