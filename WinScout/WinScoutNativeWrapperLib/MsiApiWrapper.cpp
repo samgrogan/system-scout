@@ -83,9 +83,18 @@ List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 	return installedProducts;
 }
 
+// Returns the properties of a given product guid
+MsiInstalledProduct^ GetInstalledProductFromProductCode(wchar_t* szProductCode) {
+	return nullptr;
+}
+
+MsiInstalledProduct^ GetInstalledProductFromProductCode(System::String^ productCode) {
+	return nullptr;
+}
+
 // Returns the given property as string
-System::String^ MsiApiWrapper::GetInstalledProductProperty(wchar_t* szProductCode, wchar_t* szUserSid,
-                                                           MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty) {
+System::String^ MsiApiWrapper::GetInstalledProductProperty(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty) {
+
 	DWORD value_length = 1024;
 	wchar_t value[1024] = {0};
 

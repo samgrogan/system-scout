@@ -18,16 +18,19 @@ namespace WinScoutLib {
     public class InstalledProductsCollection {
 
         // The dictionary containing the installed products
-        protected Dictionary<string, >
+        protected Dictionary<string, InstalledProduct> InstalledProducts { get; }
 
-
+        // Default constructor
+        public InstalledProductsCollection() {
+            InstalledProducts = new Dictionary<string, InstalledProduct>();
+        }
 
         // Returns a list of installed product
         public List<InstalledProduct> EnumInstalledProducts() {
             MsiApiWrapper msiApiWrapper = new MsiApiWrapper();
-            List<InstalledProduct> installedProducts = msiApiWrapper.EnumInstalledProducts();
+            List<MsiInstalledProduct> installedProducts = msiApiWrapper.EnumInstalledProducts();
 
-            return installedProducts;
+            return null;
         }
     }
 }
