@@ -55,10 +55,12 @@ namespace WinScoutNativeWrapper {
 		List<MsiInstalledProduct ^>^ EnumInstalledProducts();
 
 		// Returns the properties of a given product guid
-		MsiInstalledProduct^ GetInstalledProductFromProductCode(wchar_t* szProductCode);
 		MsiInstalledProduct^ GetInstalledProductFromProductCode(System::String^ productCode);
 
 	private:
+		// Returns the properties of a given product guid
+		MsiInstalledProduct^ GetInstalledProductFromProductCode(wchar_t* szProductCode);
+
 		// Try to get the given property for the given product
 		System::String^ GetInstalledProductProperty(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty);
 		System::String^ GetInstalledProductPropertyWithDefault(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty, System::String^ defaultValue);

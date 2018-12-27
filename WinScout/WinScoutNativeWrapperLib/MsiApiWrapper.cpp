@@ -84,11 +84,12 @@ List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 }
 
 // Returns the properties of a given product guid
-MsiInstalledProduct^ GetInstalledProductFromProductCode(wchar_t* szProductCode) {
+MsiInstalledProduct^ MsiApiWrapper::GetInstalledProductFromProductCode(System::String^ productCode) {
 	return nullptr;
 }
 
-MsiInstalledProduct^ GetInstalledProductFromProductCode(System::String^ productCode) {
+// Returns the properties of a given product guid
+MsiInstalledProduct^ MsiApiWrapper::GetInstalledProductFromProductCode(wchar_t* szProductCode) {
 	return nullptr;
 }
 
@@ -128,4 +129,8 @@ System::String^ MsiApiWrapper::GetInstalledProductProperty(wchar_t* szProductCod
 		default:
 			throw gcnew Exception("Unknown return value from MsiGetProductInfoEx");
 	}
+}
+
+System::String^ MsiApiWrapper::GetInstalledProductPropertyWithDefault(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty, System::String^ defaultValue) {
+	return nullptr;
 }
