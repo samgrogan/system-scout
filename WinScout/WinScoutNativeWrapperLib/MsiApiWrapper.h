@@ -27,8 +27,11 @@ namespace WinScoutNativeWrapper {
 		// The name of the product
 		property System::String ^ProductName;
 
+		// The version of the product
+		property System::String ^ProductVersion;
+
 		// The date the product was installer or updated or repaired
-		property System::DateTime ^InstallDate;
+		property System::DateTime InstallDate;
 
 		// Where is this program installed?
 		property System::String ^InstallLocation;

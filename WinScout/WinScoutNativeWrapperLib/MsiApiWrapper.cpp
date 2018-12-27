@@ -49,7 +49,7 @@ List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 					szInstalledProductCode, (cchSid == 0 ? nullptr : szSid), dwInstalledContext,
 					INSTALLPROPERTY_INSTALLEDPRODUCTNAME);
 			}
-			catch (Exception^ ex) {
+			catch (Exception^) {
 				installedProduct->ProductName = gcnew System::String(INSTALLED_PRODUCT_UNKNOWN_PROPERTY);
 			}
 
