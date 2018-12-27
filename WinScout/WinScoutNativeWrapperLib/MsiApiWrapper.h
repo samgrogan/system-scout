@@ -61,7 +61,7 @@ namespace WinScoutNativeWrapper {
 	private:
 		// Try to get the given property for the given product
 		System::String^ GetInstalledProductProperty(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty);
-		System::String^ GetInstalledProductPropertyWithDefault(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty, System::String defaultValue);
+		System::String^ GetInstalledProductPropertyWithDefault(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty, System::String^ defaultValue);
 	};
 
 }
