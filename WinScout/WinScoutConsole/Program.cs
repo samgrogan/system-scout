@@ -14,6 +14,8 @@ namespace WinScoutConsole {
             InstalledProductsCollection installedProductsController = new InstalledProductsCollection();
             List<InstalledProduct> installedProducts = installedProductsController.EnumInstalledProducts();
 
+            Console.WriteLine($"Found {installedProducts.Count} installed products.");
+
             // Serialize as json to the console
             Console.WriteLine(JsonConvert.SerializeObject(installedProducts, Formatting.Indented));
         }

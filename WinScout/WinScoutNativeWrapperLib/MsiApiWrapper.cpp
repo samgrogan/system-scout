@@ -9,26 +9,44 @@ using namespace WinScoutNativeWrapper;
 // Default constructor
 MsiApiWrapper::MsiApiWrapper() {}
 
-// Returns a list of installed products, and their properties
-List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
+// Returns information about the installed products in the given context
+List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts(MsiInstalledProductContext context) {
+	// Id of the special "everyone" user
+	// https://docs.microsoft.com/en-us/windows/desktop/api/msi/nf-msi-msienumproductsexw
+	const wchar_t* szAllUsersSid = L"s-1-1-0";
+
+	// Based on the requested context, pass the correct flags to the enum function
+	switch (context) {
+		case MsiInstalledProductContext::AllUsers:
+			return this->EnumInstalledProducts(szAllUsersSid, MSIINSTALLCONTEXT_ALL);
+		case MsiInstalledProductContext::PerMachine:
+			return this->EnumInstalledProducts(nullptr, MSIINSTALLCONTEXT_MACHINE);
+		case MsiInstalledProductContext::CurrentUser:
+		default:
+			return this->EnumInstalledProducts(nullptr, MSIINSTALLCONTEXT_ALL);
+	}
+}
+
+List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts(const wchar_t* szUserSid, const DWORD dwContext) {
 
 	// List of installed products to return
 	List<MsiInstalledProduct ^>^ installedProducts = gcnew List<MsiInstalledProduct ^>();
 
-	UINT ret;
+	// Values to
+	UINT result;
+
 	DWORD dwIndex = 0;
-	const DWORD dwContext = MSIINSTALLCONTEXT_ALL;
-	wchar_t szInstalledProductCode[39] = {0};
-	wchar_t szSid[128] = {0};
-	const wchar_t* szUserSid = L"s-1-1-0";
-	DWORD cchSid;
+	wchar_t szInstalledProductCode[39];
 	MSIINSTALLCONTEXT dwInstalledContext;
+
+	wchar_t szSid[128] = {0};
+	DWORD cchSid;
 
 	do {
 		memset(szInstalledProductCode, 0, sizeof(szInstalledProductCode));
 		cchSid = sizeof(szSid) / sizeof(szSid[0]);
 
-		ret = MsiEnumProductsEx(
+		result = MsiEnumProductsEx(
 			nullptr,
 			szUserSid,
 			dwContext,
@@ -39,25 +57,18 @@ List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 			&cchSid
 		);
 
-		if (ret == ERROR_SUCCESS) {
-			MsiInstalledProduct^ installedProduct = gcnew MsiInstalledProduct();
-			installedProduct->ProductCode = gcnew System::String(szInstalledProductCode);
+		if (result == ERROR_SUCCESS) {
+			// Read the properties of the product based on the GUID
+			MsiInstalledProduct^ installedProduct = this->GetInstalledProductFromProductCode(szInstalledProductCode, (cchSid == 0 ? nullptr : szSid), dwInstalledContext);
 
-			// Try to get the product name
-			try {
-				installedProduct->ProductName = GetInstalledProductProperty(
-					szInstalledProductCode, (cchSid == 0 ? nullptr : szSid), dwInstalledContext,
-					INSTALLPROPERTY_INSTALLEDPRODUCTNAME);
+			// Add to the list of products to return
+			if (installedProduct != nullptr) {
+				installedProducts->Add(installedProduct);
 			}
-			catch (Exception^) {
-				installedProduct->ProductName = gcnew System::String(INSTALLED_PRODUCT_UNKNOWN_PROPERTY);
-			}
-
-			installedProducts->Add(installedProduct);
 			dwIndex++;
 		}
 		else {
-			switch (ret) {
+			switch (result) {
 				case ERROR_ACCESS_DENIED:
 					throw gcnew Exception("MsiEnumProductsEx returned ERROR_ACCESS_DENIED");
 				case ERROR_BAD_CONFIGURATION:
@@ -78,28 +89,84 @@ List<MsiInstalledProduct ^>^ MsiApiWrapper::EnumInstalledProducts() {
 			}
 		}
 	}
-	while (ret == ERROR_SUCCESS);
+	while (result == ERROR_SUCCESS);
 
 	return installedProducts;
 }
 
 // Returns the properties of a given product guid
-MsiInstalledProduct^ MsiApiWrapper::GetInstalledProductFromProductCode(System::String^ productCode) {
-	return nullptr;
+MsiInstalledProduct^ MsiApiWrapper::GetInstalledProductFromProductCode(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext) {
+	System::String^ defaultValue = gcnew System::String(INSTALLED_PRODUCT_UNKNOWN_PROPERTY);
+
+	// Make sure the product is installed
+	// Product State
+	System::String^ productState = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_PRODUCTSTATE, defaultValue);
+	if (productState != "5") {
+		return nullptr;
+	}
+
+	// Create a new object to hold the properties
+	MsiInstalledProduct^ installedProduct = gcnew MsiInstalledProduct();
+
+	// Try to get the properties of the product
+
+	// Product Code
+	installedProduct->ProductCode = gcnew System::String(szProductCode);
+
+	// Product Name
+	installedProduct->ProductName = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_INSTALLEDPRODUCTNAME, defaultValue);
+
+	// Version
+	installedProduct->ProductVersion = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_VERSIONSTRING, defaultValue);
+
+	// Install Date
+	System::String^ installDateString = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_INSTALLDATE, defaultValue);
+	DateTime installDate;
+	System::DateTime::TryParseExact(installDateString, "yyyyMMdd", gcnew Globalization::CultureInfo("en-US"), Globalization::DateTimeStyles::None, installDate);
+	installedProduct->InstallDate = installDate;
+
+	// Location
+	installedProduct->InstallLocation = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_INSTALLLOCATION, defaultValue);
+
+	// Source
+	installedProduct->InstallSource = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_INSTALLSOURCE, defaultValue);
+
+	// Local Package
+	installedProduct->LocalPackage = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_LOCALPACKAGE, defaultValue);
+
+	// Package Name
+	installedProduct->PackageName = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_PRODUCTNAME, defaultValue);
+
+	// Package Code
+	installedProduct->PackageCode = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_PACKAGECODE, defaultValue);
+
+	// Language
+	installedProduct->Language = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_INSTALLEDLANGUAGE, defaultValue);
+
+
+	// Publisher
+	installedProduct->Publisher = this->GetInstalledProductPropertyWithDefault(szProductCode, szUserSid, dwInstalledContext, INSTALLPROPERTY_PUBLISHER, defaultValue);
+
+	return installedProduct;
 }
 
-// Returns the properties of a given product guid
-MsiInstalledProduct^ MsiApiWrapper::GetInstalledProductFromProductCode(wchar_t* szProductCode) {
-	return nullptr;
+// Returns the requested of a given product guid or the default value if it can't be read
+System::String^ MsiApiWrapper::GetInstalledProductPropertyWithDefault(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty, System::String^ defaultValue) {
+	try {
+		return this->GetInstalledProductProperty(szProductCode, szUserSid, dwInstalledContext, szProperty);
+	}
+	catch (Exception^) {
+		return defaultValue;
+	}
 }
 
-// Returns the given property as string
+// Returns the given property of a product guid as string
 System::String^ MsiApiWrapper::GetInstalledProductProperty(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty) {
 
-	DWORD value_length = 1024;
+	DWORD value_length = 1024; // TODO: Retreive correct length
 	wchar_t value[1024] = {0};
 
-	UINT ret = MsiGetProductInfoEx(
+	const UINT result = MsiGetProductInfoEx(
 		szProductCode,
 		szUserSid,
 		dwInstalledContext,
@@ -108,10 +175,10 @@ System::String^ MsiApiWrapper::GetInstalledProductProperty(wchar_t* szProductCod
 		&value_length
 	);
 
-	if (ret == ERROR_SUCCESS) {
+	if (result == ERROR_SUCCESS) {
 		return gcnew System::String(value);
 	}
-	switch (ret) {
+	switch (result) {
 		case ERROR_ACCESS_DENIED:
 			throw gcnew Exception("MsiGetProductInfoEx returned ERROR_ACCESS_DENIED");
 		case ERROR_BAD_CONFIGURATION:
@@ -129,8 +196,4 @@ System::String^ MsiApiWrapper::GetInstalledProductProperty(wchar_t* szProductCod
 		default:
 			throw gcnew Exception("Unknown return value from MsiGetProductInfoEx");
 	}
-}
-
-System::String^ MsiApiWrapper::GetInstalledProductPropertyWithDefault(wchar_t* szProductCode, wchar_t* szUserSid, MSIINSTALLCONTEXT dwInstalledContext, wchar_t* szProperty, System::String^ defaultValue) {
-	return nullptr;
 }
