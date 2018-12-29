@@ -5,19 +5,10 @@ using System.Text;
 // Represents a single installed product (software application)
 
 namespace WinScoutLib {
-    // Where was this product detected?
-    [Flags]
-    public enum InstalledProductSource : byte {
-        Unknown = 0x00,
-        MsiApi = 0x01, // From the MSI API
-        Win32Product = 0x02, // From the WMI / Win32_Product
-        RegistryUninstall = 0x04 // From the registry in HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall
-    }
 
     public class InstalledProduct {
 
-        // The source(s) of information for this product
-        public InstalledProductSource Source { get; set; }
+        #region Properties
 
         // The unique product code (GUID) that represents this product
         public string ProductCode { get; set; }
@@ -27,6 +18,12 @@ namespace WinScoutLib {
 
         // The version (string)
         public string DisplayVersion { get; set; }
+
+        // The path to the icon to display
+        public string DisplayIcon { get; set; }
+
+        // The estimated size of the product
+        public int EstimatedSize { get; set; }
 
         // The date the product was installed, if available
         public DateTime? InstallDate { get; set; }
@@ -51,5 +48,17 @@ namespace WinScoutLib {
 
         // The name of the publisher
         public string Publisher { get; set; }
+
+        // The path to modify the installation
+        public string ModifyCommand { get; set; }
+
+        // The path to uninstall
+        public string UninstallCommand { get; set; }
+
+        public bool NoModify { get; set; }
+
+        public bool NoRepair { get; set; }
+
+        #endregion
     }
 }
