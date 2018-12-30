@@ -11,7 +11,12 @@ namespace WinScoutLib {
         #region Properties
 
         // The unique product code (GUID) that represents this product
+        [RegistryValueIgnore(true)]
         public string ProductCode { get; set; }
+
+        // Locations in the registry where this product was found
+        [RegistryValueIgnore(true)]
+        public List<string> RegistryLocations { get; set; } = new List<string>();
 
         // The name of the product
         public string DisplayName { get; set; }
@@ -23,10 +28,10 @@ namespace WinScoutLib {
         public string DisplayIcon { get; set; }
 
         // The estimated size of the product
-        public int EstimatedSize { get; set; }
+        public Int32 EstimatedSize { get; set; }
 
         // The date the product was installed, if available
-        public DateTime? InstallDate { get; set; }
+        public string InstallDate { get; set; }
 
         // The location where the product is installed
         public string InstallLocation { get; set; }
@@ -50,9 +55,11 @@ namespace WinScoutLib {
         public string Publisher { get; set; }
 
         // The path to modify the installation
+        [RegistryValue("ModifyPath")]
         public string ModifyCommand { get; set; }
 
         // The path to uninstall
+        [RegistryValue("UninstallString")]
         public string UninstallCommand { get; set; }
 
         public bool NoModify { get; set; }

@@ -11,13 +11,13 @@ namespace WinScoutConsole {
     class Program {
         static void Main(string[] args) {
             // Get a list of installed products
-            InstalledProductsCollection installedProductsController = new InstalledProductsCollection();
-            List<InstalledProduct> installedProducts = installedProductsController.EnumInstalledProducts();
+            InstalledProductsCollection installedProductsCollection = new InstalledProductsCollection();
+            installedProductsCollection.EnumInstalledProducts();
 
-            Console.WriteLine($"Found {installedProducts.Count} installed products.");
+            Console.WriteLine($"Found {installedProductsCollection.Count} installed products.");
 
             // Serialize as json to the console
-            Console.WriteLine(JsonConvert.SerializeObject(installedProducts, Formatting.Indented));
+            Console.WriteLine(JsonConvert.SerializeObject(installedProductsCollection.ToList(), Formatting.Indented));
         }
     }
 }

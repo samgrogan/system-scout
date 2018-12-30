@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Win32;
- 
 
 // Class for gathering a list of installed products
 // from a variety of sources including MSI APIs, WMI, and the registry 
@@ -18,8 +18,8 @@ namespace WinScoutLib {
         #region Declarations
 
         // List of locations to look for installed software
-        private string _registryLocation32 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-        private string _registryLocation64 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+        private readonly string _registryLocation32 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+        private readonly string _registryLocation64 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
 
         #endregion
 
@@ -30,6 +30,8 @@ namespace WinScoutLib {
         protected Dictionary<string, InstalledProduct> InstalledProducts { get; }
 
         protected int Position { get; set; }
+
+        public int Count => InstalledProducts.Count;
 
         #endregion Properties
 
@@ -77,41 +79,81 @@ namespace WinScoutLib {
 
         public void Dispose() { }
 
+        public List<InstalledProduct> ToList() {
+            return InstalledProducts.Values.ToList();
+        }
 
         #endregion Public Methods
 
         #region Private Methods
 
+        // Try to find the list of installed products at the given registry key
         private void AddInstalledProductsFromRegistry(RegistryKey rootKey, string subKey) {
             RegistryKey productsKey = rootKey.OpenSubKey(subKey);
             if (productsKey != null) {
+                foreach (string keyName in productsKey.GetSubKeyNames()) {
+                    // Find the existing product to update, or add if needed
+                    InstalledProduct installedProduct;
+                    if (InstalledProducts.ContainsKey(keyName)) {
+                        installedProduct = InstalledProducts[keyName];
+                    }
+                    else {
+                        installedProduct = new InstalledProduct {
+                            ProductCode = keyName
+                        };
+                        InstalledProducts.Add(keyName, installedProduct);
+                    }
 
+                    // Read the properties of the product from the subkeys
+                    UpdateInstalledProductFromRegistryKey(productsKey.OpenSubKey(keyName), installedProduct);
+                }
             }
         }
 
-        // Adds the given list of Msi Api installed products to the list of all installed products
-        private void AddMsiApiInstalledProducts(List<MsiInstalledProduct> msiInstalledProducts) {
-            //foreach (MsiInstalledProduct msiInstalledProduct in msiInstalledProducts) {
-            //    // Do we already have information on this product?
-            //    string productCode = msiInstalledProduct.ProductCode;
+        // Try to extract product information from the given registry key
+        private void UpdateInstalledProductFromRegistryKey(RegistryKey productKey, InstalledProduct installedProduct) {
+            installedProduct.RegistryLocations.Add(productKey.ToString());
 
-            //    InstalledProduct installedProduct = InstalledProducts.ContainsKey(productCode) ? InstalledProducts[productCode] : new InstalledProduct();
-            //    installedProduct.ProductCode = productCode;
-            //    installedProduct.DisplayName = msiInstalledProduct.ProductName;
-            //    installedProduct.DisplayVersion = msiInstalledProduct.ProductVersion;
-            //    installedProduct.InstallDate = msiInstalledProduct.InstallDate;
-            //    installedProduct.InstallLocation = msiInstalledProduct.InstallLocation;
-            //    installedProduct.InstallSource = msiInstalledProduct.InstallSource;
-            //    installedProduct.LocalPackage = msiInstalledProduct.LocalPackage;
-            //    installedProduct.PackageName = msiInstalledProduct.PackageName;
-            //    installedProduct.PackageCode = msiInstalledProduct.PackageCode;
-            //    installedProduct.Language = msiInstalledProduct.Language;
-            //    installedProduct.Publisher = msiInstalledProduct.Publisher;
+            // Loop through the properties in installed product and try to find the corresponding registry value
+            PropertyInfo[] properties = installedProduct.GetType().GetProperties();
 
-            //    if (!InstalledProducts.ContainsKey(productCode)) {
-            //        InstalledProducts.Add(productCode, installedProduct);
-            //    }
-            //}
+            foreach (PropertyInfo propertyInfo in properties) {
+                // Should this property by ignored
+                RegistryValueIgnore ignoreAttribute = (RegistryValueIgnore)propertyInfo.GetCustomAttribute(typeof(RegistryValueIgnore));
+                if (ignoreAttribute?.Ignore != true) {
+                    // Are there multiple registry values we should check for this property?
+                    RegistryValue[] valueAttributes = (RegistryValue[])propertyInfo.GetCustomAttributes(typeof(RegistryValue));
+
+                    if (valueAttributes?.Length > 0) {
+                        foreach (RegistryValue valueAttribute in valueAttributes) {
+                            if (productKey.GetValueNames().Contains(valueAttribute.Value)) {
+                                SetInstalledProductPropertyFromRegistryValue(productKey, installedProduct, propertyInfo, valueAttribute.Value);
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        // Use the name of the property as the name of the registry value
+                        SetInstalledProductPropertyFromRegistryValue(productKey, installedProduct, propertyInfo, propertyInfo.Name);
+                    }
+                }
+            }
+        }
+
+        private void SetInstalledProductPropertyFromRegistryValue(RegistryKey productKey, InstalledProduct installedProduct, PropertyInfo propertyInfo, string registryValue) {
+            switch (propertyInfo?.PropertyType?.Name) {
+                case "String":
+                    propertyInfo.SetValue(installedProduct, productKey.GetValueAsString(registryValue));
+                    break;
+                case "Int32":
+                    propertyInfo.SetValue(installedProduct, productKey.GetValueAsInt32(registryValue));
+                    break;
+                case "Boolean":
+                    propertyInfo.SetValue(installedProduct, productKey.GetValueAsBoolean(registryValue));
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
