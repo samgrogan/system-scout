@@ -9,8 +9,8 @@ namespace WinScoutLib {
             return parentKey?.GetValue(valueName)?.ToString();
         }
 
-        public static Int32? GetValueAsInt32(this RegistryKey parentKey, string valueName) {
-            return parentKey?.GetValue(valueName) as Int32?;
+        public static UInt32? GetValueAsInt32(this RegistryKey parentKey, string valueName) {
+            return parentKey?.GetValue(valueName) as UInt32?;
         }
 
         public static bool GetValueAsBoolean(this RegistryKey parentKey, string valueName) {

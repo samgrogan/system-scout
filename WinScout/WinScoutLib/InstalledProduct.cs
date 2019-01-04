@@ -28,7 +28,7 @@ namespace WinScoutLib {
         public string DisplayIcon { get; set; }
 
         // The estimated size of the product
-        public Int32 EstimatedSize { get; set; }
+        public UInt32 EstimatedSize { get; set; }
 
         // The date the product was installed, if available
         public string InstallDate { get; set; }
@@ -62,9 +62,35 @@ namespace WinScoutLib {
         [RegistryValue("UninstallString")]
         public string UninstallCommand { get; set; }
 
+        // The path to uninstall (quiet)
+        [RegistryValue("QuietUninstallString")]
+        public string QuietUninstallCommand { get; set; }
+
+        // Is modify an option for this install
         public bool NoModify { get; set; }
 
+        // Is repair an option for this installation
         public bool NoRepair { get; set; }
+
+        // Is remove an option for this installation
+        public bool NoRemove { get; set; }
+
+        // Was this installed with the Windows Installer?
+        public bool WindowsInstaller { get; set; }
+        
+        // Is this a system component
+        public bool SystemComponent { get; set; }
+
+        // Components of the version
+        public UInt32 Version { get; set; }
+        public UInt32 VersionMajor { get; set; }
+        public UInt32 VersionMinor { get; set; }
+        
+        // Comments
+        public string Comments { get; set; }
+
+        // Help link
+        public string HelpLink { get; set; }
 
         #endregion
     }

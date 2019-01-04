@@ -14,7 +14,6 @@ using Microsoft.Win32;
 
 namespace WinScoutLib {
     public class InstalledProductsCollection : IEnumerable<InstalledProduct>, IEnumerator<InstalledProduct> {
-
         #region Declarations
 
         // List of locations to look for installed software
@@ -53,6 +52,7 @@ namespace WinScoutLib {
         public IEnumerator<InstalledProduct> GetEnumerator() {
             return this;
         }
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public InstalledProduct Current {
@@ -77,7 +77,8 @@ namespace WinScoutLib {
             Position = -1;
         }
 
-        public void Dispose() { }
+        public void Dispose() {
+        }
 
         public List<InstalledProduct> ToList() {
             return InstalledProducts.Values.ToList();
@@ -119,15 +120,14 @@ namespace WinScoutLib {
 
             foreach (PropertyInfo propertyInfo in properties) {
                 // Should this property by ignored
-                RegistryValueIgnore ignoreAttribute = (RegistryValueIgnore)propertyInfo.GetCustomAttribute(typeof(RegistryValueIgnore));
+                RegistryValueIgnore ignoreAttribute = (RegistryValueIgnore) propertyInfo.GetCustomAttribute(typeof(RegistryValueIgnore));
                 if (ignoreAttribute?.Ignore != true) {
                     // Are there multiple registry values we should check for this property?
-                    RegistryValue[] valueAttributes = (RegistryValue[])propertyInfo.GetCustomAttributes(typeof(RegistryValue));
+                    RegistryValue[] valueAttributes = (RegistryValue[]) propertyInfo.GetCustomAttributes(typeof(RegistryValue));
 
                     if (valueAttributes?.Length > 0) {
                         foreach (RegistryValue valueAttribute in valueAttributes) {
-                            if (productKey.GetValueNames().Contains(valueAttribute.Value)) {
-                                SetInstalledProductPropertyFromRegistryValue(productKey, installedProduct, propertyInfo, valueAttribute.Value);
+                            if (SetInstalledProductPropertyFromRegistryValue(productKey, installedProduct, propertyInfo, valueAttribute.Value)) {
                                 break;
                             }
                         }
@@ -140,20 +140,27 @@ namespace WinScoutLib {
             }
         }
 
-        private void SetInstalledProductPropertyFromRegistryValue(RegistryKey productKey, InstalledProduct installedProduct, PropertyInfo propertyInfo, string registryValue) {
-            switch (propertyInfo?.PropertyType?.Name) {
-                case "String":
-                    propertyInfo.SetValue(installedProduct, productKey.GetValueAsString(registryValue));
-                    break;
-                case "Int32":
-                    propertyInfo.SetValue(installedProduct, productKey.GetValueAsInt32(registryValue));
-                    break;
-                case "Boolean":
-                    propertyInfo.SetValue(installedProduct, productKey.GetValueAsBoolean(registryValue));
-                    break;
-                default:
-                    break;
+        private bool SetInstalledProductPropertyFromRegistryValue(RegistryKey productKey, InstalledProduct installedProduct, PropertyInfo propertyInfo, string registryValue) {
+            bool result = false;
+            if (productKey.GetValueNames().Contains(registryValue)) {
+                switch (propertyInfo?.PropertyType?.Name) {
+                    case "String":
+                        propertyInfo.SetValue(installedProduct, productKey.GetValueAsString(registryValue));
+                        result = true;
+                        break;
+                    case "UInt32":
+                        propertyInfo.SetValue(installedProduct, productKey.GetValueAsInt32(registryValue));
+                        result = true;
+                        break;
+                    case "Boolean":
+                        propertyInfo.SetValue(installedProduct, productKey.GetValueAsBoolean(registryValue));
+                        result = true;
+                        break;
+                }
+
             }
+
+            return result;
         }
 
         #endregion
