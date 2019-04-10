@@ -1,8 +1,13 @@
 #pragma once
-class Driver
-{
-public:
-	Driver();
-	virtual ~Driver();
-};
+
+namespace playground {
+
+	class Driver
+	{
+	public:
+		Driver();
+		virtual ~Driver();
+	};
+
+}
 

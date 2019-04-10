@@ -1,8 +1,12 @@
 #pragma once
-class Device
-{
-public:
-	Device();
-	virtual ~Device();
-};
 
+namespace playground {
+
+	class Device
+	{
+	public:
+		Device();
+		virtual ~Device();
+	};
+
+}

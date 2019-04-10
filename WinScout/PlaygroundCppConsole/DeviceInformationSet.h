@@ -2,19 +2,22 @@
 
 #include <Windows.h>
 #include <SetupAPI.h>
+#include "Error.h"
 
-class DeviceInformationSet
-{
-private:
-	HDEVINFO DeviceInfoSet;
+namespace playground {
+	class DeviceInformationSet
+	{
+	private:
+		HDEVINFO DeviceInfoSet;
 
-public:
-	// Constructor
-	// Creates a DeviceInformationSet that includes all devices
-	DeviceInformationSet();
+	public:
+		// Constructor
+		// Creates a DeviceInformationSet that includes all devices
+		DeviceInformationSet();
 
 
-	// Desctructor
-	virtual ~DeviceInformationSet();
-};
+		// Desctructor
+		virtual ~DeviceInformationSet();
+	};
 
+}
