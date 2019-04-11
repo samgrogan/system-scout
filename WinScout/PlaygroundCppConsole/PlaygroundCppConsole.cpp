@@ -11,8 +11,9 @@ int main()
     std::cout << "Starting Playground" << std::endl; 
 
 	DeviceInformationSet dis;
-	Error error;
-
+	std::vector<std::unique_ptr<Device>> devices = dis.EnumerateDevices();
+	std::cout << "Found " << devices.size() << " devices" << std::endl;
+	
 	std::cout << "Ending Playground" << std::endl;
 }
 

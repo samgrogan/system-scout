@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DeviceInformationSet.cpp" />
+    <ClCompile Include="DeviceInterface.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="PlaygroundCppConsole.cpp" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceInformationSet.h" />
+    <ClInclude Include="DeviceInterface.h" />
     <ClInclude Include="Driver.h" />
     <ClInclude Include="Error.h" />
   </ItemGroup>
