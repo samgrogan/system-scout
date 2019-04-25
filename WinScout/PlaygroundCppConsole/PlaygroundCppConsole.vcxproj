@@ -153,6 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClassInfo.cpp" />
+    <ClCompile Include="ClassInfoList.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DeviceInformationSet.cpp" />
     <ClCompile Include="DeviceInterface.cpp" />
@@ -161,6 +163,8 @@
     <ClCompile Include="PlaygroundCppConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClassInfo.h" />
+    <ClInclude Include="ClassInfoList.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceInformationSet.h" />
     <ClInclude Include="DeviceInterface.h" />
