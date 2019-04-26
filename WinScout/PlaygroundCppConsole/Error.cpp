@@ -30,6 +30,8 @@ void Error::OutputToDebugger() {
 	const std::wstring display_buffer = L"Last error was " + std::to_wstring(_last_error) + L": " + static_cast<wchar_t*>(format_message_buffer);
 	OutputDebugString(display_buffer.c_str());
 
+	std::wcout << "\t" << display_buffer;
+
 	LocalFree(format_message_buffer);
 }
 
