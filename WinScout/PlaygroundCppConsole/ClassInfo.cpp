@@ -2,14 +2,14 @@
 
 using namespace playground;
 
-ClassInfo::ClassInfo(GUID ClassGuid)
+ClassInfo::ClassInfo(REFGUID ClassGuid)
 {
 	this->_class_info_guid = ClassGuid;
-	this->GetDescription();
+	this->PopulateDescription();
 }
 
 // Populate the description of this class info
-BOOL ClassInfo::GetDescription()
+BOOL ClassInfo::PopulateDescription()
 {
 	if (SetupDiGetClassDescription(&this->_class_info_guid, this->_description, LINE_LEN, NULL))
 	{
@@ -20,6 +20,10 @@ BOOL ClassInfo::GetDescription()
 	return false;
 }
 
+// Gets the description of this class
+LPWSTR ClassInfo::GetDescription() {
+	return this->_description;
+}
 
 ClassInfo::~ClassInfo()
 {

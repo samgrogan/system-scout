@@ -17,12 +17,15 @@ class ClassInfo
 		wchar_t _description[LINE_LEN];
 
 		// Populate the description of this class info
-		BOOL GetDescription();
+		BOOL PopulateDescription();
 
 	public:
 		// Constructor
 		// Initialize the object for the given guid
-		ClassInfo(GUID ClassGuid);
+		ClassInfo(REFGUID ClassGuid);
+
+		// Gets the description of this class
+		LPWSTR GetDescription();
 
 		virtual ~ClassInfo();
 	};

@@ -22,6 +22,9 @@ namespace playground {
 		// Gets the error code
 		DWORD GetErrorCode();
 
+		// Gets the error message
+		std::wstring GetErrorMessage();
+
 		virtual ~Error();
 	};
 

@@ -160,6 +160,7 @@
     <ClCompile Include="DeviceInterface.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="Extensions.cpp" />
     <ClCompile Include="PlaygroundCppConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="DeviceInterface.h" />
     <ClInclude Include="Driver.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Extensions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

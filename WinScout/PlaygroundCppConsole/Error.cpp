@@ -7,13 +7,15 @@ Error::Error()
 {
 	// Get and format the error message
 	_last_error = GetLastError();
-
-	// Output the error message to the debugger
-	OutputToDebugger();
 }
 
-// Writes the error message to the debug console
-void Error::OutputToDebugger() {
+// Gets the error code
+DWORD Error::GetErrorCode() {
+	return _last_error;
+}
+
+// Gets the error message
+std::wstring Error::GetErrorMessage() {
 	void* format_message_buffer = nullptr;
 
 	FormatMessage(
@@ -26,19 +28,13 @@ void Error::OutputToDebugger() {
 		(wchar_t*)& format_message_buffer,
 		0, NULL);
 
-	// Display the error message and exit the process
+	// Convert to a wstring
 	const std::wstring display_buffer = L"Last error was " + std::to_wstring(_last_error) + L": " + static_cast<wchar_t*>(format_message_buffer);
-	OutputDebugString(display_buffer.c_str());
-
-	std::wcout << "\t" << display_buffer;
-
 	LocalFree(format_message_buffer);
+
+	return display_buffer;
 }
 
-// Gets the error code
-DWORD Error::GetErrorCode() {
-	return _last_error;
-}
 
 Error::~Error()
 {
