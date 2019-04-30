@@ -10,12 +10,14 @@ Error::Error()
 }
 
 // Gets the error code
-DWORD Error::GetErrorCode() {
+DWORD Error::GetErrorCode() const
+{
 	return _last_error;
 }
 
 // Gets the error message
-std::wstring Error::GetErrorMessage() {
+std::wstring Error::GetErrorMessage() const
+{
 	void* format_message_buffer = nullptr;
 
 	FormatMessage(
@@ -25,8 +27,8 @@ std::wstring Error::GetErrorMessage() {
 		NULL,
 		_last_error,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		(wchar_t*)& format_message_buffer,
-		0, NULL);
+		reinterpret_cast<wchar_t*>(&format_message_buffer),
+		0, nullptr);
 
 	// Convert to a wstring
 	const std::wstring display_buffer = L"Last error was " + std::to_wstring(_last_error) + L": " + static_cast<wchar_t*>(format_message_buffer);
@@ -35,7 +37,5 @@ std::wstring Error::GetErrorMessage() {
 	return display_buffer;
 }
 
-
 Error::~Error()
-{
-}
+= default;

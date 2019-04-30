@@ -13,8 +13,8 @@ namespace playground {
 class ClassInfo
 {
 	private:
-		GUID _class_info_guid;
-		wchar_t _description[LINE_LEN];
+		GUID _class_info_guid{};
+		wchar_t _description[LINE_LEN]{};
 
 		// Populate the description of this class info
 		BOOL PopulateDescription();
@@ -26,6 +26,9 @@ class ClassInfo
 
 		// Gets the description of this class
 		LPWSTR GetDescription();
+
+		// Gets the guid associated with this class
+		REFGUID GetClassGuid() const;
 
 		virtual ~ClassInfo();
 	};

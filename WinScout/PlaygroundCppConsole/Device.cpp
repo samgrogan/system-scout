@@ -7,10 +7,10 @@ Device::Device(SP_DEVINFO_DATA DeviceInfoData) {
 }
 
 // The class GUID that is part of this structure
-REFGUID Device::GetClassGuid() {
-	return (this->_device_info_data.ClassGuid);
+REFGUID Device::GetClassGuid() const
+{
+	return (_device_info_data.ClassGuid);
 }
 
-Device::~Device() {
-}
+Device::~Device() = default;
 

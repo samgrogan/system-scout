@@ -20,10 +20,10 @@ namespace playground {
 		void OutputToDebugger();
 
 		// Gets the error code
-		DWORD GetErrorCode();
+		DWORD GetErrorCode() const;
 
 		// Gets the error message
-		std::wstring GetErrorMessage();
+		std::wstring GetErrorMessage() const;
 
 		virtual ~Error();
 	};

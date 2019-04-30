@@ -23,7 +23,7 @@ namespace playground {
 		DeviceInformationSet();
 
 		// Returns a list of device interfaces in the set
-		std::vector<std::shared_ptr<Device>> EnumerateDevices();
+		std::vector<std::shared_ptr<Device>> EnumerateDevices() const;
 
 		// Desctructor
 		virtual ~DeviceInformationSet();

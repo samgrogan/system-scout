@@ -21,7 +21,7 @@ namespace playground {
 		ClassInfoList();
 
 		// Returns a list of device interfaces in the set
-		std::vector<std::shared_ptr<ClassInfo>> EnumerateClasses();
+		std::vector<std::shared_ptr<ClassInfo>> EnumerateClasses() const;
 
 		virtual ~ClassInfoList();
 	};

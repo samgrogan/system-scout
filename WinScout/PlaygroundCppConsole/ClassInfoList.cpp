@@ -3,17 +3,17 @@
 using namespace playground;
 
 ClassInfoList::ClassInfoList()
-{
-}
+= default;
 
 // Returns a list of device interfaces in the set
-std::vector<std::shared_ptr<ClassInfo>> ClassInfoList::EnumerateClasses() {
+std::vector<std::shared_ptr<ClassInfo>> ClassInfoList::EnumerateClasses() const
+{
 	// Create a vector to hold the interfaces
 	std::vector<std::shared_ptr<ClassInfo>> classes;
 
 	// Determine how much space we need to store the list of class guids
 	DWORD required_size = 0;
-	SetupDiBuildClassInfoList(0, NULL, 0, &required_size);
+	SetupDiBuildClassInfoList(0, nullptr, 0, &required_size);
 	// If there are any GUIDs, allocate space to hold them
 	if (required_size > 0) {
 		GUID* class_guid_list = new GUID[required_size];
@@ -36,5 +36,4 @@ std::vector<std::shared_ptr<ClassInfo>> ClassInfoList::EnumerateClasses() {
 }
 
 ClassInfoList::~ClassInfoList()
-{
-}
+= default;

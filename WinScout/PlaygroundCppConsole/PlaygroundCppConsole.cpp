@@ -14,7 +14,7 @@ int main()
     std::cout << "Starting Playground" << std::endl; 
 
 	// Print out the list of devices
-	DeviceInformationSet dis;
+    const DeviceInformationSet dis;
 	std::vector<std::shared_ptr<Device>> devices = dis.EnumerateDevices();
 	std::cout << "*Found " << devices.size() << " devices*" << std::endl;
 	
@@ -23,12 +23,12 @@ int main()
 	}
 
 	// Print out the list of classes
-	ClassInfoList cil;
+    const ClassInfoList cil;
 	std::vector<std::shared_ptr<ClassInfo>> classes = cil.EnumerateClasses();
 	std::cout << "Found " << classes.size() << " classes" << std::endl;
 
 	for (auto& class_info : classes) {
-		std::wcout << L"\t" << class_info->GetDescription() << std::endl;
+		std::wcout << L"\t" << class_info->GetClassGuid() << L"\t" << class_info->GetDescription() << std::endl;
 	}
 
 	std::cout << "Ending Playground" << std::endl;
