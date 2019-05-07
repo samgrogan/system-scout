@@ -14,7 +14,7 @@ namespace playground
 	{
 	private:
 		HDEVINFO _device_info_set;
-		SP_DEVINFO_DATA _device_info_data;
+		SP_DEVINFO_DATA _device_info_data {};
 
 	public:
 		// Constructor. Create a new object based on the given struct

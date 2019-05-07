@@ -21,6 +21,14 @@ int main()
 	for (auto& device : devices)
 	{
 		std::wcout << L"\t" << device->GetClassGuid() << std::endl;
+
+		// Get the list of drivers for this device
+		std::vector<std::shared_ptr<SetupDriver>> drivers = device->EnumerateDrivers();
+
+		for (auto& driver : drivers)
+		{
+			std::wcout << L"\t\t" << driver->GetDescription() << L"\t" << driver->GetMfgName() << L"\t" << driver->GetProviderName() << std::endl;
+		}
 	}
 
 	// Print out the list of classes
