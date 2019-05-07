@@ -27,8 +27,7 @@ std::vector<std::shared_ptr<SetupDriver>> SetupDevice::EnumerateDrivers() const
 	std::vector<std::shared_ptr<SetupDriver>> drivers;
 	DWORD member_index = 0;
 	
-	SP_DEVINFO_DATA devinfo_data;
-	devinfo_data.cbSize = sizeof(SP_DEVINFO_DATA);
+	SP_DEVINFO_DATA devinfo_data = _device_info_data;
 
 	SP_DRVINFO_DATA drvinfo_data;
 	drvinfo_data.cbSize = sizeof(SP_DRVINFO_DATA);
