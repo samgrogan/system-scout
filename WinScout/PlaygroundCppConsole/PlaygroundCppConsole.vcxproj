@@ -153,23 +153,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClassInfo.cpp" />
-    <ClCompile Include="ClassInfoList.cpp" />
-    <ClCompile Include="Device.cpp" />
-    <ClCompile Include="DeviceInformationSet.cpp" />
-    <ClCompile Include="DeviceInterface.cpp" />
-    <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="SetupClassInfo.cpp" />
+    <ClCompile Include="SetupClassInfoList.cpp" />
+    <ClCompile Include="SetupDevice.cpp" />
+    <ClCompile Include="SetupDeviceInformationSet.cpp" />
+    <ClCompile Include="SetupDeviceInterface.cpp" />
+    <ClCompile Include="SetupDriver.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Extensions.cpp" />
     <ClCompile Include="PlaygroundCppConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClassInfo.h" />
-    <ClInclude Include="ClassInfoList.h" />
-    <ClInclude Include="Device.h" />
-    <ClInclude Include="DeviceInformationSet.h" />
-    <ClInclude Include="DeviceInterface.h" />
-    <ClInclude Include="Driver.h" />
+    <ClInclude Include="SetupClassInfo.h" />
+    <ClInclude Include="SetupClassInfoList.h" />
+    <ClInclude Include="SetupDevice.h" />
+    <ClInclude Include="SetupDeviceInformationSet.h" />
+    <ClInclude Include="SetupDeviceInterface.h" />
+    <ClInclude Include="SetupDriver.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Extensions.h" />
   </ItemGroup>

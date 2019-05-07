@@ -8,21 +8,22 @@
 #include <SetupAPI.h>
 
 #include "Error.h"
-#include "ClassInfo.h"
+#include "SetupClassInfo.h"
 
-namespace playground {
-	class ClassInfoList
+namespace playground
+{
+	class SetupClassInfoList
 	{
 	private:
 
 	public:
 		// Constructor
 		// Creates a ClassInfoList that includes all classes
-		ClassInfoList();
+		SetupClassInfoList();
 
 		// Returns a list of device interfaces in the set
-		std::vector<std::shared_ptr<ClassInfo>> EnumerateClasses() const;
+		std::vector<std::shared_ptr<SetupClassInfo>> EnumerateClasses() const;
 
-		virtual ~ClassInfoList();
+		virtual ~SetupClassInfoList();
 	};
 }

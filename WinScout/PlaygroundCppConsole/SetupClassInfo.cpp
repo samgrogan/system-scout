@@ -1,4 +1,4 @@
-#include "ClassInfo.h"
+#include "SetupClassInfo.h"
 
 using namespace playground;
 
@@ -7,7 +7,7 @@ using namespace playground;
  * \param ClassGuid 
  */
 
-ClassInfo::ClassInfo(REFGUID ClassGuid)
+SetupClassInfo::SetupClassInfo(REFGUID ClassGuid)
 {
 	_class_info_guid = ClassGuid;
 	std::fill(std::begin(_description), std::end(_description), 0);
@@ -16,9 +16,9 @@ ClassInfo::ClassInfo(REFGUID ClassGuid)
 }
 
 // Populate the description of this class info
-BOOL ClassInfo::PopulateDescription()
+BOOL SetupClassInfo::PopulateDescription()
 {
-	if (SetupDiGetClassDescription(&this->_class_info_guid, this->_description, LINE_LEN, NULL))
+	if (SetupDiGetClassDescription(&_class_info_guid, _description, LINE_LEN, nullptr))
 	{
 		return true;
 	}
@@ -28,17 +28,17 @@ BOOL ClassInfo::PopulateDescription()
 }
 
 // Gets the description of this class
-LPWSTR ClassInfo::GetDescription()
+LPWSTR SetupClassInfo::GetDescription()
 {
 	return _description;
 }
 
 // Gets the guid associated with this class
-REFGUID ClassInfo::GetClassGuid() const
+REFGUID SetupClassInfo::GetClassGuid() const
 {
 	return _class_info_guid;
 }
 
 
-ClassInfo::~ClassInfo()
+SetupClassInfo::~SetupClassInfo()
 = default;

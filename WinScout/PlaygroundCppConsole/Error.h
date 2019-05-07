@@ -5,8 +5,8 @@
 
 #include <windows.h>
 
-namespace playground {
-
+namespace playground
+{
 	class Error
 	{
 	private:
@@ -16,9 +16,6 @@ namespace playground {
 		// Construct an error based on GetLastError
 		Error();
 
-		// Writes the error message to the debug console
-		void OutputToDebugger();
-
 		// Gets the error code
 		DWORD GetErrorCode() const;
 
@@ -27,5 +24,4 @@ namespace playground {
 
 		virtual ~Error();
 	};
-
 }
