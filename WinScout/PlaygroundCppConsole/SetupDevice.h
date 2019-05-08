@@ -13,8 +13,17 @@ namespace playground
 	class SetupDevice
 	{
 	private:
+		// Handle of the device set that contains this device
 		HDEVINFO _device_info_set;
+
+		// Structure that hold the unique identity of this device instance
 		SP_DEVINFO_DATA _device_info_data {};
+
+		// A list of keys for the available properties of this device
+		std::unique_ptr<DEVPROPKEY[]> _property_keys;
+
+		// Get the list of properties for this device
+		void InitPropertyKeys() const;
 
 	public:
 		// Constructor. Create a new object based on the given struct
@@ -26,6 +35,7 @@ namespace playground
 		// The device instance that is part of the underlying structure
 		DWORD GetDevInst() const;
 
+		// Get the list of drivers that are associated with this device
 		std::vector<std::shared_ptr<SetupDriver>> EnumerateDrivers() const;
 
 		// Destructor

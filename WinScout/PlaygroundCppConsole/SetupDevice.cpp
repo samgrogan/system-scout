@@ -6,6 +6,8 @@ SetupDevice::SetupDevice(HDEVINFO DeviceInfoSet, const SP_DEVINFO_DATA& DeviceIn
 {
 	_device_info_set = DeviceInfoSet;
 	_device_info_data = DeviceInfoData;
+
+	InitPropertyKeys();
 }
 
 // The class GUID that is part of the underlying structure
@@ -49,5 +51,24 @@ std::vector<std::shared_ptr<SetupDriver>> SetupDevice::EnumerateDrivers() const
 	return drivers;
 }
 
+// Get the list of properties for this device
+void SetupDevice::InitPropertyKeys() const
+{
+	// How many property keys are there
+	DWORD key_count = 0;
+	SP_DEVINFO_DATA devinfo_data = _device_info_data;
 
+	if (SetupDiGetDevicePropertyKeys(_device_info_set, &devinfo_data, nullptr, 0, &key_count, 0))
+	{
+		_property_keys = std::move(std::make_unique<DEVPROPKEY[]>(10));
+	}
+	else
+	{
+		const Error last_error;
+		std::wcout << last_error.GetErrorMessage();
+	}
+}
+
+
+// Destructor
 SetupDevice::~SetupDevice() = default;
