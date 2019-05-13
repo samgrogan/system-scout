@@ -60,7 +60,7 @@ void SetupDevice::InitPropertyKeys() const
 
 	if (SetupDiGetDevicePropertyKeys(_device_info_set, &devinfo_data, nullptr, 0, &key_count, 0))
 	{
-		_property_keys = std::move(std::make_unique<DEVPROPKEY[]>(10));
+		_property_keys = std::make_shared<DEVPROPKEY[]>(10);
 	}
 	else
 	{
