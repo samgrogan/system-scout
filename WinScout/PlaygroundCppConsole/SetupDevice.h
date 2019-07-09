@@ -20,7 +20,7 @@ namespace playground
 		SP_DEVINFO_DATA _device_info_data {};
 
 		// A list of keys for the available properties of this device
-		std::shared_ptr<DEVPROPKEY[]> _property_keys = nullptr;
+		// std::shared_ptr<DEVPROPKEY> _property_keys(nullptr);
 
 		// Get the list of properties for this device
 		void InitPropertyKeys() const;

@@ -60,7 +60,8 @@ void SetupDevice::InitPropertyKeys() const
 
 	if (SetupDiGetDevicePropertyKeys(_device_info_set, &devinfo_data, nullptr, 0, &key_count, 0))
 	{
-		_property_keys = std::make_shared<DEVPROPKEY[]>(10);
+		// Allocate the array of keys
+		std::wcout << L"Found " << key_count << L" property keys." << std::endl;
 	}
 	else
 	{

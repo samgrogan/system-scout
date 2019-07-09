@@ -17,11 +17,11 @@ std::vector<std::shared_ptr<SetupClassInfo>> SetupClassInfoList::EnumerateClasse
 	// If there are any GUIDs, allocate space to hold them
 	if (required_size > 0)
 	{
-		GUID* class_guid_list = new GUID[required_size];
+		GUID* class_guid_list = new GUID[required_size+1];
 
 		if (SetupDiBuildClassInfoList(0, class_guid_list, required_size, &required_size))
 		{
-			for (DWORD index = 0; index < required_size; index++)
+			for (size_t index = 0; index < static_cast<size_t>(required_size); index++)
 			{
 				std::shared_ptr<SetupClassInfo> class_info = std::make_shared<SetupClassInfo>(SetupClassInfo(class_guid_list[index]));
 				classes.push_back(class_info);
@@ -30,6 +30,7 @@ std::vector<std::shared_ptr<SetupClassInfo>> SetupClassInfoList::EnumerateClasse
 		else
 		{
 			Error last_error;
+			std::wcout << last_error.GetErrorMessage();
 		}
 
 		// Clean up
