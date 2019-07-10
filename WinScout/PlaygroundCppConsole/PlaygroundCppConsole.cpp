@@ -28,9 +28,11 @@ int main()
 		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
 		for (auto& property : properties)
 		{
+			std::wcout << L"\t\t" << property->GetGuid() << L"\t" << property->GetId();
 			if (property->HasValue()) {
-				std::wcout << L"\t\t" << property->GetValue() << std::endl;
+				std::wcout << L"\t" << property->GetStringValue();
 			}
+			std::wcout << std::endl;
 		}
 
 		// Get the list of drivers for this device

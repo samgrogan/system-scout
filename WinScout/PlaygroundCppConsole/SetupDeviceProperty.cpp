@@ -13,16 +13,15 @@ SetupDeviceProperty::SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA
 
 	// Get the size of the required buffer
 	SP_DEVINFO_DATA devinfo_data = _device_info_data;
-	DEVPROPTYPE devproptype(0);
 	DWORD required_size(0);
 
-	SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &devproptype, nullptr, 0, &required_size, 0);
+	SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &_property_type, nullptr, 0, &required_size, 0);
 
 	// Allocate the buffer to hold the data
 	if (required_size > 0) {
 		_buffer = new BYTE[required_size];
 
-		if (SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &devproptype, _buffer, required_size, &required_size, 0)) {
+		if (SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &_property_type, _buffer, required_size, &required_size, 0)) {
 
 		}
 		else {
@@ -36,6 +35,19 @@ SetupDeviceProperty::SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA
 	}
 }
 
+
+// Get the GUID of this property
+REFGUID SetupDeviceProperty::GetGuid() {
+	return _property_key.fmtid;
+}
+
+
+// Gets the Id of this property
+DEVPROPID SetupDeviceProperty::GetId() {
+	return _property_key.pid;
+}
+
+
 // Does this property have a value?
 bool SetupDeviceProperty::HasValue() {
 	return (_buffer != nullptr);
@@ -43,8 +55,8 @@ bool SetupDeviceProperty::HasValue() {
 
 
 // Get the value as a string
-std::wstring SetupDeviceProperty::GetValue() {
-	if (HasValue()) {
+std::wstring SetupDeviceProperty::GetStringValue() {
+	if (HasValue() && (_property_type & DEVPROP_TYPE_STRING)) {
 		return std::wstring(reinterpret_cast<wchar_t*>(_buffer));
 	}
 	return std::wstring(L"\0");

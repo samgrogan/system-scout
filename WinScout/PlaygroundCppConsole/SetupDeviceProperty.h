@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include <SetupAPI.h>
+#include <Devpropdef.h>
 
 #include "Error.h"
 
@@ -15,20 +16,30 @@ namespace Playground {
 		SP_DEVINFO_DATA _device_info_data{};
 
 		// The key to identify this property
-		DEVPROPKEY _property_key;
+		DEVPROPKEY _property_key {};
 
 		// The buffer to hold be value of the property
 		BYTE* _buffer = nullptr;
+
+		// The type of the property
+		DEVPROPTYPE _property_type = 0UL;
+
 
 	public:
 		// Default constructor
 		SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA& DeviceInfoData, DEVPROPKEY& PropertyKey);
 
+		// Get the GUID of this property
+		REFGUID GetGuid();
+
+		// Gets the Id of this property
+		DEVPROPID GetId();
+
 		// Does this property have a value?
 		bool HasValue();
 
 		// Get the value as a string
-		std::wstring GetValue();
+		std::wstring GetStringValue();
 
 		// Destructor
 		virtual ~SetupDeviceProperty();
