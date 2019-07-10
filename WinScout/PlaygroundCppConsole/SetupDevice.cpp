@@ -6,8 +6,6 @@ SetupDevice::SetupDevice(HDEVINFO DeviceInfoSet, const SP_DEVINFO_DATA& DeviceIn
 {
 	_device_info_set = DeviceInfoSet;
 	_device_info_data = DeviceInfoData;
-
-	InitPropertyKeys();
 }
 
 // The class GUID that is part of the underlying structure
@@ -28,7 +26,7 @@ std::vector<std::shared_ptr<SetupDriver>> SetupDevice::EnumerateDrivers() const
 	// Create a vector to hold the drivers
 	std::vector<std::shared_ptr<SetupDriver>> drivers;
 	DWORD member_index = 0;
-	
+
 	SP_DEVINFO_DATA devinfo_data = _device_info_data;
 
 	SP_DRVINFO_DATA drvinfo_data;
@@ -52,22 +50,50 @@ std::vector<std::shared_ptr<SetupDriver>> SetupDevice::EnumerateDrivers() const
 }
 
 // Get the list of properties for this device
-void SetupDevice::InitPropertyKeys() const
+std::vector<std::shared_ptr<DEVPROPKEY>> SetupDevice::EnumeratePropertyKeys() const
 {
+	// A list of keys for the available properties of this device
+	std::vector<std::shared_ptr<DEVPROPKEY>> properties;
+
 	// How many property keys are there
 	DWORD key_count = 0;
 	SP_DEVINFO_DATA devinfo_data = _device_info_data;
 
-	if (SetupDiGetDevicePropertyKeys(_device_info_set, &devinfo_data, nullptr, 0, &key_count, 0))
+	SetupDiGetDevicePropertyKeys(_device_info_set, &devinfo_data, nullptr, 0, &key_count, 0);
+	const Error last_error;
+	if (last_error.GetErrorCode() == ERROR_INSUFFICIENT_BUFFER && key_count > 0)
 	{
-		// Allocate the array of keys
-		std::wcout << L"Found " << key_count << L" property keys." << std::endl;
+		// Allocate the array to hold the keys
+		DEVPROPKEY* property_keys = new DEVPROPKEY[key_count+1];
+
+		// Get the list of keys
+		if (SetupDiGetDevicePropertyKeys(_device_info_set, &devinfo_data, property_keys, key_count, &key_count, 0)) {
+
+			for (size_t index = 0; index < static_cast<size_t>(key_count); index++)
+			{
+				// Read the property keys and store them in a vector
+				std::shared_ptr<DEVPROPKEY> property_key = std::make_shared<DEVPROPKEY>(property_keys[index]);
+
+				properties.push_back(property_key);
+			}
+		}
+		else {
+			// Unexpected error
+			std::wcout << L"SetupDevice::InitPropertyKeys(): " << last_error.GetErrorMessage();
+		}
+
+		// Clean up
+		if (property_keys != nullptr) {
+			delete[] property_keys;
+			property_keys = nullptr;
+		}
 	}
-	else
-	{
-		const Error last_error;
-		std::wcout << last_error.GetErrorMessage();
+	else {
+		// Unexpected error
+		std::wcout << L"SetupDevice::InitPropertyKeys(): " << last_error.GetErrorMessage();
 	}
+
+	return properties;
 }
 
 

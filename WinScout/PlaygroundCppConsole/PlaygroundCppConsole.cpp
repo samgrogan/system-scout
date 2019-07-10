@@ -22,9 +22,16 @@ int main()
 	{
 		std::wcout << L"\t" << device->GetClassGuid() << std::endl;
 
+		// Get a list of properties for this device
+		std::vector<std::shared_ptr<DEVPROPKEY>> properties = device->EnumeratePropertyKeys();
+		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
+		for (auto& property : properties)
+		{
+			std::wcout << L"\t\t" << property->fmtid << L"\t" << property->pid << std::endl;
+		}
+
 		// Get the list of drivers for this device
 		std::vector<std::shared_ptr<SetupDriver>> drivers = device->EnumerateDrivers();
-
 		for (auto& driver : drivers)
 		{
 			std::wcout << L"\t\t" << driver->GetDescription() << L"\t" << driver->GetMfgName() << L"\t" << driver->GetProviderName() << std::endl;

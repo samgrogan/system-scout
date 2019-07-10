@@ -19,11 +19,6 @@ namespace playground
 		// Structure that hold the unique identity of this device instance
 		SP_DEVINFO_DATA _device_info_data {};
 
-		// A list of keys for the available properties of this device
-		// std::shared_ptr<DEVPROPKEY> _property_keys(nullptr);
-
-		// Get the list of properties for this device
-		void InitPropertyKeys() const;
 
 	public:
 		// Constructor. Create a new object based on the given struct
@@ -37,6 +32,9 @@ namespace playground
 
 		// Get the list of drivers that are associated with this device
 		std::vector<std::shared_ptr<SetupDriver>> EnumerateDrivers() const;
+
+		// Get the list of properties for this device
+		std::vector<std::shared_ptr<DEVPROPKEY>> EnumeratePropertyKeys() const;
 
 		// Destructor
 		virtual ~SetupDevice();

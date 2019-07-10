@@ -36,7 +36,7 @@ std::vector<std::shared_ptr<SetupDevice>> SetupDeviceInformationSet::EnumerateDe
 	const Error last_error;
 	if (last_error.GetErrorCode() != ERROR_NO_MORE_ITEMS)
 	{
-		std::wcout << last_error.GetErrorMessage();
+		std::wcout << L"SetupDeviceInformationSet::EnumerateDevices() - " << last_error.GetErrorMessage();
 	}
 
 	return devices;
