@@ -28,7 +28,9 @@ int main()
 		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
 		for (auto& property : properties)
 		{
-			// std::wcout << L"\t\t" << property->fmtid << L"\t" << property->pid << std::endl;
+			if (property->HasValue()) {
+				std::wcout << L"\t\t" << property->GetValue() << std::endl;
+			}
 		}
 
 		// Get the list of drivers for this device

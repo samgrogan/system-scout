@@ -24,6 +24,8 @@ BOOL SetupClassInfo::PopulateDescription()
 	}
 
 	Error last_error;
+	std::wcout << L"SetupClassInfo::PopulateDescription(): " << last_error.GetErrorMessage();
+
 	return false;
 }
 
