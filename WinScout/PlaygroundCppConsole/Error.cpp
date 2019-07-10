@@ -1,6 +1,6 @@
 #include "Error.h"
 
-using namespace playground;
+using namespace Playground;
 
 // Construct an error based on GetLastError
 Error::Error()

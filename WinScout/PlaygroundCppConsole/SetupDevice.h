@@ -1,14 +1,17 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #include <Windows.h>
 #include <SetupAPI.h>
+#include <cfgmgr32.h>
 
 #include "SetupDriver.h"
+#include "SetupDeviceProperty.h"
 #include "Error.h"
 
-namespace playground
+namespace Playground
 {
 	class SetupDevice
 	{
@@ -30,11 +33,14 @@ namespace playground
 		// The device instance that is part of the underlying structure
 		DWORD GetDevInst() const;
 
+		// Returns the device id of this device
+		std::wstring GetDeviceId() const;
+
 		// Get the list of drivers that are associated with this device
 		std::vector<std::shared_ptr<SetupDriver>> EnumerateDrivers() const;
 
 		// Get the list of properties for this device
-		std::vector<std::shared_ptr<DEVPROPKEY>> EnumeratePropertyKeys() const;
+		std::vector<std::shared_ptr<SetupDeviceProperty>> EnumerateProperties() const;
 
 		// Destructor
 		virtual ~SetupDevice();

@@ -2,8 +2,9 @@
 
 #include <Windows.h>
 #include <SetupAPI.h>
+#include <string>
 
-namespace playground
+namespace Playground
 {
 	class SetupDriver
 	{
@@ -16,13 +17,13 @@ namespace playground
 		SetupDriver(const SP_DRVINFO_DATA& DriverInfoData);
 
 		// Gets the description of the driver/device
-		wchar_t* GetDescription();
+		std::wstring GetDescription();
 
 		// Gets the name of the manufacturer
-		wchar_t* GetMfgName();
+		std::wstring GetMfgName();
 
 		// Get the provider
-		wchar_t* GetProviderName();
+		std::wstring GetProviderName();
 
 		// Destructor
 		virtual ~SetupDriver();

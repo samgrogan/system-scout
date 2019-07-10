@@ -5,7 +5,7 @@
 
 #include <windows.h>
 
-namespace playground
+namespace Playground
 {
 	class Error
 	{

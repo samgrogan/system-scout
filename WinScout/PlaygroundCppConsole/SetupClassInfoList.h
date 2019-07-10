@@ -10,7 +10,7 @@
 #include "Error.h"
 #include "SetupClassInfo.h"
 
-namespace playground
+namespace Playground
 {
 	class SetupClassInfoList
 	{

@@ -1,6 +1,6 @@
 #include "SetupDeviceInterface.h"
 
-using namespace playground;
+using namespace Playground;
 
 SetupDeviceInterface::SetupDeviceInterface()
 {

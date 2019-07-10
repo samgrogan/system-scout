@@ -1,6 +1,6 @@
 #include "SetupDevice.h"
 
-using namespace playground;
+using namespace Playground;
 
 SetupDevice::SetupDevice(HDEVINFO DeviceInfoSet, const SP_DEVINFO_DATA& DeviceInfoData)
 {
@@ -18,6 +18,29 @@ REFGUID SetupDevice::GetClassGuid() const
 DWORD SetupDevice::GetDevInst() const
 {
 	return _device_info_data.DevInst;
+}
+
+// Returns the device id of this device
+std::wstring SetupDevice::GetDeviceId() const {
+	// Get the size of the buffer needed to hold the value
+	ULONG buffer_size = 0;
+	if (CM_Get_Device_ID_Size(&buffer_size, _device_info_data.DevInst, 0) == CR_SUCCESS) {
+		// Allocate the string to hold the value
+		std::wstring buffer(buffer_size, '\0');
+		if (CM_Get_Device_IDW(_device_info_data.DevInst, &buffer[0], buffer_size, 0) == CR_SUCCESS) {
+			return buffer;
+		}
+		else {
+			const Error last_error;
+			std::wcout << L"SetupDevice::GetDeviceId(): " << last_error.GetErrorMessage();
+		}
+	}
+	else {
+		const Error last_error;
+		std::wcout << L"SetupDevice::GetDeviceId(): " << last_error.GetErrorMessage();
+	}
+
+	return L"Error";
 }
 
 // Builds a list of driver information in the set
@@ -42,17 +65,17 @@ std::vector<std::shared_ptr<SetupDriver>> SetupDevice::EnumerateDrivers() const
 	const Error last_error;
 	if (last_error.GetErrorCode() != ERROR_NO_MORE_ITEMS)
 	{
-		std::wcout << last_error.GetErrorMessage();
+		std::wcout << L"SetupDevice::EnumerateDrivers(): " << last_error.GetErrorMessage();
 	}
 
 	return drivers;
 }
 
 // Get the list of properties for this device
-std::vector<std::shared_ptr<DEVPROPKEY>> SetupDevice::EnumeratePropertyKeys() const
+std::vector<std::shared_ptr<SetupDeviceProperty>> SetupDevice::EnumerateProperties() const
 {
 	// A list of keys for the available properties of this device
-	std::vector<std::shared_ptr<DEVPROPKEY>> properties;
+	std::vector<std::shared_ptr<SetupDeviceProperty>> properties;
 
 	// How many property keys are there
 	DWORD key_count = 0;
@@ -71,9 +94,10 @@ std::vector<std::shared_ptr<DEVPROPKEY>> SetupDevice::EnumeratePropertyKeys() co
 			for (size_t index = 0; index < static_cast<size_t>(key_count); index++)
 			{
 				// Read the property keys and store them in a vector
-				std::shared_ptr<DEVPROPKEY> property_key = std::make_shared<DEVPROPKEY>(property_keys[index]);
+				DEVPROPKEY property_key = property_keys[index];
+				std::shared_ptr<SetupDeviceProperty> property = std::make_shared<SetupDeviceProperty>(SetupDeviceProperty(_device_info_set, devinfo_data, property_key));
 
-				properties.push_back(property_key);
+				properties.push_back(property);
 			}
 		}
 		else {

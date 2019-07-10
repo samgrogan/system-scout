@@ -1,6 +1,6 @@
 #include "SetupClassInfo.h"
 
-using namespace playground;
+using namespace Playground;
 
 /**
  * \brief 

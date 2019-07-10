@@ -1,6 +1,6 @@
 #include "SetupDeviceInformationSet.h"
 
-using namespace playground;
+using namespace Playground;
 
 // Constructor
 // Return all devices

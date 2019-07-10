@@ -1,6 +1,6 @@
 #include "SetupClassInfoList.h"
 
-using namespace playground;
+using namespace Playground;
 
 SetupClassInfoList::SetupClassInfoList()
 = default;

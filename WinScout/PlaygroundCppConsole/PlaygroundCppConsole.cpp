@@ -5,9 +5,10 @@
 
 #include "SetupDeviceInformationSet.h"
 #include "SetupClassInfoList.h"
+#include "SetupDeviceProperty.h"
 #include "Extensions.h"
 
-using namespace playground;
+using namespace Playground;
 
 int main()
 {
@@ -20,14 +21,14 @@ int main()
 
 	for (auto& device : devices)
 	{
-		std::wcout << L"\t" << device->GetClassGuid() << std::endl;
+		std::wcout << L"\t" << device->GetClassGuid() << L"\t" << device->GetDeviceId() << std::endl;
 
 		// Get a list of properties for this device
-		std::vector<std::shared_ptr<DEVPROPKEY>> properties = device->EnumeratePropertyKeys();
+		std::vector<std::shared_ptr<SetupDeviceProperty>> properties = device->EnumerateProperties();
 		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
 		for (auto& property : properties)
 		{
-			std::wcout << L"\t\t" << property->fmtid << L"\t" << property->pid << std::endl;
+			// std::wcout << L"\t\t" << property->fmtid << L"\t" << property->pid << std::endl;
 		}
 
 		// Get the list of drivers for this device

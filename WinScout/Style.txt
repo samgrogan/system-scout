@@ -1,0 +1,5 @@
+Namespaces		TitleCase
+Classes			TitleCase
+Fields			snake_case
+Method Parameters	TitleCase
+Local variables	snake_case

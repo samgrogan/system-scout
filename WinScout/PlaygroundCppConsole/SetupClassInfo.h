@@ -8,7 +8,7 @@
 
 #include "Error.h"
 
-namespace playground
+namespace Playground
 {
 	class SetupClassInfo
 	{

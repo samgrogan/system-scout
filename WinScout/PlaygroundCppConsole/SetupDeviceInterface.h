@@ -1,6 +1,6 @@
 #pragma once
 
-namespace playground
+namespace Playground
 {
 	class SetupDeviceInterface
 	{

@@ -11,7 +11,7 @@
 #include "SetupDevice.h"
 #include "SetupDriver.h"
 
-namespace playground
+namespace Playground
 {
 	class SetupDeviceInformationSet
 	{
