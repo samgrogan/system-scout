@@ -116,6 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -162,6 +163,7 @@
     <ClCompile Include="SetupDevice.cpp" />
     <ClCompile Include="SetupDeviceInformationSet.cpp" />
     <ClCompile Include="SetupDeviceInterface.cpp" />
+    <ClCompile Include="SetupDeviceProperty.cpp" />
     <ClCompile Include="SetupDriver.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Extensions.cpp" />
@@ -173,6 +175,7 @@
     <ClInclude Include="SetupDevice.h" />
     <ClInclude Include="SetupDeviceInformationSet.h" />
     <ClInclude Include="SetupDeviceInterface.h" />
+    <ClInclude Include="SetupDeviceProperty.h" />
     <ClInclude Include="SetupDriver.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Extensions.h" />

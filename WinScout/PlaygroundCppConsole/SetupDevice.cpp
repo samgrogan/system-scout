@@ -37,7 +37,6 @@ std::vector<std::shared_ptr<SetupDriver>> SetupDevice::EnumerateDrivers() const
 	{
 		std::shared_ptr<SetupDriver> driver = std::make_shared<SetupDriver>(SetupDriver(drvinfo_data));
 		drivers.push_back(driver);
-
 	}
 	// Why did the loop end?
 	const Error last_error;
@@ -64,7 +63,7 @@ std::vector<std::shared_ptr<DEVPROPKEY>> SetupDevice::EnumeratePropertyKeys() co
 	if (last_error.GetErrorCode() == ERROR_INSUFFICIENT_BUFFER && key_count > 0)
 	{
 		// Allocate the array to hold the keys
-		DEVPROPKEY* property_keys = new DEVPROPKEY[key_count+1];
+		DEVPROPKEY* property_keys = new DEVPROPKEY[static_cast<size_t>(key_count)+ static_cast<size_t>(1)];
 
 		// Get the list of keys
 		if (SetupDiGetDevicePropertyKeys(_device_info_set, &devinfo_data, property_keys, key_count, &key_count, 0)) {
