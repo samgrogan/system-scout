@@ -48,15 +48,26 @@ DEVPROPID SetupDeviceProperty::GetId() {
 }
 
 
+// Get the type of the property value
+DEVPROPTYPE SetupDeviceProperty::GetType() {
+	return (_property_type & DEVPROP_MASK_TYPE);
+}
+
+
 // Does this property have a value?
 bool SetupDeviceProperty::HasValue() {
 	return (_buffer != nullptr);
 }
 
+// Does this property have a value of the given type?
+bool SetupDeviceProperty::HasValue(DEVPROPTYPE Type) {
+	return (HasValue() && (GetType() == Type));
+}
+
 
 // Get the value as a string
 std::wstring SetupDeviceProperty::GetStringValue() {
-	if (HasValue() && (_property_type & DEVPROP_TYPE_STRING)) {
+	if (HasValue(DEVPROP_TYPE_STRING)) {
 		return std::wstring(reinterpret_cast<wchar_t*>(_buffer));
 	}
 	return std::wstring(L"\0");

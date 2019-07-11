@@ -29,7 +29,7 @@ int main()
 		for (auto& property : properties)
 		{
 			std::wcout << L"\t\t" << property->GetGuid() << L"\t" << property->GetId();
-			if (property->HasValue()) {
+			if (property->HasValue(DEVPROP_TYPE_STRING)) {
 				std::wcout << L"\t" << property->GetStringValue();
 			}
 			std::wcout << std::endl;

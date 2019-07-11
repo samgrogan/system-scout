@@ -35,8 +35,14 @@ namespace Playground {
 		// Gets the Id of this property
 		DEVPROPID GetId();
 
+		// Get the type of the property value
+		DEVPROPTYPE GetType();
+
 		// Does this property have a value?
 		bool HasValue();
+
+		// Does this property have a value of the given type?
+		bool HasValue(DEVPROPTYPE Type);
 
 		// Get the value as a string
 		std::wstring GetStringValue();
