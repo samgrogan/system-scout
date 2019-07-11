@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <SetupAPI.h>
 #include <Devpropdef.h>
+#include <Devpkey.h>
 
 #include "Error.h"
 
