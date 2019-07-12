@@ -15,3 +15,13 @@ std::wostream& operator<<(std::wostream& wos, REFGUID guid)
 
 	return wos;
 }
+
+
+bool operator==(DEVPROPKEY& left, DEVPROPKEY& right) 
+{
+	if ((left.fmtid == right.fmtid) && (left.pid == right.pid))
+		return true;
+	else
+		return false;
+}
+

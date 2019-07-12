@@ -31,22 +31,24 @@ namespace Playground {
 		SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA& DeviceInfoData, DEVPROPKEY& PropertyKey);
 
 		// Get the GUID of this property
-		REFGUID GetGuid();
+		REFGUID GetGuid() const;
 
 		// Gets the Id of this property
-		DEVPROPID GetId();
+		DEVPROPID GetId() const;
 
 		// Get the type of the property value
-		DEVPROPTYPE GetType();
+		DEVPROPTYPE GetType() const;
 
 		// Does this property have a value?
-		bool HasValue();
+		bool HasValue() const;
 
 		// Does this property have a value of the given type?
-		bool HasValue(DEVPROPTYPE Type);
+		bool HasValue(DEVPROPTYPE Type) const;
 
 		// Get the value as a string
-		std::wstring GetStringValue();
+		std::wstring GetStringValue() const;
+
+		bool operator ==(const SetupDeviceProperty& compare);
 
 		// Destructor
 		virtual ~SetupDeviceProperty();

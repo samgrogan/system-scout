@@ -37,36 +37,36 @@ SetupDeviceProperty::SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA
 
 
 // Get the GUID of this property
-REFGUID SetupDeviceProperty::GetGuid() {
+REFGUID SetupDeviceProperty::GetGuid() const {
 	return _property_key.fmtid;
 }
 
 
 // Gets the Id of this property
-DEVPROPID SetupDeviceProperty::GetId() {
+DEVPROPID SetupDeviceProperty::GetId() const {
 	return _property_key.pid;
 }
 
 
 // Get the type of the property value
-DEVPROPTYPE SetupDeviceProperty::GetType() {
+DEVPROPTYPE SetupDeviceProperty::GetType() const {
 	return (_property_type & DEVPROP_MASK_TYPE);
 }
 
 
 // Does this property have a value?
-bool SetupDeviceProperty::HasValue() {
+bool SetupDeviceProperty::HasValue() const {
 	return (_buffer != nullptr);
 }
 
 // Does this property have a value of the given type?
-bool SetupDeviceProperty::HasValue(DEVPROPTYPE Type) {
+bool SetupDeviceProperty::HasValue(DEVPROPTYPE Type) const {
 	return (HasValue() && (GetType() == Type));
 }
 
 
 // Get the value as a string
-std::wstring SetupDeviceProperty::GetStringValue() {
+std::wstring SetupDeviceProperty::GetStringValue() const {
 	if (HasValue(DEVPROP_TYPE_STRING)) {
 		return std::wstring(reinterpret_cast<wchar_t*>(_buffer));
 	}
@@ -74,9 +74,18 @@ std::wstring SetupDeviceProperty::GetStringValue() {
 }
 
 
+bool SetupDeviceProperty::operator ==(const SetupDeviceProperty& compare)
+{
+	if ((this->GetGuid() == compare.GetGuid()) && (this->GetId() == compare.GetId()))
+		return true;
+	else
+		return false;
+}
+
+
 SetupDeviceProperty::~SetupDeviceProperty() {
-	//if (_buffer != nullptr) {
-	//	delete[] _buffer;
-	//	_buffer = nullptr;
-	//}
+	if (_buffer != nullptr) {
+		delete[] _buffer;
+		_buffer = nullptr;
+	}
 }

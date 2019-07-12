@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 #include <Windows.h>
 #include <SetupAPI.h>
@@ -40,7 +41,7 @@ namespace Playground
 		std::vector<std::shared_ptr<SetupDriver>> EnumerateDrivers() const;
 
 		// Get the list of properties for this device
-		std::vector<std::shared_ptr<SetupDeviceProperty>> EnumerateProperties() const;
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> EnumerateProperties() const;
 
 		// Destructor
 		virtual ~SetupDevice();

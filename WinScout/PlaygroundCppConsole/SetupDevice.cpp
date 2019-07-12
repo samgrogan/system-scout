@@ -72,10 +72,10 @@ std::vector<std::shared_ptr<SetupDriver>> SetupDevice::EnumerateDrivers() const
 }
 
 // Get the list of properties for this device
-std::vector<std::shared_ptr<SetupDeviceProperty>> SetupDevice::EnumerateProperties() const
+std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> SetupDevice::EnumerateProperties() const
 {
 	// A list of keys for the available properties of this device
-	std::vector<std::shared_ptr<SetupDeviceProperty>> properties;
+	std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> properties;
 
 	// How many property keys are there
 	DWORD key_count = 0;
@@ -97,7 +97,7 @@ std::vector<std::shared_ptr<SetupDeviceProperty>> SetupDevice::EnumerateProperti
 				DEVPROPKEY property_key = property_keys[index];
 				std::shared_ptr<SetupDeviceProperty> property = std::make_shared<SetupDeviceProperty>(SetupDeviceProperty(_device_info_set, devinfo_data, property_key));
 
-				properties.push_back(property);
+				properties[property_key] = property;
 			}
 		}
 		else {

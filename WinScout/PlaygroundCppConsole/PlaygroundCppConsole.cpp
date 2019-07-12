@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <unordered_map>
 
 #include "SetupDeviceInformationSet.h"
 #include "SetupClassInfoList.h"
@@ -24,10 +25,12 @@ int main()
 		std::wcout << L"\t" << device->GetClassGuid() << L"\t" << device->GetDeviceId() << std::endl;
 
 		// Get a list of properties for this device
-		std::vector<std::shared_ptr<SetupDeviceProperty>> properties = device->EnumerateProperties();
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> properties = device->EnumerateProperties();
 		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
-		for (auto& property : properties)
+		for (auto i : properties)
 		{
+			auto property = i.second;
+
 			std::wcout << L"\t\t" << property->GetGuid() << L"\t" << property->GetId();
 			if (property->HasValue(DEVPROP_TYPE_STRING)) {
 				std::wcout << L"\t" << property->GetStringValue();
