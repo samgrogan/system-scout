@@ -11,6 +11,7 @@
 #include "SetupDriver.h"
 #include "SetupDeviceProperty.h"
 #include "Error.h"
+#include "Extensions.h"
 
 namespace Playground
 {

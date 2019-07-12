@@ -6,6 +6,7 @@
 #include <Devpkey.h>
 
 #include "Error.h"
+#include "Extensions.h"
 
 namespace Playground {
 	class SetupDeviceProperty
