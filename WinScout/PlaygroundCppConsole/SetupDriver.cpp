@@ -28,5 +28,4 @@ std::wstring SetupDriver::GetProviderName()
 }
 
 
-SetupDriver::~SetupDriver()
-= default;
+SetupDriver::~SetupDriver() = default;

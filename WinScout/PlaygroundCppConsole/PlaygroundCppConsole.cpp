@@ -16,7 +16,12 @@ int main()
 	std::cout << "Starting Playground" << std::endl;
 
 	// Print out the list of devices
-	const SetupDeviceInformationSet dis;
+	SetupDeviceInformationSet dis;
+
+	std::vector<std::shared_ptr<SetupDevice>> CM_devices = dis.CM_EnumerateDevices();
+
+	return 0;
+
 	std::vector<std::shared_ptr<SetupDevice>> devices = dis.EnumerateDevices();
 	std::cout << "*Found " << devices.size() << " devices*" << std::endl;
 

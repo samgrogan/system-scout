@@ -10,12 +10,6 @@ SetupDeviceInformationSet::SetupDeviceInformationSet()
 	_device_info_set = SetupDiGetClassDevs(nullptr, nullptr, nullptr, DIGCF_ALLCLASSES);
 }
 
-// Constructor
-SetupDeviceInformationSet::SetupDeviceInformationSet(REFGUID ClassGuid)
-{
-	// Initialize with a list of devices in the class
-	_device_info_set = SetupDiGetClassDevs(&ClassGuid, nullptr, nullptr, DIGCF_ALLCLASSES);
-}
 
 // Returns a list of devices in the device set
 std::vector<std::shared_ptr<SetupDevice>> SetupDeviceInformationSet::EnumerateDevices() const
@@ -42,11 +36,70 @@ std::vector<std::shared_ptr<SetupDevice>> SetupDeviceInformationSet::EnumerateDe
 	return devices;
 }
 
+std::vector<std::shared_ptr<SetupDevice>> SetupDeviceInformationSet::CM_EnumerateDevices() {
+	// Create a vector to hold the devices
+	std::vector<std::shared_ptr<SetupDevice>> devices;
+
+	// Get the size of the list of devices
+	_device_id_list_size = GetDeviceIDListSize();
+
+	std::wcout << L"Device ID list size: " << _device_id_list_size << std::endl;
+
+	// Try to allocate the memory to hold the list of device ids
+	_device_id_list = static_cast<PWSTR>(HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, _device_id_list_size * sizeof(WCHAR)));
+
+	if (_device_id_list != nullptr) {
+
+		// Read the list of device ids
+		CONFIGRET result = CM_Get_Device_ID_List(NULL, _device_id_list, _device_id_list_size, CM_GETIDLIST_FILTER_NONE);
+		if (result == CR_SUCCESS) {
+			PWSTR current_device = nullptr;
+			for (current_device = _device_id_list; *current_device; current_device += wcslen(current_device) + 1)
+			{
+				std::wcout << current_device << std::endl;
+			}
+		}
+		else {
+			Error error;
+			std::wcout << L"SetupDeviceInformationSet::CM_EnumerateDevices(): " << error.GetErrorMessage() << std::endl;
+		}
+
+		// Free the memory
+		HeapFree(GetProcessHeap(), 0, _device_id_list);
+		_device_id_list = nullptr;
+	}
+	else {
+		Error error;
+		std::wcout << L"SetupDeviceInformationSet::CM_EnumerateDevices(): " << error.GetErrorMessage() << std::endl;
+	}
+
+	return devices;
+}
+
+
 // Gets the underlying handle
 HDEVINFO SetupDeviceInformationSet::GetHandle() const
 {
 	return _device_info_set;
 }
+
+
+ULONG SetupDeviceInformationSet::GetDeviceIDListSize() {
+	ULONG device_id_list_size = 0UL;
+
+	CONFIGRET result = CM_Get_Device_ID_List_Size(&device_id_list_size, nullptr, 0UL);
+
+	if (result == CR_SUCCESS) {
+		return device_id_list_size;
+	}
+	else {
+		Error error;
+		std::wcout << L"SetupDeviceInformationSet::GetDeviceIDListSize(): " << error.GetErrorMessage() << std::endl;
+	}
+
+	return 0UL;
+}
+
 
 // Destructor
 SetupDeviceInformationSet::~SetupDeviceInformationSet()

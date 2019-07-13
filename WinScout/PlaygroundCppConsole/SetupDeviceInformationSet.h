@@ -18,17 +18,22 @@ namespace Playground
 	private:
 		HDEVINFO _device_info_set;
 
+		// Gets the size of the device id list
+		ULONG _device_id_list_size = 0UL;
+		ULONG GetDeviceIDListSize();
+
+		// Hold the list of device ids
+		PWSTR _device_id_list = nullptr;
+
 	public:
 		// Constructor
 		// Creates a DeviceInformationSet that includes all devices
 		SetupDeviceInformationSet();
 
-		// Constructor
-		// Creates a DeviceInformationSet for the given class
-		SetupDeviceInformationSet(REFGUID ClassGuid);
-
 		// Builds a list of device information in the set
 		std::vector<std::shared_ptr<SetupDevice>> EnumerateDevices() const;
+
+		std::vector<std::shared_ptr<SetupDevice>> CM_EnumerateDevices();
 
 		// Gets the underlying handle
 		HDEVINFO GetHandle() const;

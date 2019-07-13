@@ -20,8 +20,8 @@ namespace Playground {
 		// The key to identify this property
 		DEVPROPKEY _property_key {};
 
-		// The buffer to hold be value of the property
-		BYTE* _buffer = nullptr;
+		// The size of the buffer
+		DWORD _buffer_size = 0;
 
 		// The type of the property
 		DEVPROPTYPE _property_type = 0UL;

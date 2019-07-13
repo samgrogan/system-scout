@@ -1,8 +1,10 @@
 #pragma once
 
+#include <string>
+#include <iostream>
+
 #include <Windows.h>
 #include <SetupAPI.h>
-#include <string>
 
 namespace Playground
 {

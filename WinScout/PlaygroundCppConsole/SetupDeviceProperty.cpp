@@ -13,26 +13,9 @@ SetupDeviceProperty::SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA
 
 	// Get the size of the required buffer
 	SP_DEVINFO_DATA devinfo_data = _device_info_data;
-	DWORD required_size(0);
 
-	SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &_property_type, nullptr, 0, &required_size, 0);
-
-	// Allocate the buffer to hold the data
-	if (required_size > 0) {
-		_buffer = new BYTE[required_size];
-
-		if (SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &_property_type, _buffer, required_size, &required_size, 0)) {
-
-		}
-		else {
-			Error last_error;
-			std::wcout << L"SetupDeviceProperty(): " << last_error.GetErrorMessage() << std::endl;
-		}
-	}
-	else {
-		Error last_error;
-		std::wcout << L"SetupDeviceProperty(): " << last_error.GetErrorMessage() << std::endl;
-	}
+	// Get the size and type of this property
+	SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &_property_type, nullptr, 0, &_buffer_size, 0);
 }
 
 
@@ -56,7 +39,7 @@ DEVPROPTYPE SetupDeviceProperty::GetType() const {
 
 // Does this property have a value?
 bool SetupDeviceProperty::HasValue() const {
-	return (_buffer != nullptr);
+	return (_buffer_size > 0);
 }
 
 // Does this property have a value of the given type?
@@ -68,7 +51,31 @@ bool SetupDeviceProperty::HasValue(DEVPROPTYPE Type) const {
 // Get the value as a string
 std::wstring SetupDeviceProperty::GetStringValue() const {
 	if (HasValue(DEVPROP_TYPE_STRING)) {
-		return std::wstring(reinterpret_cast<wchar_t*>(_buffer));
+
+		// Allocate the buffer to hold the data
+		if (_buffer_size > 0) {
+			BYTE* _buffer = new BYTE[_buffer_size];
+
+			SP_DEVINFO_DATA devinfo_data = _device_info_data;
+			DEVPROPTYPE property_type = _property_type;
+			DWORD buffer_size = _buffer_size;
+
+
+			if (SetupDiGetDeviceProperty(_device_info_set, &devinfo_data, &_property_key, &property_type, _buffer, _buffer_size, &buffer_size, 0)) {
+				std::wstring value = std::wstring(reinterpret_cast<const WCHAR*>(_buffer));
+				delete[] _buffer;
+				return value;
+			}
+			else {
+				Error last_error;
+				std::wcout << L"SetupDeviceProperty(): " << last_error.GetErrorMessage() << std::endl;
+			}
+		}
+		else {
+			Error last_error;
+			std::wcout << L"SetupDeviceProperty(): " << last_error.GetErrorMessage() << std::endl;
+		}
+
 	}
 	return std::wstring(L"\0");
 }
@@ -83,9 +90,4 @@ bool SetupDeviceProperty::operator ==(const SetupDeviceProperty& compare)
 }
 
 
-SetupDeviceProperty::~SetupDeviceProperty() {
-	if (_buffer != nullptr) {
-		delete[] _buffer;
-		_buffer = nullptr;
-	}
-}
+SetupDeviceProperty::~SetupDeviceProperty() = default;
