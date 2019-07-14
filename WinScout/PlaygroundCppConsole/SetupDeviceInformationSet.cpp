@@ -54,10 +54,13 @@ std::vector<std::shared_ptr<SetupDevice>> SetupDeviceInformationSet::CM_Enumerat
 		CONFIGRET result = CM_Get_Device_ID_List(NULL, _device_id_list, _device_id_list_size, CM_GETIDLIST_FILTER_NONE);
 		if (result == CR_SUCCESS) {
 			PWSTR current_device = nullptr;
+			UINT count = 0;
 			for (current_device = _device_id_list; *current_device; current_device += wcslen(current_device) + 1)
 			{
 				std::wcout << current_device << std::endl;
+				count++;
 			}
+			std::wcout << L"Found " << count << " devices." << std::endl;
 		}
 		else {
 			Error error;

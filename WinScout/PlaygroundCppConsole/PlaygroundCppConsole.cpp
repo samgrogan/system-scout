@@ -20,10 +20,10 @@ int main()
 
 	std::vector<std::shared_ptr<SetupDevice>> CM_devices = dis.CM_EnumerateDevices();
 
-	return 0;
-
 	std::vector<std::shared_ptr<SetupDevice>> devices = dis.EnumerateDevices();
 	std::cout << "*Found " << devices.size() << " devices*" << std::endl;
+
+	return 0;
 
 	for (auto& device : devices)
 	{
