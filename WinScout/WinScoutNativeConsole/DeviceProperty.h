@@ -9,7 +9,7 @@
 #include "Extensions.h"
 
 namespace WinScoutNativeCore {
-	class SetupDeviceProperty
+	class DeviceProperty
 	{
 	private:
 		HDEVINFO _device_info_set;
@@ -29,7 +29,7 @@ namespace WinScoutNativeCore {
 
 	public:
 		// Default constructor
-		SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA& DeviceInfoData, DEVPROPKEY& PropertyKey);
+		DeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA& DeviceInfoData, DEVPROPKEY& PropertyKey);
 
 		// Get the GUID of this property
 		REFGUID GetGuid() const;
@@ -49,9 +49,9 @@ namespace WinScoutNativeCore {
 		// Get the value as a string
 		std::wstring GetStringValue() const;
 
-		bool operator ==(const SetupDeviceProperty& compare);
+		bool operator ==(const DeviceProperty& compare);
 
 		// Destructor
-		virtual ~SetupDeviceProperty();
+		virtual ~DeviceProperty();
 	};
 }

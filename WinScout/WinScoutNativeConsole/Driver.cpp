@@ -1,31 +1,31 @@
-#include "SetupDriver.h"
+#include "Driver.h"
 
 using namespace WinScoutNativeCore;
 
 // Constructor
 // Create a new driver class based on the structure data
-SetupDriver::SetupDriver(const SP_DRVINFO_DATA& DriverInfoData)
+Driver::Driver(const SP_DRVINFO_DATA& DriverInfoData)
 {
 	_drvinfo_data = DriverInfoData;
 }
 
 // Gets the description of the driver/device
-std::wstring SetupDriver::GetDescription()
+std::wstring Driver::GetDescription()
 {
 	return _drvinfo_data.Description;
 }
 
 // Gets the name of the manufacturer
-std::wstring SetupDriver::GetMfgName()
+std::wstring Driver::GetMfgName()
 {
 	return _drvinfo_data.MfgName;
 }
 
 // Get the provider
-std::wstring SetupDriver::GetProviderName()
+std::wstring Driver::GetProviderName()
 {
 	return _drvinfo_data.ProviderName;
 }
 
 
-SetupDriver::~SetupDriver() = default;
+Driver::~Driver() = default;

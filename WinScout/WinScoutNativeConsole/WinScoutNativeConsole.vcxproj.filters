@@ -21,15 +21,6 @@
     <ClCompile Include="Extensions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SetupDeviceInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SetupDriver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SetupDeviceProperty.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WinScoutNativeConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,21 +36,21 @@
     <ClCompile Include="DeviceInformationSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DeviceInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceProperty.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Driver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Extensions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SetupDeviceInterface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SetupDriver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SetupDeviceProperty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DeviceClass.h">
@@ -72,6 +63,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DeviceInformationSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceProperty.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Driver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

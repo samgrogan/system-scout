@@ -1,9 +1,9 @@
-#include "SetupDeviceProperty.h"
+#include "DeviceProperty.h"
 
 using namespace WinScoutNativeCore;
 
 
-SetupDeviceProperty::SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA& DeviceInfoData, DEVPROPKEY& PropertyKey)
+DeviceProperty::DeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA& DeviceInfoData, DEVPROPKEY& PropertyKey)
 {
 	_device_info_set = DeviceInfoSet;
 	_device_info_data = DeviceInfoData;
@@ -20,36 +20,36 @@ SetupDeviceProperty::SetupDeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA
 
 
 // Get the GUID of this property
-REFGUID SetupDeviceProperty::GetGuid() const {
+REFGUID DeviceProperty::GetGuid() const {
 	return _property_key.fmtid;
 }
 
 
 // Gets the Id of this property
-DEVPROPID SetupDeviceProperty::GetId() const {
+DEVPROPID DeviceProperty::GetId() const {
 	return _property_key.pid;
 }
 
 
 // Get the type of the property value
-DEVPROPTYPE SetupDeviceProperty::GetType() const {
+DEVPROPTYPE DeviceProperty::GetType() const {
 	return (_property_type & DEVPROP_MASK_TYPE);
 }
 
 
 // Does this property have a value?
-bool SetupDeviceProperty::HasValue() const {
+bool DeviceProperty::HasValue() const {
 	return (_buffer_size > 0);
 }
 
 // Does this property have a value of the given type?
-bool SetupDeviceProperty::HasValue(DEVPROPTYPE Type) const {
+bool DeviceProperty::HasValue(DEVPROPTYPE Type) const {
 	return (HasValue() && (GetType() == Type));
 }
 
 
 // Get the value as a string
-std::wstring SetupDeviceProperty::GetStringValue() const {
+std::wstring DeviceProperty::GetStringValue() const {
 	if (HasValue(DEVPROP_TYPE_STRING)) {
 
 		// Allocate the buffer to hold the data
@@ -81,7 +81,7 @@ std::wstring SetupDeviceProperty::GetStringValue() const {
 }
 
 
-bool SetupDeviceProperty::operator ==(const SetupDeviceProperty& compare)
+bool DeviceProperty::operator ==(const DeviceProperty& compare)
 {
 	if ((this->GetGuid() == compare.GetGuid()) && (this->GetId() == compare.GetId()))
 		return true;
@@ -90,4 +90,4 @@ bool SetupDeviceProperty::operator ==(const SetupDeviceProperty& compare)
 }
 
 
-SetupDeviceProperty::~SetupDeviceProperty() = default;
+DeviceProperty::~DeviceProperty() = default;

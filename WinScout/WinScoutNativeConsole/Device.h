@@ -8,8 +8,8 @@
 #include <SetupAPI.h>
 #include <cfgmgr32.h>
 
-#include "SetupDriver.h"
-#include "SetupDeviceProperty.h"
+#include "Driver.h"
+#include "DeviceProperty.h"
 #include "Error.h"
 #include "Extensions.h"
 
@@ -29,10 +29,10 @@ namespace WinScoutNativeCore
 		const std::wstring GetDeviceId() const;
 
 		// Get the list of drivers that are associated with this device
-		std::vector<std::shared_ptr<SetupDriver>> EnumerateDrivers() const;
+		std::vector<std::shared_ptr<Driver>> EnumerateDrivers() const;
 
 		// Get the list of properties for this device
-		std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> EnumerateProperties() const;
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceProperty>> EnumerateProperties() const;
 
 		// Destructor
 		virtual ~Device();

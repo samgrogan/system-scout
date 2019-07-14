@@ -6,15 +6,13 @@
 
 #include "DeviceInformationSet.h"
 #include "DeviceClassList.h"
-#include "SetupDeviceProperty.h"
+#include "DeviceProperty.h"
 #include "Extensions.h"
 
 using namespace WinScoutNativeCore;
 
 int main()
 {
-	std::cout << "Starting Playground" << std::endl;
-
 	// Print out the list of devices
 	DeviceInformationSet dis;
 
@@ -26,7 +24,7 @@ int main()
 		std::wcout << L"\t" << device->GetDeviceId() << std::endl;
 
 		// Get a list of properties for this device
-		std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> properties = device->EnumerateProperties();
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceProperty>> properties = device->EnumerateProperties();
 		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
 
 		for (auto i : properties)
@@ -41,7 +39,7 @@ int main()
 		}
 
 		// Get the list of drivers for this device
-		std::vector<std::shared_ptr<SetupDriver>> drivers = device->EnumerateDrivers();
+		std::vector<std::shared_ptr<Driver>> drivers = device->EnumerateDrivers();
 		std::wcout << L"\t\t" << drivers.size() << L" drivers" << std::endl;
 
 		for (auto& driver : drivers)
@@ -60,6 +58,5 @@ int main()
 		std::wcout << L"\t" << class_info->GetClassGuid() << L"\t" << class_info->GetDescription() << std::endl;
 	}
 
-	std::cout << "Ending Playground" << std::endl;
 	return 0;
 }

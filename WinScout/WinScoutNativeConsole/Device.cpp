@@ -17,10 +17,10 @@ const std::wstring Device::GetDeviceId() const {
 }
 
 // Builds a list of driver information in the set
-std::vector<std::shared_ptr<SetupDriver>> Device::EnumerateDrivers() const
+std::vector<std::shared_ptr<Driver>> Device::EnumerateDrivers() const
 {
 	// Create a vector to hold the drivers
-	std::vector<std::shared_ptr<SetupDriver>> drivers;
+	std::vector<std::shared_ptr<Driver>> drivers;
 	//DWORD member_index = 0;
 
 	//SP_DEVINFO_DATA devinfo_data = _device_info_data;
@@ -45,10 +45,10 @@ std::vector<std::shared_ptr<SetupDriver>> Device::EnumerateDrivers() const
 }
 
 // Get the list of properties for this device
-std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> Device::EnumerateProperties() const
+std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceProperty>> Device::EnumerateProperties() const
 {
 	// A list of keys for the available properties of this device
-	std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> properties;
+	std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceProperty>> properties;
 
 	//// How many property keys are there
 	//DWORD key_count = 0;

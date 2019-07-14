@@ -9,7 +9,7 @@
 
 #include "Error.h"
 #include "Device.h"
-#include "SetupDriver.h"
+#include "Driver.h"
 
 namespace WinScoutNativeCore
 {
