@@ -13,7 +13,7 @@
 
 namespace WinScoutNativeCore
 {
-	class DeviceInformationSet
+	class DeviceEnumerator
 	{
 	private:
 		// Filters applied to this set
@@ -26,15 +26,15 @@ namespace WinScoutNativeCore
 	public:
 		// Constructor
 		// Creates a DeviceInformationSet that includes all devices
-		DeviceInformationSet();
+		DeviceEnumerator();
 
 		// Create a filtered set of devices
-		DeviceInformationSet(PCWSTR Filter, ULONG Flags);
+		DeviceEnumerator(PCWSTR Filter, ULONG Flags);
 
-		// Builds a list of device information in the set
+		// Returns a list of devices for this enumerator
 		std::vector<std::shared_ptr<Device>> EnumerateDevices() const;
 
 		// Destructor
-		virtual ~DeviceInformationSet();
+		virtual ~DeviceEnumerator();
 	};
 }

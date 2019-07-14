@@ -13,18 +13,18 @@
 
 namespace WinScoutNativeCore
 {
-	class DeviceClassList
+	class DeviceClassEnumerator
 	{
 	private:
 
 	public:
 		// Constructor
 		// Creates a ClassInfoList that includes all classes
-		DeviceClassList();
+		DeviceClassEnumerator();
 
 		// Returns a list of device interfaces in the set
 		std::vector<std::shared_ptr<DeviceClass>> EnumerateClasses() const;
 
-		virtual ~DeviceClassList();
+		virtual ~DeviceClassEnumerator();
 	};
 }

@@ -1,16 +1,16 @@
-#include "DeviceInformationSet.h"
+#include "DeviceEnumerator.h"
 
 using namespace WinScoutNativeCore;
 
 // Constructors
 
 // Creates a DeviceInformationSet that includes all devices
-DeviceInformationSet::DeviceInformationSet() {
+DeviceEnumerator::DeviceEnumerator() {
 	_flags = CM_GETIDLIST_FILTER_NONE;
 }
 
 // Create a filtered set of devices
-DeviceInformationSet::DeviceInformationSet(PCWSTR Filter, ULONG Flags) {
+DeviceEnumerator::DeviceEnumerator(PCWSTR Filter, ULONG Flags) {
 	if (Filter != nullptr) {
 		_filter = std::wstring(Filter);
 	}
@@ -18,7 +18,7 @@ DeviceInformationSet::DeviceInformationSet(PCWSTR Filter, ULONG Flags) {
 }
 
 
-std::vector<std::shared_ptr<Device>> DeviceInformationSet::EnumerateDevices() const
+std::vector<std::shared_ptr<Device>> DeviceEnumerator::EnumerateDevices() const
 {
 	// Create a vector to hold the devices
 	std::vector<std::shared_ptr<Device>> devices;
@@ -59,7 +59,7 @@ std::vector<std::shared_ptr<Device>> DeviceInformationSet::EnumerateDevices() co
 }
 
 
-ULONG DeviceInformationSet::GetDeviceIDListSize() const {
+ULONG DeviceEnumerator::GetDeviceIDListSize() const {
 	ULONG device_id_list_size = 0UL;
 
 	CONFIGRET result = CM_Get_Device_ID_List_Size(&device_id_list_size, nullptr, 0UL);
@@ -77,4 +77,4 @@ ULONG DeviceInformationSet::GetDeviceIDListSize() const {
 
 
 // Destructor
-DeviceInformationSet::~DeviceInformationSet() = default;
+DeviceEnumerator::~DeviceEnumerator() = default;

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "DeviceInformationSet.h"
-#include "DeviceClassList.h"
+#include "DeviceEnumerator.h"
+#include "DeviceClassEnumerator.h"
 #include "DeviceProperty.h"
 #include "Extensions.h"
 
@@ -14,9 +14,9 @@ using namespace WinScoutNativeCore;
 int main()
 {
 	// Print out the list of devices
-	DeviceInformationSet dis;
+	DeviceEnumerator de;
 
-	std::vector<std::shared_ptr<Device>> devices = dis.EnumerateDevices();
+	std::vector<std::shared_ptr<Device>> devices = de.EnumerateDevices();
 	std::wcout << devices.size() << L" devices" << std::endl;
 
 	for (auto& device : devices)
@@ -49,8 +49,8 @@ int main()
 	}
 
 	// Print out the list of classes
-	const DeviceClassList cil;
-	std::vector<std::shared_ptr<DeviceClass>> classes = cil.EnumerateClasses();
+	const DeviceClassEnumerator dce;
+	std::vector<std::shared_ptr<DeviceClass>> classes = dce.EnumerateClasses();
 	std::cout << "Found " << classes.size() << " classes" << std::endl;
 
 	for (auto& class_info : classes)

@@ -160,9 +160,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DeviceClass.cpp" />
-    <ClCompile Include="DeviceClassList.cpp" />
+    <ClCompile Include="DeviceClassEnumerator.cpp" />
     <ClCompile Include="Device.cpp" />
-    <ClCompile Include="DeviceInformationSet.cpp" />
+    <ClCompile Include="DeviceEnumerator.cpp" />
+    <ClCompile Include="DeviceEnumeratorEnumerator.cpp" />
     <ClCompile Include="DeviceInterface.cpp" />
     <ClCompile Include="DeviceProperty.cpp" />
     <ClCompile Include="Driver.cpp" />
@@ -172,9 +173,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeviceClass.h" />
-    <ClInclude Include="DeviceClassList.h" />
+    <ClInclude Include="DeviceClassEnumerator.h" />
     <ClInclude Include="Device.h" />
-    <ClInclude Include="DeviceInformationSet.h" />
+    <ClInclude Include="DeviceEnumerator.h" />
+    <ClInclude Include="DeviceEnumeratorEnumerator.h" />
     <ClInclude Include="DeviceInterface.h" />
     <ClInclude Include="DeviceProperty.h" />
     <ClInclude Include="Driver.h" />

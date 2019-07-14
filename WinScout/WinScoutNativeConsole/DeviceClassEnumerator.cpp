@@ -1,12 +1,12 @@
-#include "DeviceClassList.h"
+#include "DeviceClassEnumerator.h"
 
 using namespace WinScoutNativeCore;
 
-DeviceClassList::DeviceClassList()
+DeviceClassEnumerator::DeviceClassEnumerator()
 = default;
 
 // Returns a list of device interfaces in the set
-std::vector<std::shared_ptr<DeviceClass>> DeviceClassList::EnumerateClasses() const
+std::vector<std::shared_ptr<DeviceClass>> DeviceClassEnumerator::EnumerateClasses() const
 {
 	// Create a vector to hold the interfaces
 	std::vector<std::shared_ptr<DeviceClass>> classes;
@@ -24,5 +24,5 @@ std::vector<std::shared_ptr<DeviceClass>> DeviceClassList::EnumerateClasses() co
 	return classes;
 }
 
-DeviceClassList::~DeviceClassList()
+DeviceClassEnumerator::~DeviceClassEnumerator()
 = default;
