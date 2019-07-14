@@ -18,20 +18,17 @@ int main()
 	// Print out the list of devices
 	SetupDeviceInformationSet dis;
 
-	std::vector<std::shared_ptr<SetupDevice>> CM_devices = dis.CM_EnumerateDevices();
-
 	std::vector<std::shared_ptr<SetupDevice>> devices = dis.EnumerateDevices();
-	std::cout << "*Found " << devices.size() << " devices*" << std::endl;
-
-	return 0;
+	std::wcout << devices.size() << L" devices" << std::endl;
 
 	for (auto& device : devices)
 	{
-		std::wcout << L"\t" << device->GetClassGuid() << L"\t" << device->GetDeviceId() << std::endl;
+		std::wcout << L"\t" << device->GetDeviceId() << std::endl;
 
 		// Get a list of properties for this device
 		std::unordered_map<DEVPROPKEY, std::shared_ptr<SetupDeviceProperty>> properties = device->EnumerateProperties();
 		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
+
 		for (auto i : properties)
 		{
 			auto property = i.second;
@@ -45,6 +42,8 @@ int main()
 
 		// Get the list of drivers for this device
 		std::vector<std::shared_ptr<SetupDriver>> drivers = device->EnumerateDrivers();
+		std::wcout << L"\t\t" << drivers.size() << L" drivers" << std::endl;
+
 		for (auto& driver : drivers)
 		{
 			std::wcout << L"\t\t" << driver->GetDescription() << L"\t" << driver->GetMfgName() << L"\t" << driver->GetProviderName() << std::endl;
