@@ -101,7 +101,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\um\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cfgmgr32.lib;setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cfgmgr32.lib;setupapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -162,6 +162,7 @@
     <ClCompile Include="DeviceClass.cpp" />
     <ClCompile Include="DeviceClassEnumerator.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="DeviceClassProperty.cpp" />
     <ClCompile Include="DeviceEnumerator.cpp" />
     <ClCompile Include="DeviceEnumeratorEnumerator.cpp" />
     <ClCompile Include="DeviceInterface.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="DeviceClass.h" />
     <ClInclude Include="DeviceClassEnumerator.h" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="DeviceClassProperty.h" />
     <ClInclude Include="DeviceEnumerator.h" />
     <ClInclude Include="DeviceEnumeratorEnumerator.h" />
     <ClInclude Include="DeviceInterface.h" />

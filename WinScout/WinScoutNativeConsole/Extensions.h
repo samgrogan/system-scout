@@ -11,7 +11,9 @@
 // Output a GUID as a formatted string
 std::wostream& operator<<(std::wostream& wos, REFGUID guid);
 
+// Compare the equality of devpropkeys
 bool operator==(DEVPROPKEY& left, DEVPROPKEY& right);
+
 
 namespace std
 {

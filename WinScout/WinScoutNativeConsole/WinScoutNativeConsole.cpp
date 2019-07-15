@@ -68,7 +68,11 @@ int main()
 
 	for (auto& class_info : classes)
 	{
-		std::wcout << L"\t" << class_info->GetClassGuid() << L"\t" << class_info->GetDescription() << std::endl;
+		std::wcout << L"\t" << class_info->GetClassGuid() << std::endl;
+
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceClassProperty>> class_properties = class_info->EnumerateProperties();
+		std::wcout << L"\t\t" << class_properties.size() << L" properties" << std::endl;
+
 	}
 
 	return 0;

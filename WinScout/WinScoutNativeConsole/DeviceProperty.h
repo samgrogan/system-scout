@@ -49,6 +49,7 @@ namespace WinScoutNativeCore {
 		// Get the value as a string
 		std::wstring GetStringValue() const;
 
+		// Comparison operator
 		bool operator ==(const DeviceProperty& compare);
 
 		// Destructor

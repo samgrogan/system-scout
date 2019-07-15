@@ -48,6 +48,9 @@
     <ClCompile Include="DeviceEnumeratorEnumerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DeviceClassProperty.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DeviceEnumeratorEnumerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceClassProperty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
