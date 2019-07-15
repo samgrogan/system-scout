@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Windows.h>
-#include <SetupAPI.h>
+#include <cfgmgr32.h>
 #include <Devpropdef.h>
 #include <Devpkey.h>
 
@@ -17,8 +17,8 @@ namespace WinScoutNativeCore {
 		// Structure that hold the unique identity of this device instance
 		SP_DEVINFO_DATA _device_info_data{};
 
-		// The key to identify this property
-		DEVPROPKEY _property_key {};
+		// The device instance for the device this property applies to
+		DEVINST _device_instance = 0UL;
 
 		// The size of the buffer
 		DWORD _buffer_size = 0;
@@ -29,15 +29,9 @@ namespace WinScoutNativeCore {
 
 	public:
 		// Default constructor
-		DeviceProperty(HDEVINFO DeviceInfoSet, SP_DEVINFO_DATA& DeviceInfoData, DEVPROPKEY& PropertyKey);
+		DeviceProperty(DEVINST DevInst, DEVPROPKEY& PropertyKey);
 
-		// Get the GUID of this property
-		REFGUID GetGuid() const;
-
-		// Gets the Id of this property
-		DEVPROPID GetId() const;
-
-		// Get the type of the property value
+		// Gets the type of this property
 		DEVPROPTYPE GetType() const;
 
 		// Does this property have a value?

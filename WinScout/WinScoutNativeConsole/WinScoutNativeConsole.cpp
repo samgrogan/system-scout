@@ -34,7 +34,7 @@ int main()
 
 	for (auto& device : devices)
 	{
-		std::wcout << L"\t" << device->GetDeviceId() << std::endl;
+		std::wcout << L"\t" << device->GetDeviceID() << std::endl;
 
 		// Get a list of properties for this device
 		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceProperty>> properties = device->EnumerateProperties();

@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include <Windows.h>
-#include <SetupAPI.h>
+#include <cfgmgr32.h>
 
 #include "Error.h"
 #include "Device.h"
