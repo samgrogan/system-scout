@@ -34,6 +34,9 @@ namespace WinScoutNativeCore
 		// Returns a list of devices for this enumerator
 		std::vector<std::shared_ptr<Device>> EnumerateDevices() const;
 
+		// Gets the filter applied to this enumerator
+		std::wstring GetFilter() const;
+
 		// Destructor
 		virtual ~DeviceEnumerator();
 	};

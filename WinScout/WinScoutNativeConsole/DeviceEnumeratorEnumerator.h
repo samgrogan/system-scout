@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 
+#include <Windows.h>
 #include <cfgmgr32.h>
 
 #include "Error.h"

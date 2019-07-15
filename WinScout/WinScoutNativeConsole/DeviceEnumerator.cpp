@@ -76,5 +76,10 @@ ULONG DeviceEnumerator::GetDeviceIDListSize() const {
 }
 
 
+// Gets the filter applied to this enumerator
+std::wstring DeviceEnumerator::GetFilter() const {
+	return _filter;
+}
+
 // Destructor
 DeviceEnumerator::~DeviceEnumerator() = default;

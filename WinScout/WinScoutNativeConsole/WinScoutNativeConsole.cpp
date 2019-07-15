@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 
+#include "DeviceEnumeratorEnumerator.h"
 #include "DeviceEnumerator.h"
 #include "DeviceClassEnumerator.h"
 #include "DeviceProperty.h"
@@ -13,6 +14,18 @@ using namespace WinScoutNativeCore;
 
 int main()
 {
+	// Print out the list of enumerators
+	DeviceEnumeratorEnumerator dee;
+
+	std::vector<std::shared_ptr<DeviceEnumerator>> enumerators = dee.EnumerateEnumerators();
+	std::wcout << enumerators.size() << L" enumerators" << std::endl;
+
+	for (auto& enumerator : enumerators)
+	{
+		std::wcout << L"\t" << enumerator->GetFilter() << std::endl;
+	}
+
+
 	// Print out the list of devices
 	DeviceEnumerator de;
 
