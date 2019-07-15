@@ -10,6 +10,7 @@ std::vector<std::shared_ptr<DeviceEnumerator>> DeviceEnumeratorEnumerator::Enume
 
 
 
+
 	return enumerators;
 }
 

@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 
+#include <cfgmgr32.h>
+
 #include "Error.h"
 #include "DeviceEnumerator.h"
 
