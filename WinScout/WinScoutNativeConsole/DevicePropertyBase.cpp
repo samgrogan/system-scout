@@ -15,17 +15,45 @@ void DevicePropertyBase::ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buff
 		DEVPROPTYPE base_type = GetType();
 
 		switch (base_type) {
+		case DEVPROP_TYPE_EMPTY: break;
+		case DEVPROP_TYPE_NULL: break;
+		case DEVPROP_TYPE_SBYTE: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_SBYTE" << std::endl; break;
+		case DEVPROP_TYPE_BYTE: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_BYTE" << std::endl; break;
+		case DEVPROP_TYPE_INT16: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_INT16" << std::endl; break;
+		case DEVPROP_TYPE_UINT16: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_UINT16" << std::endl; break;
+		case DEVPROP_TYPE_INT32: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_INT32" << std::endl; break;
+		case DEVPROP_TYPE_UINT32: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_UINT32" << std::endl; break;
+		case DEVPROP_TYPE_INT64: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_INT64" << std::endl; break;
+		case DEVPROP_TYPE_UINT64: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_UINT64" << std::endl; break;
+		case DEVPROP_TYPE_FLOAT: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_FLOAT" << std::endl; break;
+		case DEVPROP_TYPE_DOUBLE: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_DOUBLE" << std::endl; break;
+		case DEVPROP_TYPE_DECIMAL: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_DECIMAL" << std::endl; break;
+		case DEVPROP_TYPE_GUID:
+		{
+			_value_guid = *(reinterpret_cast<GUID*>(Buffer));			
+		}
+		break;
+		case DEVPROP_TYPE_CURRENCY: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_CURRENCY" << std::endl; break;
+		case DEVPROP_TYPE_DATE: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_DATE" << std::endl; break;
+		case DEVPROP_TYPE_FILETIME: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_FILETIME" << std::endl; break;
+		case DEVPROP_TYPE_BOOLEAN: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_BOOLEAN" << std::endl; break;
 		case DEVPROP_TYPE_STRING:
 		{
 			_value_string = std::wstring(reinterpret_cast<const WCHAR*>(Buffer));
 		}
 		break;
-		case DEVPROP_TYPE_GUID:
-		{
-			_value_guid = *(reinterpret_cast<GUID*>(Buffer));
-		}
+		case DEVPROP_TYPE_STRING_LIST: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_STRING_LIST" << std::endl; break;
+		case DEVPROP_TYPE_SECURITY_DESCRIPTOR: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_SECURITY_DESCRIPTOR" << std::endl; break;
+		case DEVPROP_TYPE_SECURITY_DESCRIPTOR_STRING: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_SECURITY_DESCRIPTOR_STRING" << std::endl; break;
+		case DEVPROP_TYPE_DEVPROPKEY: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_DEVPROPKEY" << std::endl; break;
+		case DEVPROP_TYPE_DEVPROPTYPE: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_DEVPROPTYPE" << std::endl; break;
+		case DEVPROP_TYPE_BINARY: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_BINARY" << std::endl; break;
+		case DEVPROP_TYPE_ERROR: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_ERROR" << std::endl; break;
+		case DEVPROP_TYPE_NTSTATUS: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_NTSTATUS" << std::endl; break;
+		case DEVPROP_TYPE_STRING_INDIRECT: std::wcout << L"\t\t\tUnhandled property type: DEVPROP_TYPE_STRING_INDIRECT" << std::endl; break;
 		default:
 			std::wcout << L"\t\t\tUnhandled property type: " << base_type << std::endl;
+			break;
 		}
 	}
 }
@@ -71,7 +99,7 @@ REFGUID DevicePropertyBase::GetGuidValue() const {
 
 // Output the value to the given stream
 std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const {
-// What type of property is this?
+	// What type of property is this?
 	DEVPROPTYPE base_type = GetType();
 
 	switch (base_type) {
