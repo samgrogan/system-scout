@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 #include <Windows.h>
 #include <Rpcdce.h>
@@ -16,7 +17,6 @@ std::wostream& operator<<(std::wostream& wos, const DEVPROPKEY& key);
 
 // Compare the equality of devpropkeys
 bool operator==(DEVPROPKEY& left, DEVPROPKEY& right);
-
 
 namespace std
 {
@@ -40,4 +40,10 @@ namespace std
 			return h1;
 		}
 	};
+
+	// Returns a GUID as a string
+	std::wstring to_wstring(REFGUID guid);
+
+	// Returns a DEVPROPKEY as a string
+	std::wstring to_wstring(const DEVPROPKEY& key);
 }

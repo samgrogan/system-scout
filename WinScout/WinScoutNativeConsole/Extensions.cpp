@@ -7,12 +7,7 @@
 
 std::wostream& operator<<(std::wostream& wos, REFGUID guid)
 {
-	wchar_t szGUID[64] = {0};
-	if (StringFromGUID2(guid, szGUID, 64))
-	{
-		wos << szGUID;
-	}
-
+	wos << std::to_wstring(guid);
 	return wos;
 }
 
@@ -31,3 +26,17 @@ bool operator==(DEVPROPKEY& left, DEVPROPKEY& right)
 		return false;
 }
 
+// Returns a GUID as a string
+std::wstring std::to_wstring(REFGUID guid) {
+	wchar_t szGUID[64] = { 0 };
+	if (StringFromGUID2(guid, szGUID, 64))
+	{
+		return std::wstring(szGUID);
+	}
+	return L"";
+}
+
+// Returns a DEVPROPKEY as a string
+std::wstring std::to_wstring(const DEVPROPKEY& key) {
+	return (std::to_wstring(key.fmtid) + L" (" + std::to_wstring(key.pid) + L")");
+}

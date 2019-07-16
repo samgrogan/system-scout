@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
+
 #include <Windows.h>
 #include <cfgmgr32.h>
 #include <initguid.h>
@@ -27,8 +30,27 @@ namespace WinScoutNativeCore {
 		void ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buffer);
 
 		// The raw value of the property
-		std::wstring _value_string{};
+		INT8 _value_sbyte = 0;
+		BYTE _value_byte = 0U;
+		INT16 _value_int16 = 0;
+		UINT16 _value_uint16 = 0U;
+		INT32 _value_int32 = 0;
+		UINT32 _value_uint32 = 0U;
+		INT64 _value_int64 = 0L;
+		UINT64 _value_uint64 = 0UL;
+		FLOAT _value_float = 0.0;
+		DOUBLE _value_double = 0.0L;
+		DECIMAL _value_decimal{};
 		GUID _value_guid{};
+		CURRENCY _value_currency{};
+		DATE _value_date{};
+		FILETIME _value_filetime{};
+		BOOLEAN _value_boolean = 0U;
+		std::wstring _value_string{};
+		std::vector<std::wstring> _value_string_list;
+		SECURITY_DESCRIPTOR _value_security_descriptor{};
+		NTSTATUS _value_ntstatus = 0L;
+		UINT32 _value_error = 0U;
 
 	public:
 
