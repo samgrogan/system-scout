@@ -7,7 +7,7 @@
 #include "DeviceEnumeratorEnumerator.h"
 #include "DeviceEnumerator.h"
 #include "DeviceClassEnumerator.h"
-#include "DeviceProperty.h"
+#include "DeviceInstanceProperty.h"
 #include "Extensions.h"
 
 using namespace WinScoutNativeCore;
@@ -37,17 +37,15 @@ int main()
 		std::wcout << L"\t" << device->GetDeviceID() << std::endl;
 
 		// Get a list of properties for this device
-		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceProperty>> properties = device->EnumerateProperties();
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> properties = device->EnumerateProperties();
 		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
 
 		for (auto i : properties)
 		{
 			auto property = i.second;
 
-			std::wcout << L"\t\t" << property->GetDevInst() << L"\t" << property->GetPropertyKey();
-			if (property->HasValue(DEVPROP_TYPE_STRING)) {
-				std::wcout << L"\t" << property->GetStringValue();
-			}
+			std::wcout << L"\t\t" << property->GetDevInst() << L"\t" << property->GetKey();
+			std::wcout << L"\t" << property->GetStringValue();
 			std::wcout << std::endl;
 		}
 

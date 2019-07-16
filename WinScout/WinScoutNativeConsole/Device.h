@@ -8,7 +8,7 @@
 #include <cfgmgr32.h>
 
 #include "Driver.h"
-#include "DeviceProperty.h"
+#include "DeviceInstanceProperty.h"
 #include "Error.h"
 #include "Extensions.h"
 
@@ -37,7 +37,7 @@ namespace WinScoutNativeCore
 		std::vector<std::shared_ptr<Driver>> EnumerateDrivers() const;
 
 		// Get the list of properties for this device
-		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceProperty>> EnumerateProperties() const;
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> EnumerateProperties() const;
 
 		// Destructor
 		virtual ~Device();

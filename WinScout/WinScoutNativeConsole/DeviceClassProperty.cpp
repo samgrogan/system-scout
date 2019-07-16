@@ -2,20 +2,20 @@
 
 using namespace WinScoutNativeCore;
 
-DeviceClassProperty::DeviceClassProperty(REFGUID ClassGUID, DEVPROPKEY& PropertyKey)
+DeviceClassProperty::DeviceClassProperty(REFGUID ClassGUID, DEVPROPKEY& PropertyKey) : DevicePropertyBase(PropertyKey)
 {
 	_class_guid = ClassGUID;
-	_property_key = PropertyKey;
+	GetPropertyValue();
+}
+
+// Try to read the value of the property
+void DeviceClassProperty::GetPropertyValue() {
+
 }
 
 // Get the GUID of this property
 REFGUID DeviceClassProperty::GetGuid() const {
 	return _class_guid;
-}
-
-// Gets the key of this property
-DEVPROPKEY DeviceClassProperty::GetKey() const {
-	return _property_key;
 }
 
 // Comparison operator
