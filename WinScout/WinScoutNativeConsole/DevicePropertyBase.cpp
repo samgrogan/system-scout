@@ -101,6 +101,7 @@ std::wstring DevicePropertyBase::GetDescription() const {
 	if (_property_key == DEVPKEY_Device_LocationPaths) { return L"Location Paths"; }
 	if (_property_key == DEVPKEY_Device_BaseContainerId) { return L"Base Container Id"; }
 
+
 	return (std::to_wstring(_property_key));
 }
 

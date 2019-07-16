@@ -11,6 +11,7 @@
 
 #include "Error.h"
 #include "Extensions.h"
+#include "devpkey_description.h"
 
 namespace WinScoutNativeCore {
 

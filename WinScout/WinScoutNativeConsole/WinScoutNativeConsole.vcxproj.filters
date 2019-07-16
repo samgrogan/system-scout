@@ -92,5 +92,8 @@
     <ClInclude Include="DevicePropertyBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="devpkey_description.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
