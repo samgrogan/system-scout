@@ -2,9 +2,9 @@
 
 #include <Windows.h>
 #include <cfgmgr32.h>
-#include <SetupAPI.h>
+#include <initguid.h>
 #include <Devpropdef.h>
-#include <Devpkey.h>
+//#include <Devpkey.h>
 
 #include "Error.h"
 #include "Extensions.h"
@@ -27,7 +27,8 @@ namespace WinScoutNativeCore {
 		void ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buffer);
 
 		// The raw value of the property
-		std::wstring _value_string;
+		std::wstring _value_string{};
+		GUID _value_guid{};
 
 	public:
 
@@ -40,8 +41,17 @@ namespace WinScoutNativeCore {
 		// Gets the type of this property
 		DEVPROPTYPE GetType() const;
 
+		// Gets the description of this property
+		std::wstring GetDescription() const;
+
 		// Get the string value of this property
 		std::wstring GetStringValue() const;
+
+		// Get the GUID value of this property
+		REFGUID GetGuidValue() const;
+
+		// Output the value to the given stream
+		std::wostream& WriteToStream(std::wostream& wos) const;
 
 		// Destructor
 		virtual ~DevicePropertyBase();

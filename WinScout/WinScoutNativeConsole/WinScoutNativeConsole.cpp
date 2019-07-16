@@ -44,9 +44,7 @@ int main()
 		{
 			auto property = i.second;
 
-			std::wcout << L"\t\t" << property->GetDevInst() << L"\t" << property->GetKey();
-			std::wcout << L"\t" << property->GetStringValue();
-			std::wcout << std::endl;
+			std::wcout << L"\t\t" << property->GetDescription() << L"\t" << *property << std::endl;
 		}
 
 		// Get the list of drivers for this device

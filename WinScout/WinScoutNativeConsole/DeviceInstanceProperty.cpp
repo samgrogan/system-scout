@@ -59,3 +59,10 @@ bool DeviceInstanceProperty::operator ==(const DeviceInstanceProperty& compare) 
 
 
 DeviceInstanceProperty::~DeviceInstanceProperty() = default;
+
+
+// Output operator
+std::wostream& operator<<(std::wostream& wos, DeviceInstanceProperty& property) {
+	property.WriteToStream(wos);
+	return wos;
+}

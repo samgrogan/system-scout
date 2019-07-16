@@ -23,7 +23,11 @@ namespace WinScoutNativeCore {
 		// Comparison operator
 		bool operator ==(const DeviceInstanceProperty& compare) const;
 
+
 		// Destructor
 		virtual ~DeviceInstanceProperty();
 	};
 }
+
+// Output operator
+std::wostream& operator<<(std::wostream& wos, WinScoutNativeCore::DeviceInstanceProperty& property);
