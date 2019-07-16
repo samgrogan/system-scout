@@ -9,7 +9,15 @@ DeviceProperty::DeviceProperty(DEVINST DevInst, DEVPROPKEY& PropertyKey)
 	_property_key = PropertyKey;
 }
 
+// Gets th device instance the this property belongs to
+DEVINST DeviceProperty::GetDevInst() const {
+	return _device_instance;
+}
 
+// Gets the property key of this property
+const DEVPROPKEY& DeviceProperty::GetPropertyKey() const {
+	return _property_key;
+}
 
 // Get the type of the property value
 DEVPROPTYPE DeviceProperty::GetType() const {
@@ -18,7 +26,8 @@ DEVPROPTYPE DeviceProperty::GetType() const {
 
 // Does this property have a value?
 bool DeviceProperty::HasValue() const {
-	return (_buffer_size > 0);
+	// return (_buffer_size > 0);
+	return false;
 }
 
 // Does this property have a value of the given type?

@@ -16,6 +16,12 @@ std::wostream& operator<<(std::wostream& wos, REFGUID guid)
 	return wos;
 }
 
+std::wostream& operator<<(std::wostream& wos, const DEVPROPKEY& key) {
+	wos << key.fmtid << L" (" << key.pid << L")";
+
+	return wos;
+}
+
 
 bool operator==(DEVPROPKEY& left, DEVPROPKEY& right) 
 {

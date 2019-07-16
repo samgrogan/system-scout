@@ -11,6 +11,9 @@
 // Output a GUID as a formatted string
 std::wostream& operator<<(std::wostream& wos, REFGUID guid);
 
+// Output a DEVPROPKEY as a formatted string
+std::wostream& operator<<(std::wostream& wos, const DEVPROPKEY& key);
+
 // Compare the equality of devpropkeys
 bool operator==(DEVPROPKEY& left, DEVPROPKEY& right);
 

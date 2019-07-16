@@ -12,16 +12,12 @@ namespace WinScoutNativeCore {
 	class DeviceProperty
 	{
 	private:
-		HDEVINFO _device_info_set;
-
-		// Structure that hold the unique identity of this device instance
-		SP_DEVINFO_DATA _device_info_data{};
 
 		// The device instance for the device this property applies to
 		DEVINST _device_instance = 0UL;
 
-		// The size of the buffer
-		DWORD _buffer_size = 0;
+		// The property key this instance contains
+		DEVPROPKEY _property_key{};
 
 		// The type of the property
 		DEVPROPTYPE _property_type = 0UL;
@@ -30,6 +26,12 @@ namespace WinScoutNativeCore {
 	public:
 		// Default constructor
 		DeviceProperty(DEVINST DevInst, DEVPROPKEY& PropertyKey);
+
+		// Gets th device instance the this property belongs to
+		DEVINST GetDevInst() const;
+
+		// Gets the property key of this property
+		const DEVPROPKEY& GetPropertyKey() const;
 
 		// Gets the type of this property
 		DEVPROPTYPE GetType() const;

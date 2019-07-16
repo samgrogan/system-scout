@@ -44,7 +44,7 @@ int main()
 		{
 			auto property = i.second;
 
-			std::wcout << L"\t\t" << property->GetGuid() << L"\t" << property->GetId();
+			std::wcout << L"\t\t" << property->GetDevInst() << L"\t" << property->GetPropertyKey();
 			if (property->HasValue(DEVPROP_TYPE_STRING)) {
 				std::wcout << L"\t" << property->GetStringValue();
 			}
