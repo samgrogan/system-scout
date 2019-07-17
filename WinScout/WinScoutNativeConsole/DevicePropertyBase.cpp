@@ -65,43 +65,12 @@ DEVPROPTYPE DevicePropertyBase::GetType() const {
 
 // Gets the description of this property
 std::wstring DevicePropertyBase::GetDescription() const {
-	if (_property_key == DEVPKEY_NAME) { return L"Name"; }
-	if (_property_key == DEVPKEY_Device_DeviceDesc) { return L"Description"; }
-	if (_property_key == DEVPKEY_Device_HardwareIds) { return L"Hardware Ids"; }
-	if (_property_key == DEVPKEY_Device_CompatibleIds) { return L"Compatible Ids"; }
-	if (_property_key == DEVPKEY_Device_Service) { return L"Service"; }
-	if (_property_key == DEVPKEY_Device_Class) { return L"Class"; }
-	if (_property_key == DEVPKEY_Device_ClassGuid) { return L"Class Guid"; }
-	if (_property_key == DEVPKEY_Device_Driver) { return L"Driver"; }
-	if (_property_key == DEVPKEY_Device_ConfigFlags) { return L"Config Flags"; }
-	if (_property_key == DEVPKEY_Device_Manufacturer) { return L"Manufacturer"; }
-	if (_property_key == DEVPKEY_Device_FriendlyName) { return L"Friendly Name"; }
-	if (_property_key == DEVPKEY_Device_LocationInfo) { return L"Location Info"; }
-	if (_property_key == DEVPKEY_Device_PDOName) { return L"PDO Name"; }
-	if (_property_key == DEVPKEY_Device_Capabilities) { return L"Capabilities"; }
-	if (_property_key == DEVPKEY_Device_UINumber) { return L"UI Number"; }
-	if (_property_key == DEVPKEY_Device_UpperFilters) { return L"Upper Filters"; }
-	if (_property_key == DEVPKEY_Device_LowerFilters) { return L"Lower Filters"; }
-	if (_property_key == DEVPKEY_Device_BusTypeGuid) { return L"Bus Type Guid"; }
-	if (_property_key == DEVPKEY_Device_LegacyBusType) { return L"Legacy Bus Type"; }
-	if (_property_key == DEVPKEY_Device_BusNumber) { return L"Bus Number"; }
-	if (_property_key == DEVPKEY_Device_EnumeratorName) { return L"Enumerator Number"; }
-	if (_property_key == DEVPKEY_Device_Security) { return L"Security"; }
-	if (_property_key == DEVPKEY_Device_SecuritySDS) { return L"Security SDS"; }
-	if (_property_key == DEVPKEY_Device_DevType) { return L"Type"; }
-	if (_property_key == DEVPKEY_Device_Exclusive) { return L"Exclusive"; }
-	if (_property_key == DEVPKEY_Device_Characteristics) { return L"Characteristics"; }
-	if (_property_key == DEVPKEY_Device_Address) { return L"Address"; }
-	if (_property_key == DEVPKEY_Device_UINumberDescFormat) { return L"UI Number Description Format"; }
-	if (_property_key == DEVPKEY_Device_PowerData) { return L"Power Data"; }
-	if (_property_key == DEVPKEY_Device_RemovalPolicy) { return L"Removal Policy"; }
-	if (_property_key == DEVPKEY_Device_RemovalPolicyDefault) { return L"Removal Policy Default"; }
-	if (_property_key == DEVPKEY_Device_RemovalPolicyOverride) { return L"Removal Policy Override"; }
-	if (_property_key == DEVPKEY_Device_InstallState) { return L"Install State"; }
-	if (_property_key == DEVPKEY_Device_LocationPaths) { return L"Location Paths"; }
-	if (_property_key == DEVPKEY_Device_BaseContainerId) { return L"Base Container Id"; }
+	// Look up the key in the global table
+	if (::_devpkey_map.count(_property_key) > 0) {
+		return ::_devpkey_map[_property_key];
+	}
 
-
+	// If the description isn't found, return the guid and id
 	return (std::to_wstring(_property_key));
 }
 
