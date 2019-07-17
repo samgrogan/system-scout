@@ -110,7 +110,7 @@ std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const {
 	// case DEVPROP_TYPE_CURRENCY: wos << _value_currency; break;
 	case DEVPROP_TYPE_DATE: wos << _value_date; break;
 	// case DEVPROP_TYPE_FILETIME: wos << _value_filetime; break;
-	case DEVPROP_TYPE_BOOLEAN: wos << _value_boolean; break;
+	case DEVPROP_TYPE_BOOLEAN: wos << ( _value_boolean == DEVPROP_TRUE ? L"True" : L"False"); break;
 	case DEVPROP_TYPE_STRING: wos << _value_string; break;
 	//case DEVPROP_TYPE_STRING_LIST: break;
 	//case DEVPROP_TYPE_SECURITY_DESCRIPTOR: break;
