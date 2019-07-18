@@ -2,12 +2,13 @@
 
 #include <iostream>
 #include <vector>
+#include <cstddef>
 
 #include <Windows.h>
 #include <cfgmgr32.h>
 #include <initguid.h>
 #include <Devpropdef.h>
-//#include <Devpkey.h>
+#include <timezoneapi.h>
 
 #include "Error.h"
 #include "Extensions.h"
@@ -30,6 +31,12 @@ namespace WinScoutNativeCore {
 		// Parse the property value and convert to the underlying type
 		void ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buffer);
 
+		// Converts a multi-string sequence to a list of strings
+		std::vector<std::wstring> ParseMultiString(ULONG PropertyBufferSize, PBYTE Buffer);
+
+		// Converts multi-byte binary data to a list of bytes
+		std::vector<std::byte> ParseBinary(ULONG PropertyBufferSize, PBYTE Buffer);
+
 		// The raw value of the property
 		INT8 _value_sbyte = 0;
 		BYTE _value_byte = 0U;
@@ -48,7 +55,8 @@ namespace WinScoutNativeCore {
 		FILETIME _value_filetime{};
 		BOOLEAN _value_boolean = 0U;
 		std::wstring _value_string{};
-		std::vector<std::wstring> _value_string_list;
+		std::vector<std::wstring> _value_string_list{};
+		std::vector<std::byte> _value_binary_list{};
 		SECURITY_DESCRIPTOR _value_security_descriptor{};
 		NTSTATUS _value_ntstatus = 0L;
 		UINT32 _value_error = 0U;

@@ -9,14 +9,8 @@
 #include <cfgmgr32.h>
 #include <initguid.h>
 #include <devpropdef.h>
-#include <apdevpkey.h>
 #include <pciprop.h>
-#include <hidclass.h>
-//#include <nfpdev.h>
-//#include <ntddser.h>
-//#include <ntddstor.h>
-//#include <ntddvdeo.h>
-//#include <poclass.h>
+//#include <devpkey.h>
 
 #include "Extensions.h"
 
@@ -264,53 +258,6 @@ namespace WinScoutNativeCore {
 
 		// DevQuery properties
 		{ DEVPKEY_DevQuery_ObjectType, L"Object Type" },
-
-		//// apdevpkey.h
-		// Indicate that AutoPlay should not be displayed for this device interface.
-		{ DEVPKEY_DeviceInterface_Autoplay_Silent, L"Autoplay Silent" },
-
-		//// hidclass.h
-		// Device interface properties
-		{ DEVPKEY_DeviceInterface_HID_UsagePage, L"HID Usage Page" },
-		{ DEVPKEY_DeviceInterface_HID_UsageId, L"HID Usage Id" },
-		{ DEVPKEY_DeviceInterface_HID_IsReadOnly, L"HID Is Read Only" },
-		{ DEVPKEY_DeviceInterface_HID_VendorId, L"HID Vendor Id" },
-		{ DEVPKEY_DeviceInterface_HID_ProductId, L"HID Product Id" },
-		{ DEVPKEY_DeviceInterface_HID_VersionNumber, L"HID Version Number" },
-		{ DEVPKEY_DeviceInterface_HID_BackgroundAccess, L"HID Background Access" },
-		
-		//// NfpDev.h
-		// Interface GUIDs
-		//{ DEVPKEY_NFP_Capabilities, L"NFP Capabilities" },
-
-		//// ntddser.h
-		//{ DEVPKEY_DeviceInterface_Serial_UsbVendorId, L"Serial Usb Vendor Id" },
-		//{ DEVPKEY_DeviceInterface_Serial_UsbProductId, L"Serial Usb Product Id" },
-		//{ DEVPKEY_DeviceInterface_Serial_PortName, L"Serial Port Name" },
-
-		//// ntddstor.h
-		// Properties associated with the volume interface.
-		//{ DEVPKEY_Storage_Portable, L"Storage Portable" },
-		//{ DEVPKEY_Storage_Removable_Media, L"Storage Removable Media" },
-		//{ DEVPKEY_Storage_System_Critical, L"Storage System Critical" },
-		//{ DEVPKEY_Storage_Disk_Number, L"Storage Disk Number" },
-		//{ DEVPKEY_Storage_Partition_Number, L"Storage Partition Number" },
-		//{ DEVPKEY_Storage_Mbr_Type, L"Storage Mbr Type" },
-		//{ DEVPKEY_Storage_Gpt_Type, L"Storage Gpt Type" },
-		//{ DEVPKEY_Storage_Gpt_Name, L"Storage Gpt Name" },
-
-		//// ntddvdeo.h
-		// Property on a display class device's DevNode indicating that it is a indirect display
-		//{ DEVPKEY_IndirectDisplay, L"Indirect Display" },
-		//{ DEVPKEY_Device_TerminalLuid, L"Terminal Luid" },
-		//{ DEVPKEY_Device_AdapterLuid, L"Adapter Luid" },
-		//{ DEVPKEY_Device_ActivityId, L"Activity Id" },
-
-		//// poclass.h
-		// This is of type DEVPROP_TYPE_UINT32 and represents the NT processor
-		// number.
-		//{ PROCESSOR_NUMBER_PKEY, L"NUMBER PKEY" },
-
 
 
 		});
