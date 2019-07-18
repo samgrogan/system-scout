@@ -11,6 +11,7 @@
 #include <devpropdef.h>
 #include <pciprop.h>
 //#include <devpkey.h>
+//#include <propkey.h>
 
 #include "Extensions.h"
 

@@ -8,7 +8,7 @@
 
 namespace WinScoutNativeCore
 {
-	class Driver
+	class DeviceDriver
 	{
 	private:
 		SP_DRVINFO_DATA _drvinfo_data {};
@@ -16,7 +16,7 @@ namespace WinScoutNativeCore
 	public:
 		// Constructor
 		// Create a new driver class based on the structure data
-		Driver(const SP_DRVINFO_DATA& DriverInfoData);
+		DeviceDriver(const SP_DRVINFO_DATA& DriverInfoData);
 
 		// Gets the description of the driver/device
 		std::wstring GetDescription();
@@ -28,6 +28,6 @@ namespace WinScoutNativeCore
 		std::wstring GetProviderName();
 
 		// Destructor
-		virtual ~Driver();
+		~DeviceDriver();
 	};
 }

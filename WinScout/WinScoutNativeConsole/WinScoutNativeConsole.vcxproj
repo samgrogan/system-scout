@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>setupapi.lib;Rpcrt4.lib;cfgmgr32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>setupapi.lib;Rpcrt4.lib;cfgmgr32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -164,12 +164,14 @@
     <ClCompile Include="DeviceClassEnumerator.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DeviceClassProperty.cpp" />
+    <ClCompile Include="DeviceDriverEnumerator.cpp" />
     <ClCompile Include="DeviceEnumerator.cpp" />
     <ClCompile Include="DeviceEnumeratorEnumerator.cpp" />
     <ClCompile Include="DeviceInterface.cpp" />
     <ClCompile Include="DeviceInstanceProperty.cpp" />
+    <ClCompile Include="DeviceInterfaceEnumerator.cpp" />
     <ClCompile Include="DevicePropertyBase.cpp" />
-    <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="DeviceDriver.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Extensions.cpp" />
     <ClCompile Include="WinScoutNativeConsole.cpp" />
@@ -179,15 +181,18 @@
     <ClInclude Include="DeviceClassEnumerator.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceClassProperty.h" />
+    <ClInclude Include="DeviceDriverEnumerator.h" />
     <ClInclude Include="DeviceEnumerator.h" />
     <ClInclude Include="DeviceEnumeratorEnumerator.h" />
     <ClInclude Include="DeviceInterface.h" />
     <ClInclude Include="DeviceInstanceProperty.h" />
+    <ClInclude Include="DeviceInterfaceEnumerator.h" />
     <ClInclude Include="DevicePropertyBase.h" />
     <ClInclude Include="devpkey_description.h" />
-    <ClInclude Include="Driver.h" />
+    <ClInclude Include="DeviceDriver.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Extensions.h" />
+    <ClInclude Include="WinScoutNativeConsole.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

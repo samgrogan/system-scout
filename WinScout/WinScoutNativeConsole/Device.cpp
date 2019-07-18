@@ -80,12 +80,26 @@ std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> Device::
 }
 
 
+// Get the list of interfaces for this device
+std::vector<std::shared_ptr<DeviceInterface>> Device::EnumerateInterfaces() const {
+	std::vector<std::shared_ptr<DeviceInterface>> interfaces;
+
+	ULONG list_size = 0UL;
+	CONFIGRET result = CM_Get_Device_Interface_List_Size(&list_size, nullptr, const_cast<DEVINSTID_W>(_device_id.c_str()), CM_GET_DEVICE_INTERFACE_LIST_ALL_DEVICES);
+
+	if (list_size > 0) {
+		std::wcout << list_size << L" device interfaces found." << std::endl;
+	}
+
+	return interfaces;
+}
+
 
 // Builds a list of driver information in the set
-std::vector<std::shared_ptr<Driver>> Device::EnumerateDrivers() const
+std::vector<std::shared_ptr<DeviceDriver>> Device::EnumerateDrivers() const
 {
 	// Create a vector to hold the drivers
-	std::vector<std::shared_ptr<Driver>> drivers;
+	std::vector<std::shared_ptr<DeviceDriver>> drivers;
 	//DWORD member_index = 0;
 
 	//SP_DEVINFO_DATA devinfo_data = _device_info_data;

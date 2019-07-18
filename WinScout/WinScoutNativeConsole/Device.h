@@ -7,7 +7,9 @@
 #include <Windows.h>
 #include <cfgmgr32.h>
 
-#include "Driver.h"
+#include "DeviceDriver.h"
+#include "DeviceInterface.h"
+#include "DeviceClass.h"
 #include "DeviceInstanceProperty.h"
 #include "Error.h"
 #include "Extensions.h"
@@ -33,11 +35,14 @@ namespace WinScoutNativeCore
 		// Returns the device id of this device
 		const std::wstring GetDeviceID() const;
 
-		// Get the list of drivers that are associated with this device
-		std::vector<std::shared_ptr<Driver>> EnumerateDrivers() const;
-
 		// Get the list of properties for this device
 		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> EnumerateProperties() const;
+
+		// Get the list of interfaces for this device
+		std::vector<std::shared_ptr<DeviceInterface>> EnumerateInterfaces() const;
+
+		// Get the list of drivers that are associated with this device
+		std::vector<std::shared_ptr<DeviceDriver>> EnumerateDrivers() const;
 
 		// Destructor
 		virtual ~Device();
