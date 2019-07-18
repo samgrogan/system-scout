@@ -38,13 +38,12 @@ int main()
 		std::wcout << L"\t" << device->GetDeviceID() << std::endl;
 
 		// Get a list of properties for this device
-		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> properties = device->EnumerateProperties();
-		std::wcout << L"\t\t" << properties.size() << L" properties" << std::endl;
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> device_properties = device->EnumerateProperties();
+		std::wcout << L"\t\t" << device_properties.size() << L" properties" << std::endl;
 
-		for (auto i : properties)
+		for (auto i : device_properties)
 		{
 			auto property = i.second;
-
 			std::wcout << L"\t\t" << property->GetDescription() << L"\t" << *property << std::endl;
 		}
 
@@ -70,6 +69,11 @@ int main()
 		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceClassProperty>> class_properties = class_info->EnumerateProperties();
 		std::wcout << L"\t\t" << class_properties.size() << L" properties" << std::endl;
 
+		for (auto i : class_properties)
+		{
+			auto property = i.second;
+			std::wcout << L"\t\t" << property->GetDescription() << L"\t" << *property << std::endl;
+		}
 	}
 
 	return 0;

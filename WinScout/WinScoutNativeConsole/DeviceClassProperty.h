@@ -26,3 +26,6 @@ namespace WinScoutNativeCore {
 	};
 
 }
+
+// Output operator
+std::wostream& operator<<(std::wostream& wos, WinScoutNativeCore::DeviceClassProperty& property);
