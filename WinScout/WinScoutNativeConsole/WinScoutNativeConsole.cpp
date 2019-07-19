@@ -10,7 +10,7 @@ int main()
 	std::vector<std::shared_ptr<DeviceEnumerator>> enumerators = GetEnumerators();
 	std::vector<std::shared_ptr<DeviceClass>> classes = GetClasses(false);
 	std::vector<std::shared_ptr<Device>> devices = GetDevices(false, true);
-
+	std::vector<std::shared_ptr<DeviceDriver>> drivers = GetDrivers();
 
 	return 0;
 }
@@ -104,6 +104,7 @@ std::vector<std::shared_ptr<DeviceInterface>> WinScoutNativeCore::GetInterfaces(
 	const DeviceInterfaceEnumerator die;
 
 	std::vector<std::shared_ptr<DeviceInterface>> interfaces = die.EnumerateInterfaces();
+	std::wcout << L"\t\t" << interfaces.size() << L" interfaces" << std::endl;
 
 	// Print out the list of interfaces
 	for (auto& interface_info : interfaces) {
@@ -118,6 +119,12 @@ std::vector<std::shared_ptr<DeviceDriver>> WinScoutNativeCore::GetDrivers() {
 	const DeviceDriverEnumerator dde;
 	
 	std::vector<std::shared_ptr<DeviceDriver>> drivers = dde.EnumerateDrivers();
+	std::wcout << drivers.size() << L" drivers found" << std::endl;
+
+	// Print out the list of drivers
+	for (auto& driver_info : drivers) {
+
+	}
 
 	return drivers;
 }

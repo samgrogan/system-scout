@@ -14,7 +14,9 @@ namespace WinScoutNativeCore
 		SP_DRVINFO_DATA _drvinfo_data {};
 
 	public:
-		// Constructor
+		// Create a new driver based on the image base name
+		DeviceDriver(LPVOID ImageBase);
+
 		// Create a new driver class based on the structure data
 		DeviceDriver(const SP_DRVINFO_DATA& DriverInfoData);
 
