@@ -20,7 +20,7 @@ namespace WinScoutNativeCore {
 		DeviceDriverEnumerator();
 
 		// Enumerate the list of drivers installed on the system
-		std::vector<std::shared_ptr<DeviceDriver>> EnumerateDrivers();
+		std::vector<std::shared_ptr<DeviceDriver>> EnumerateDrivers() const;
 
 		// Destructor
 		~DeviceDriverEnumerator();

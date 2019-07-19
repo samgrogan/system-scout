@@ -12,36 +12,6 @@ int main()
 	std::vector<std::shared_ptr<Device>> devices = GetDevices(false, true);
 
 
-	//// Print out the list of devices
-	//DeviceEnumerator de;
-
-	//std::vector<std::shared_ptr<Device>> devices = de.EnumerateDevices();
-	//std::wcout << devices.size() << L" devices" << std::endl;
-
-	//for (auto& device : devices)
-	//{
-	//	std::wcout << L"\t" << device->GetDeviceID() << std::endl;
-
-	//	// Get a list of properties for this device
-	//	std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> device_properties = device->EnumerateProperties();
-	//	std::wcout << L"\t\t" << device_properties.size() << L" properties" << std::endl;
-
-	//	for (auto i : device_properties)
-	//	{
-	//		auto property = i.second;
-	//		std::wcout << L"\t\t" << property->GetDescription() << L"\t" << *property << std::endl;
-	//	}
-
-	//	// Get the list of drivers for this device
-	//	std::vector<std::shared_ptr<Driver>> drivers = device->EnumerateDrivers();
-	//	std::wcout << L"\t\t" << drivers.size() << L" drivers" << std::endl;
-
-	//	for (auto& driver : drivers)
-	//	{
-	//		std::wcout << L"\t\t" << driver->GetDescription() << L"\t" << driver->GetMfgName() << L"\t" << driver->GetProviderName() << std::endl;
-	//	}
-	//}
-
 	return 0;
 }
 
@@ -141,4 +111,13 @@ std::vector<std::shared_ptr<DeviceInterface>> WinScoutNativeCore::GetInterfaces(
 	}
 
 	return interfaces;
+}
+
+// Get and display a list of drivers
+std::vector<std::shared_ptr<DeviceDriver>> WinScoutNativeCore::GetDrivers() {
+	const DeviceDriverEnumerator dde;
+	
+	std::vector<std::shared_ptr<DeviceDriver>> drivers = dde.EnumerateDrivers();
+
+	return drivers;
 }

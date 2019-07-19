@@ -7,6 +7,7 @@
 #include "DeviceEnumeratorEnumerator.h"
 #include "DeviceClassEnumerator.h"
 #include "DeviceInterfaceEnumerator.h"
+#include "DeviceDriverEnumerator.h"
 #include "Extensions.h"
 
 int main();
@@ -26,5 +27,5 @@ namespace WinScoutNativeCore {
 	std::vector<std::shared_ptr<DeviceInterface>> GetInterfaces(bool ShowProperties);
 
 	// Get and display a list of drivers
-	std::vector<std::shared_ptr<DeviceDriver>> 
+	std::vector<std::shared_ptr<DeviceDriver>> GetDrivers();
 }
