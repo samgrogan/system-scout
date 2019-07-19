@@ -123,7 +123,7 @@ std::vector<std::shared_ptr<DeviceDriver>> WinScoutNativeCore::GetDrivers() {
 
 	// Print out the list of drivers
 	for (auto& driver_info : drivers) {
-
+		std::wcout << L"\t\t" << driver_info->GetFileName() << std::endl;
 	}
 
 	return drivers;

@@ -46,8 +46,9 @@ std::wstring DeviceDriver::GetFileName() {
 	wchar_t filename_buffer[MAX_PATH];
 
 	DWORD filename_length = GetDeviceDriverFileName(_image_base, filename_buffer, MAX_PATH);
-
-	filename = std::wstring();
+	if (filename_length > 0) {
+		filename = std::wstring(filename_buffer);
+	}
 
 	return filename;
 }
