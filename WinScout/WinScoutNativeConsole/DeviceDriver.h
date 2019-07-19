@@ -5,6 +5,8 @@
 
 #include <Windows.h>
 #include <SetupAPI.h>
+#include <psapi.h>
+
 
 namespace WinScoutNativeCore
 {
@@ -12,6 +14,7 @@ namespace WinScoutNativeCore
 	{
 	private:
 		SP_DRVINFO_DATA _drvinfo_data {};
+		LPVOID _image_base = nullptr;
 
 	public:
 		// Create a new driver based on the image base name
@@ -28,6 +31,9 @@ namespace WinScoutNativeCore
 
 		// Get the provider
 		std::wstring GetProviderName();
+
+		// Gets the file name of the driver
+		std::wstring GetFileName();
 
 		// Destructor
 		~DeviceDriver();
