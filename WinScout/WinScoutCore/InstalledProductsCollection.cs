@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Win32;
-using WinScout.Managed.Core;
 
 // Class for gathering a list of installed products
 // from a variety of sources including MSI APIs, WMI, and the registry 
@@ -13,7 +12,7 @@ using WinScout.Managed.Core;
 // http://www.vbforums.com/showthread.php?598355-Example-of-how-to-get-a-list-of-installed-programs-(like-Add-and-Remove-Programs)
 // https://social.msdn.microsoft.com/Forums/en-US/94c2f14d-c45e-4b55-9ba0-eb091bac1035/c-get-installed-programs
 
-namespace WinScoutLib {
+namespace WinScout.Core {
     public class InstalledProductsCollection : IEnumerable<InstalledProduct>, IEnumerator<InstalledProduct> {
         #region Declarations
 

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WinScoutLib;
+﻿using System.Collections.Generic;
 
 // Represents a single installed product (software application)
 
-namespace WinScout.Managed.Core {
+namespace WinScout.Core {
 
     public class InstalledProduct {
 

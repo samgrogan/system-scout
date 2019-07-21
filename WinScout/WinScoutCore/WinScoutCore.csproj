@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="InstalledProduct.cs" />
+    <Compile Include="InstalledProductsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistryKeyAttributes.cs" />
+    <Compile Include="RegistryKeyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinScoutInterop\WinScoutInterop.vcxproj">

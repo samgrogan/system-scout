@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Win32;
 
-namespace WinScoutLib {
+namespace WinScout.Core {
     public static class RegistryKeyExtensions {
         public static string GetValueAsString(this RegistryKey parentKey, string valueName) {
             return parentKey?.GetValue(valueName)?.ToString();

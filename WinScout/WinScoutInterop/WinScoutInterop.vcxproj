@@ -136,61 +136,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\WinScoutNativeConsole\Device.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceClass.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceClassEnumerator.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceClassProperty.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceDriver.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceDriverEnumerator.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceEnumerator.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceEnumeratorEnumerator.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceInstanceProperty.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceInterface.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DeviceInterfaceEnumerator.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\DevicePropertyBase.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\devpkey_description.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\Error.h" />
-    <ClInclude Include="..\WinScoutNativeConsole\Extensions.h" />
-    <ClInclude Include="CfgMgrApiWrapper.h" />
-    <ClInclude Include="MsiApiWrapper.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="stdafx.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\WinScoutNativeConsole\Device.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceClass.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceClassEnumerator.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceClassProperty.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceDriver.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceDriverEnumerator.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceEnumerator.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceEnumeratorEnumerator.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceInstanceProperty.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceInterface.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DeviceInterfaceEnumerator.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\DevicePropertyBase.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\Error.cpp" />
-    <ClCompile Include="..\WinScoutNativeConsole\Extensions.cpp" />
-    <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="CfgMgrApiWrapper.cpp" />
-    <ClCompile Include="MsiApiWrapper.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="app.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="app.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Managed\CfgMgrReturnValue.h" />
+    <ClInclude Include="Managed\Device.h" />
+    <ClInclude Include="Managed\DeviceEnumerator.h" />
+    <ClInclude Include="Unmanaged\devpkey_description.h" />
+    <ClInclude Include="Unmanaged\Extensions.h" />
+    <ClInclude Include="Unmanaged\UM_Device.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceClass.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceClassEnumerator.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceClassProperty.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceDriver.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceDriverEnumerator.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceEnumerator.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceEnumeratorEnumerator.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceInstanceProperty.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceInterface.h" />
+    <ClInclude Include="Unmanaged\UM_DeviceInterfaceEnumerator.h" />
+    <ClInclude Include="Unmanaged\UM_DevicePropertyBase.h" />
+    <ClInclude Include="Unmanaged\UM_Error.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Managed\AssemblyInfo.cpp" />
+    <ClCompile Include="Managed\Device.cpp" />
+    <ClCompile Include="Managed\DeviceEnumerator.cpp" />
+    <ClCompile Include="Unmanaged\Extensions.cpp" />
+    <ClCompile Include="Unmanaged\UM_Device.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceClass.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceClassEnumerator.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceClassProperty.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceDriver.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceDriverEnumerator.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceEnumerator.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceEnumeratorEnumerator.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceInstanceProperty.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceInterface.cpp" />
+    <ClCompile Include="Unmanaged\UM_DeviceInterfaceEnumerator.cpp" />
+    <ClCompile Include="Unmanaged\UM_DevicePropertyBase.cpp" />
+    <ClCompile Include="Unmanaged\UM_Error.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

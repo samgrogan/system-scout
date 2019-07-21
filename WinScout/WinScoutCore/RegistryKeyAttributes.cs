@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WinScoutLib {
+namespace WinScout.Core {
     [System.AttributeUsage(System.AttributeTargets.Property, AllowMultiple = true)]
     public class RegistryValue : System.Attribute {
         public string Value { get; set; }
