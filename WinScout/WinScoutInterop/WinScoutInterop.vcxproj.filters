@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Managed">
+      <UniqueIdentifier>{7b901012-8937-4396-a448-fc64e3d767b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unmanaged">
+      <UniqueIdentifier>{541c24a4-df02-4c0e-9367-359ad0af72e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unmanaged\Header Files">
+      <UniqueIdentifier>{7c85d88e-0e7a-4d30-a19b-c0d8d733995d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unmanaged\Source Files">
+      <UniqueIdentifier>{8d061bcd-87d9-4299-95fb-f5cc6a705acc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -27,6 +39,9 @@
     <ClInclude Include="MsiApiWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\Extensions.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -40,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="MsiApiWrapper.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\Extensions.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
