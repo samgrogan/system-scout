@@ -110,7 +110,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>cfgmgr32.lib;msi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cfgmgr32.lib;msi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -136,6 +136,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\WinScoutNativeConsole\Device.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceClass.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceClassEnumerator.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceClassProperty.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceDriver.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceDriverEnumerator.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceEnumerator.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceEnumeratorEnumerator.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceInstanceProperty.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceInterface.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceInterfaceEnumerator.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\DevicePropertyBase.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\devpkey_description.h" />
+    <ClInclude Include="..\WinScoutNativeConsole\Error.h" />
     <ClInclude Include="..\WinScoutNativeConsole\Extensions.h" />
     <ClInclude Include="CfgMgrApiWrapper.h" />
     <ClInclude Include="MsiApiWrapper.h" />
@@ -143,6 +157,19 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\WinScoutNativeConsole\Device.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceClass.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceClassEnumerator.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceClassProperty.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceDriver.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceDriverEnumerator.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceEnumerator.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceEnumeratorEnumerator.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceInstanceProperty.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceInterface.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceInterfaceEnumerator.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\DevicePropertyBase.cpp" />
+    <ClCompile Include="..\WinScoutNativeConsole\Error.cpp" />
     <ClCompile Include="..\WinScoutNativeConsole\Extensions.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CfgMgrApiWrapper.cpp" />

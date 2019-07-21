@@ -42,6 +42,48 @@
     <ClInclude Include="..\WinScoutNativeConsole\Extensions.h">
       <Filter>Unmanaged\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\Error.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\Device.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceClass.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceClassEnumerator.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceClassProperty.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceDriver.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceDriverEnumerator.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceEnumerator.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceEnumeratorEnumerator.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceInstanceProperty.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceInterface.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DeviceInterfaceEnumerator.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\DevicePropertyBase.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinScoutNativeConsole\devpkey_description.h">
+      <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -57,6 +99,45 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\WinScoutNativeConsole\Extensions.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\Device.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceClass.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceClassEnumerator.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceClassProperty.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceDriver.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceDriverEnumerator.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceEnumerator.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceEnumeratorEnumerator.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceInstanceProperty.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceInterface.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DeviceInterfaceEnumerator.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\DevicePropertyBase.cpp">
+      <Filter>Unmanaged\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinScoutNativeConsole\Error.cpp">
       <Filter>Unmanaged\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
