@@ -23,15 +23,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Managed\DeviceEnumerator.h">
-      <Filter>Managed\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Managed\CfgMgrReturnValue.h">
-      <Filter>Managed\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Managed\Device.h">
-      <Filter>Managed\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Unmanaged\UM_DeviceInterface.h">
       <Filter>Unmanaged\Header Files</Filter>
     </ClInclude>
@@ -76,6 +67,15 @@
     </ClInclude>
     <ClInclude Include="Unmanaged\UM_DeviceInstanceProperty.h">
       <Filter>Unmanaged\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managed\DeviceEnumerator.h">
+      <Filter>Managed\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managed\Device.h">
+      <Filter>Managed\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managed\CfgMgrReturnValue.h">
+      <Filter>Managed\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
