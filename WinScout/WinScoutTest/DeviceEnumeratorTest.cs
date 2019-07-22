@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WinScout.Interop.Managed;
 
@@ -8,14 +9,23 @@ namespace WinScout.Test {
     public class DeviceEnumeratorTest {
         [TestMethod]
         public void EnumerateDevices() {
+            Stopwatch sw = Stopwatch.StartNew();
+
+            // Create a device enumerator
             DeviceEnumerator de = new DeviceEnumerator();
+
+            // Get the list of all devices
             List<Device> devices = de.EnumerateDevices();
 
             Console.WriteLine($"Found {devices.Count} devices.");
 
             foreach (Device device in devices) {
-                Console.WriteLine($"\t{device.DeviceId}");
+                Debug.Assert(!string.IsNullOrWhiteSpace(device.DeviceId), "Device ID cannot be blank");
+
             }
+
+            sw.Stop();
+            Console.WriteLine($"Completed in {sw.ElapsedMilliseconds}ms.");
         }
     }
 }
