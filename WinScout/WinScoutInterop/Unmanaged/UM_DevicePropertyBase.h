@@ -32,10 +32,10 @@ namespace WinScout::Interop::Unmanaged {
 		void ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buffer);
 
 		// Converts a multi-string sequence to a list of strings
-		std::vector<std::wstring> ParseMultiString(ULONG PropertyBufferSize, PBYTE Buffer);
+		static std::vector<std::wstring> ParseMultiString(ULONG PropertyBufferSize, PBYTE Buffer);
 
 		// Converts multi-byte binary data to a list of bytes
-		std::vector<std::byte> ParseBinary(ULONG PropertyBufferSize, PBYTE Buffer);
+		static std::vector<std::byte> ParseBinary(ULONG PropertyBufferSize, PBYTE Buffer);
 
 		// The raw value of the property
 		INT8 _value_sbyte = 0;
@@ -77,6 +77,9 @@ namespace WinScout::Interop::Unmanaged {
 
 		// Get the string value of this property
 		std::wstring GetStringValue() const;
+
+		// Gets a list of the string values for this property
+		std::vector<std::wstring> GetStringListValue() const;
 
 		// Get the GUID value of this property
 		REFGUID GetGuidValue() const;

@@ -3,16 +3,19 @@
 using namespace WinScout::Interop::Unmanaged;
 
 // Constructor
-DevicePropertyBase::DevicePropertyBase(DEVPROPKEY& PropertyKey) {
+DevicePropertyBase::DevicePropertyBase(DEVPROPKEY& PropertyKey)
+{
 	_property_key = PropertyKey;
 }
 
 
 // Parse the property value and convert to the underlying type
-void DevicePropertyBase::ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buffer) {
-	if (Buffer != nullptr && PropertyBufferSize > 0) {
+void DevicePropertyBase::ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buffer)
+{
+	if (Buffer != nullptr && PropertyBufferSize > 0)
+	{
 		// What type of property is this?
-		DEVPROPTYPE base_type = GetType();
+		const DEVPROPTYPE base_type = GetType();
 
 		switch (base_type) {
 		case DEVPROP_TYPE_EMPTY: break;
@@ -52,7 +55,8 @@ void DevicePropertyBase::ParsePropertyValue(ULONG PropertyBufferSize, PBYTE Buff
 
 
 // Converts a multi-string sequence to a list of strings
-std::vector<std::wstring> DevicePropertyBase::ParseMultiString(ULONG PropertyBufferSize, PBYTE Buffer) {
+std::vector<std::wstring> DevicePropertyBase::ParseMultiString(ULONG PropertyBufferSize, PBYTE Buffer)
+{
 	std::vector<std::wstring> string_list;
 
 	ULONG string_start = 0UL;
@@ -89,19 +93,22 @@ std::vector<std::byte> DevicePropertyBase::ParseBinary(ULONG PropertyBufferSize,
 
 
 // Gets the key of this property
-DEVPROPKEY DevicePropertyBase::GetKey() const {
+DEVPROPKEY DevicePropertyBase::GetKey() const
+{
 	return _property_key;
 }
 
 
 // Get the type of the property value
-DEVPROPTYPE DevicePropertyBase::GetType() const {
+DEVPROPTYPE DevicePropertyBase::GetType() const
+{
 	return (_property_type & (DEVPROP_MASK_TYPE | DEVPROP_MASK_TYPEMOD));
 }
 
 
 // Gets the description of this property
-std::wstring DevicePropertyBase::GetDescription() const {
+std::wstring DevicePropertyBase::GetDescription() const
+{
 	// Look up the key in the global table
 	if (::_devpkey_map.count(_property_key) > 0) {
 		return ::_devpkey_map[_property_key];
@@ -113,19 +120,29 @@ std::wstring DevicePropertyBase::GetDescription() const {
 
 
 // Get the string value of this property
-std::wstring DevicePropertyBase::GetStringValue() const {
+std::wstring DevicePropertyBase::GetStringValue() const
+{
 	return _value_string;
 }
 
 
+// Gets a list of the string values for this property
+std::vector<std::wstring> DevicePropertyBase::GetStringListValue() const
+{
+	return _value_string_list;
+}
+
+
 // Get the GUID value of this property
-REFGUID DevicePropertyBase::GetGuidValue() const {
+REFGUID DevicePropertyBase::GetGuidValue() const
+{
 	return _value_guid;
 }
 
 
 // Output the value to the given stream
-std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const {
+std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const
+{
 	// What type of property is this?
 	DEVPROPTYPE base_type = GetType();
 
@@ -142,9 +159,9 @@ std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const {
 	case DEVPROP_TYPE_UINT64: wos << _value_uint64; break;
 	case DEVPROP_TYPE_FLOAT: wos << _value_float; break;
 	case DEVPROP_TYPE_DOUBLE: wos << _value_double; break;
-	// case DEVPROP_TYPE_DECIMAL: wos << _value_decimal; break;
+		// case DEVPROP_TYPE_DECIMAL: wos << _value_decimal; break;
 	case DEVPROP_TYPE_GUID: wos << _value_guid; break;
-	// case DEVPROP_TYPE_CURRENCY: wos << _value_currency; break;
+		// case DEVPROP_TYPE_CURRENCY: wos << _value_currency; break;
 	case DEVPROP_TYPE_DATE: wos << _value_date; break;
 	case DEVPROP_TYPE_FILETIME:
 	{
@@ -160,7 +177,7 @@ std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const {
 		}
 	}
 	break;
-	case DEVPROP_TYPE_BOOLEAN: wos << ( _value_boolean == DEVPROP_TRUE ? L"True" : L"False"); break;
+	case DEVPROP_TYPE_BOOLEAN: wos << (_value_boolean == DEVPROP_TRUE ? L"True" : L"False"); break;
 	case DEVPROP_TYPE_STRING: wos << _value_string; break;
 	case DEVPROP_TYPE_STRING_LIST:
 	{
@@ -181,7 +198,7 @@ std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const {
 	case DEVPROP_TYPE_BINARY: wos << L"<binary>(" << _value_binary_list.size() << L")"; break;
 	case DEVPROP_TYPE_ERROR: wos << _value_error; break;
 	case DEVPROP_TYPE_NTSTATUS: wos << _value_ntstatus; break;
-	//case DEVPROP_TYPE_STRING_INDIRECT: break;
+		//case DEVPROP_TYPE_STRING_INDIRECT: break;
 
 	default: wos << L"*UNKNOWN*"; break;
 	}

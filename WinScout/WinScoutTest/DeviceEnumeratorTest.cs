@@ -19,8 +19,14 @@ namespace WinScout.Test {
 
             Console.WriteLine($"Found {devices.Count} devices.");
 
+
             foreach (Device device in devices) {
                 Debug.Assert(!string.IsNullOrWhiteSpace(device.DeviceId), "Device ID cannot be blank");
+
+                Console.WriteLine();
+                Console.WriteLine($"\tDevice ID:\t{device.DeviceId}");
+                Console.WriteLine($"\tName:\t{device.Name}");
+                Console.WriteLine($"\tDescription:\t{device.Description}");
 
             }
 
