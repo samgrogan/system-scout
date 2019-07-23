@@ -84,6 +84,9 @@ namespace WinScout::Interop::Unmanaged {
 		// Get the GUID value of this property
 		REFGUID GetGuidValue() const;
 
+		// Get the UINT32 value of this property
+		UINT32 GetUInt32Value() const;
+
 		// Output the value to the given stream
 		std::wostream& WriteToStream(std::wostream& wos) const;
 

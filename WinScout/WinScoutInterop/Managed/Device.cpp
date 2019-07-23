@@ -17,6 +17,7 @@ Device::Device(std::shared_ptr<Unmanaged::Device> UMDevice)
 	PopulateProperties(UMDevice);
 }
 
+
 // Properties
 String^ Device::DeviceId::get() { return _deviceId; }
 String^ Device::Name::get() { return _name; }
@@ -24,7 +25,8 @@ String^ Device::Description::get() { return _description; }
 List<String^>^ Device::HardwareIds::get() { return _hardwareIds; }
 List<String^>^ Device::CompatibleIds::get() { return _compatibleIds; }
 String^ Device::Manufacturer::get() { return _manufacturer; }
-String^ Device::Model::get() { return _model; }
+String^ Device::ClassGuid::get() { return _classGuid; }
+UINT32 Device::Type::get() { return _type; }
 
 
 // Gets the value of a property as a string
@@ -83,7 +85,8 @@ void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 	PopulateHardwareIds(device_properties[DEVPKEY_Device_HardwareIds]);
 	PopulateCompatibleIds(device_properties[DEVPKEY_Device_CompatibleIds]);
 	PopulateManufacturer(device_properties[DEVPKEY_Device_Manufacturer]);
-	PopulateModel(device_properties[DEVPKEY_Device_Model]);
+	PopulateClassGuid(device_properties[DEVPKEY_Device_ClassGuid]);
+	PopulateType(device_properties[DEVPKEY_Device_DevType]);
 }
 
 
@@ -126,14 +129,43 @@ void Device::PopulateCompatibleIds(std::shared_ptr<Unmanaged::DeviceInstanceProp
 	_compatibleIds = GetPropertyStringListValue(UMProperty);
 }
 
+
 // Populate the device manufacturer
 void Device::PopulateManufacturer(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
 {
 	_manufacturer = GetPropertyStringValue(UMProperty);
 }
 
-// Populate the device Model
-void Device::PopulateModel(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
+
+// Class GUID for this device
+void Device::PopulateClassGuid(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
 {
-	_model = GetPropertyStringValue(UMProperty);
+	if (UMProperty != nullptr) {
+		if (UMProperty->GetType() != DEVPROP_TYPE_GUID)
+		{
+			throw gcnew Exception("Class GUID is not of GUID type.");
+		}
+
+		REFGUID guid = UMProperty->GetGuidValue();
+		const std::wstring _value = std::to_wstring(guid);
+		const wchar_t* value = _value.c_str();
+		if (value != nullptr)
+		{
+			_classGuid = gcnew String(value);
+		}
+	}
+}
+
+
+// Class GUID for this device
+void Device::PopulateType(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
+{
+	if (UMProperty != nullptr) {
+		if (UMProperty->GetType() != DEVPROP_TYPE_UINT32)
+		{
+			throw gcnew Exception("Device Type is not of UINT32 type.");
+		}
+
+		_type = UMProperty->GetUInt32Value();
+	}
 }

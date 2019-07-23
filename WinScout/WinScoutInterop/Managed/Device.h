@@ -28,8 +28,11 @@ namespace WinScout::Interop::Managed
 		// Manufacturer of the device
 		String^ _manufacturer;
 
-		// Model of the device
-		String^ _model;
+		// Class GUID for this device
+		String^ _classGuid;
+
+		// The device type
+		UINT32 _type;
 
 		// Gets the value of a property as a string
 		static String^ GetPropertyStringValue(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
@@ -45,7 +48,8 @@ namespace WinScout::Interop::Managed
 		void PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 		void PopulateCompatibleIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 		void PopulateManufacturer(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
-		void PopulateModel(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		void PopulateClassGuid(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		void PopulateType(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 
 
 	public:
@@ -56,7 +60,8 @@ namespace WinScout::Interop::Managed
 		property List<String^>^ HardwareIds { List<String^>^ get(); }
 		property List<String^>^ CompatibleIds { List<String^>^ get(); }
 		property String^ Manufacturer { String^ get(); }
-		property String^ Model { String^ get(); }
+		property String^ ClassGuid { String^ get(); }
+		property UINT32 Type { UINT32 get(); }
 
 		// Constructor
 		// Create a managed device class from an unmanaged device class

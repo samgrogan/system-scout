@@ -25,12 +25,13 @@ namespace WinScout.Test {
 
                 Console.WriteLine();
                 Console.WriteLine($"\tDevice ID:\t{device.DeviceId}");
-                Console.WriteLine($"\tName:\t\t{device.Name}");
-                Console.WriteLine($"\tDescription:\t{device.Description}");
                 Console.WriteLine($"\tHardware Ids:\t{String.Join(",", device.HardwareIds)}");
                 Console.WriteLine($"\tCompatible Ids:\t{String.Join(",", device.CompatibleIds)}");
                 Console.WriteLine($"\tManufacturer:\t{device.Manufacturer}");
-                Console.WriteLine($"\tModel:\t{device.Model}");
+                Console.WriteLine($"\tClass GUID:\t{device.ClassGuid}");
+                Console.WriteLine($"\tDescription:\t{device.Description}");
+                Console.WriteLine($"\tName:\t\t{device.Name}");
+                Console.WriteLine($"\tType:\t\t{device.Type}");
             }
 
             sw.Stop();

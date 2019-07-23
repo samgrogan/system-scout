@@ -140,6 +140,13 @@ REFGUID DevicePropertyBase::GetGuidValue() const
 }
 
 
+// Get the UINT32 value of this property
+UINT32 DevicePropertyBase::GetUInt32Value() const
+{
+	return _value_uint32;
+}
+
+
 // Output the value to the given stream
 std::wostream& DevicePropertyBase::WriteToStream(std::wostream& wos) const
 {
