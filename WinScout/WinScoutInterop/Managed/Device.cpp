@@ -22,6 +22,9 @@ String^ Device::DeviceId::get() { return _deviceId; }
 String^ Device::Name::get() { return _name; }
 String^ Device::Description::get() { return _description; }
 List<String^>^ Device::HardwareIds::get() { return _hardwareIds; }
+List<String^>^ Device::CompatibleIds::get() { return _compatibleIds; }
+String^ Device::Manufacturer::get() { return _manufacturer; }
+String^ Device::Model::get() { return _model; }
 
 
 // Gets the value of a property as a string
@@ -43,6 +46,29 @@ String^ Device::GetPropertyStringValue(std::shared_ptr<Unmanaged::DeviceInstance
 }
 
 
+// Gets the value of a property as a string
+List<String^>^ Device::GetPropertyStringListValue(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
+{
+	List<String^>^ result = gcnew List<String^>();
+
+	if (UMProperty != nullptr) {
+		std::vector<std::wstring> _items = UMProperty->GetStringListValue();
+
+		for (auto& _item : _items)
+		{
+			const wchar_t* value = _item.c_str();
+			if (value != nullptr)
+			{
+				String^ _value = gcnew String(value);
+				result->Add(_value);
+			}
+		}
+	}
+
+	return result;
+}
+
+
 // Populate the properties for this device
 void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 {
@@ -55,6 +81,9 @@ void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 	PopulateName(device_properties[DEVPKEY_NAME]);
 	PopulateDescription(device_properties[DEVPKEY_Device_DeviceDesc]);
 	PopulateHardwareIds(device_properties[DEVPKEY_Device_HardwareIds]);
+	PopulateCompatibleIds(device_properties[DEVPKEY_Device_CompatibleIds]);
+	PopulateManufacturer(device_properties[DEVPKEY_Device_Manufacturer]);
+	PopulateModel(device_properties[DEVPKEY_Device_Model]);
 }
 
 
@@ -85,20 +114,26 @@ void Device::PopulateDescription(std::shared_ptr<Unmanaged::DeviceInstanceProper
 
 
 // Populate the hardware ids
-void Device::PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty) {
-	_hardwareIds = gcnew List<String^>();
+void Device::PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
+{
+	_hardwareIds = GetPropertyStringListValue(UMProperty);
+}
 
-	if (UMProperty != nullptr) {
-		std::vector<std::wstring> _items = UMProperty->GetStringListValue();
 
-		for (auto& _item : _items)
-		{
-			const wchar_t* value = _item.c_str();
-			if (value != nullptr)
-			{
-				String^ _hardwareId = gcnew String(value);
-				_hardwareIds->Add(_hardwareId);
-			}
-		}
-	}
+// Populate the compatible ids
+void Device::PopulateCompatibleIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
+{
+	_compatibleIds = GetPropertyStringListValue(UMProperty);
+}
+
+// Populate the device manufacturer
+void Device::PopulateManufacturer(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
+{
+	_manufacturer = GetPropertyStringValue(UMProperty);
+}
+
+// Populate the device Model
+void Device::PopulateModel(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
+{
+	_model = GetPropertyStringValue(UMProperty);
 }
