@@ -54,6 +54,7 @@ void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 	// Populate based on the unmanaged properties
 	PopulateName(device_properties[DEVPKEY_NAME]);
 	PopulateDescription(device_properties[DEVPKEY_Device_DeviceDesc]);
+	PopulateHardwareIds(device_properties[DEVPKEY_Device_HardwareIds]);
 }
 
 
@@ -90,13 +91,13 @@ void Device::PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProper
 	if (UMProperty != nullptr) {
 		std::vector<std::wstring> _items = UMProperty->GetStringListValue();
 
-		for (auto& value : _values)
+		for (auto& _item : _items)
 		{
-			const std::wstring _value = UMDevice->GetDeviceID();
-			const wchar_t* value = _value.c_str();
+			const wchar_t* value = _item.c_str();
 			if (value != nullptr)
 			{
-				_deviceId = gcnew String(value);
+				String^ _hardwareId = gcnew String(value);
+				_hardwareIds->Add(_hardwareId);
 			}
 		}
 	}

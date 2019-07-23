@@ -27,7 +27,7 @@ namespace WinScout.Test {
                 Console.WriteLine($"\tDevice ID:\t{device.DeviceId}");
                 Console.WriteLine($"\tName:\t\t{device.Name}");
                 Console.WriteLine($"\tDescription:\t{device.Description}");
-
+                Console.WriteLine($"\tHardware Ids:\t{String.Join(",", device.HardwareIds)}");
             }
 
             sw.Stop();
