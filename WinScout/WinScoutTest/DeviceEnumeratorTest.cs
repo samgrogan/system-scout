@@ -30,18 +30,23 @@ namespace WinScout.Test {
                 Console.WriteLine($"\tDevice ID:\t{device.DeviceId}");
                 Console.WriteLine($"\tHardware Ids:\t{String.Join(",", device.HardwareIds)}");
                 Console.WriteLine($"\tCompatible Ids:\t{String.Join(",", device.CompatibleIds)}");
-                Console.WriteLine($"\tManufacturer:\t{device.Manufacturer}");
-                Console.WriteLine($"\tClass GUID:\t{device.ClassGuid}");
-                Console.WriteLine($"\tDescription:\t{device.Description}");
                 Console.WriteLine($"\tName:\t\t{device.Name}");
+                Console.WriteLine($"\tDescription:\t{device.Description}");
+                Console.WriteLine($"\tManufacturer:\t{device.Manufacturer}");
                 Console.WriteLine($"\tType:\t\t{device.Type}");
+                Console.WriteLine($"\tClass GUID:\t{device.ClassGuid}");
 
                 // Get the list of drivers for this device
                 List<DeviceDriver> drivers = device.Drivers;
                 Console.WriteLine($"\t\tFound {drivers.Count} drivers.");
 
                 foreach (DeviceDriver driver in drivers) {
-
+                    Console.WriteLine($"\t\t\tHardware Ids:\t{String.Join(",", driver.HardwareIds)}");
+                    Console.WriteLine($"\t\t\tDescription:\t{driver.Description}");
+                    Console.WriteLine($"\t\t\tManufacturer:\t{driver.Manufacturer}");
+                    Console.WriteLine($"\t\t\tVersion:\t{driver.Version}");
+                    Console.WriteLine($"\t\t\tRelease Date:\t{driver.ReleaseDate}");
+                    Console.WriteLine($"\t\t\tINF File:\t{driver.InfFile}");
                 }
             }
 
