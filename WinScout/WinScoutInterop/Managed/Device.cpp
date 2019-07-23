@@ -10,11 +10,14 @@ Device::Device(std::shared_ptr<Unmanaged::Device> UMDevice)
 {
 	if (UMDevice == nullptr)
 	{
-		throw ("Can't create a managed Device from a nullptr");
+		throw gcnew System::Exception("Can't create a managed Device from a nullptr");
 	}
 
 	// Try to populate the properties of the device
 	PopulateProperties(UMDevice);
+
+	// Read the list of drivers
+	EnumerateDrivers(UMDevice);
 }
 
 
@@ -27,6 +30,7 @@ List<String^>^ Device::CompatibleIds::get() { return _compatibleIds; }
 String^ Device::Manufacturer::get() { return _manufacturer; }
 String^ Device::ClassGuid::get() { return _classGuid; }
 UINT32 Device::Type::get() { return _type; }
+List<DeviceDriver^>^ Device::Drivers::get() { return _drivers; }
 
 
 // Gets the value of a property as a string
@@ -77,7 +81,7 @@ void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 	PopulateDeviceId(UMDevice);
 
 	// Get the list of properties from the umdevice
-	std::unordered_map<DEVPROPKEY, std::shared_ptr<Unmanaged::DeviceInstanceProperty>> device_properties = UMDevice->EnumerateProperties();
+	std::unordered_map<DEVPROPKEY, std::shared_ptr<Unmanaged::DeviceInstanceProperty>> device_properties = UMDevice->GetProperties();
 
 	// Populate based on the unmanaged properties
 	PopulateName(device_properties[DEVPKEY_NAME]);
@@ -87,6 +91,9 @@ void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 	PopulateManufacturer(device_properties[DEVPKEY_Device_Manufacturer]);
 	PopulateClassGuid(device_properties[DEVPKEY_Device_ClassGuid]);
 	PopulateType(device_properties[DEVPKEY_Device_DevType]);
+
+	// Get the list of drivers from the umdevice
+	std::vector<std::shared_ptr<Unmanaged::DeviceDriver>> device_drivers = UMDevice->GetDrivers();
 }
 
 
@@ -167,5 +174,22 @@ void Device::PopulateType(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMP
 		}
 
 		_type = UMProperty->GetUInt32Value();
+	}
+}
+
+
+// Enumerate the list of drivers compatible with this device
+void Device::EnumerateDrivers(std::shared_ptr<Unmanaged::Device> UMDevice)
+{
+	_drivers = gcnew List<DeviceDriver^>();
+
+	// Get the list of unmanaged drivers for this device
+	std::vector<std::shared_ptr<Unmanaged::DeviceDriver>> umdrivers = UMDevice->GetDrivers();
+
+	// Create managed wrappers for each driver
+	for (auto& umdriver : umdrivers)
+	{
+		DeviceDriver^ driver = gcnew DeviceDriver(umdriver);
+		_drivers->Add(driver);
 	}
 }

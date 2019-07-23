@@ -26,23 +26,33 @@ namespace WinScout::Interop::Unmanaged
 		DEVINST _device_instance = 0UL;
 
 		// Try to get the device instance of this device, based on the id
-		DEVINST GetDeviceInstance(const std::wstring& DeviceID);
+		static DEVINST GetDeviceInstance(const std::wstring& DeviceID);
+
+		// The list of properties for this device
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> _properties;
+
+		// Get the list of properties for this device
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> EnumerateProperties() const;
+
+		// The list of drivers for this device
+		std::vector<std::shared_ptr<DeviceDriver>> _drivers;
+
+		// Get the list of drivers that are associated with this device
+		std::vector<std::shared_ptr<DeviceDriver>> EnumerateDrivers() const;
+
 
 	public:
 		// Constructor. Create a new object based on the given struct
 		Device(PWSTR DeviceId);
 
 		// Returns the device id of this device
-		const std::wstring GetDeviceID() const;
+		std::wstring GetDeviceID() const;
 
 		// Get the list of properties for this device
-		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> EnumerateProperties() const;
+		std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> GetProperties() const;
 
-		// Get the list of interfaces for this device
-		std::vector<std::shared_ptr<DeviceInterface>> EnumerateInterfaces() const;
-
-		// Get the list of drivers that are associated with this device
-		std::vector<std::shared_ptr<DeviceDriver>> EnumerateDrivers() const;
+		// Get the list of drivers for this device
+		std::vector<std::shared_ptr<DeviceDriver>> GetDrivers() const;
 
 		// Destructor
 		virtual ~Device();

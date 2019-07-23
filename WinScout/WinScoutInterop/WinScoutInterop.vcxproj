@@ -144,6 +144,7 @@
     <ClInclude Include="Managed\CfgMgrReturnValue.h" />
     <ClInclude Include="Managed\Device.h" />
     <ClInclude Include="Managed\DeviceEnumerator.h" />
+    <ClInclude Include="Managed\DeviceDriver.h" />
     <ClInclude Include="Unmanaged\devpkey_description.h" />
     <ClInclude Include="Unmanaged\Extensions.h" />
     <ClInclude Include="Unmanaged\UM_Device.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Managed\AssemblyInfo.cpp" />
     <ClCompile Include="Managed\Device.cpp" />
     <ClCompile Include="Managed\DeviceEnumerator.cpp" />
+    <ClCompile Include="Managed\DeviceDriver.cpp" />
     <ClCompile Include="Unmanaged\Extensions.cpp" />
     <ClCompile Include="Unmanaged\UM_Device.cpp" />
     <ClCompile Include="Unmanaged\UM_DeviceClass.cpp" />

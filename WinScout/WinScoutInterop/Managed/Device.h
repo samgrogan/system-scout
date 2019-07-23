@@ -1,7 +1,7 @@
 #pragma once
 
-
 #include "../Unmanaged/UM_Device.h"
+#include "DeviceDriver.h"
 
 using namespace System;
 using namespace Collections::Generic;
@@ -51,6 +51,11 @@ namespace WinScout::Interop::Managed
 		void PopulateClassGuid(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 		void PopulateType(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 
+		// The list of device drivers associated with this device
+		List<DeviceDriver^>^ _drivers;
+
+		// Populate the list of drivers
+		void EnumerateDrivers(std::shared_ptr<Unmanaged::Device> UMDevice);
 
 	public:
 		// Properties
@@ -62,10 +67,12 @@ namespace WinScout::Interop::Managed
 		property String^ Manufacturer { String^ get(); }
 		property String^ ClassGuid { String^ get(); }
 		property UINT32 Type { UINT32 get(); }
+		property List<DeviceDriver^>^ Drivers { List<DeviceDriver^>^ get(); }
 
 		// Constructor
 		// Create a managed device class from an unmanaged device class
 		Device(std::shared_ptr<Unmanaged::Device> UMDevice);
+
 	};
 
 }

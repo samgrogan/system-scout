@@ -12,6 +12,12 @@ Device::Device(PWSTR DeviceId)
 
 	// Try to locate this device instance
 	_device_instance = GetDeviceInstance(_device_id);
+
+	// Read the properties of the device
+	_properties = EnumerateProperties();
+
+	// Get the list of drivers for this device
+	_drivers = EnumerateDrivers();
 }
 
 
@@ -19,7 +25,7 @@ Device::Device(PWSTR DeviceId)
 DEVINST Device::GetDeviceInstance(const std::wstring& DeviceID) {
 	DEVINST device_instance = 0UL;
 
-	CONFIGRET result = CM_Locate_DevNode(&device_instance, const_cast<DEVINSTID_W>(DeviceID.c_str()), CM_LOCATE_DEVNODE_PHANTOM);
+	const CONFIGRET result = CM_Locate_DevNode(&device_instance, const_cast<DEVINSTID_W>(DeviceID.c_str()), CM_LOCATE_DEVNODE_PHANTOM);
 	if (result == CR_SUCCESS) {
 
 	}
@@ -29,12 +35,6 @@ DEVINST Device::GetDeviceInstance(const std::wstring& DeviceID) {
 	}
 
 	return device_instance;
-}
-
-
-// Returns the device id of this device
-const std::wstring Device::GetDeviceID() const {
-	return _device_id;
 }
 
 
@@ -56,7 +56,7 @@ std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> Device::
 
 		if (property_keys != nullptr) {
 			// Read the list of keys
-			CONFIGRET result = CM_Get_DevNode_Property_Keys(_device_instance, property_keys, &property_key_count, 0);
+			const CONFIGRET result = CM_Get_DevNode_Property_Keys(_device_instance, property_keys, &property_key_count, 0);
 			if (result == CR_SUCCESS) {
 				for (ULONG index = 0; index < property_key_count; index++) {
 					DEVPROPKEY property_key = property_keys[index];
@@ -80,35 +80,19 @@ std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> Device::
 }
 
 
-// Get the list of interfaces for this device
-std::vector<std::shared_ptr<DeviceInterface>> Device::EnumerateInterfaces() const {
-	std::vector<std::shared_ptr<DeviceInterface>> interfaces;
-
-	ULONG list_size = 0UL;
-	GUID class_guid{}; // TODO: Set to class guid
-	DEVINSTID_W device_id = const_cast<DEVINSTID_W>(_device_id.c_str());
-	if (device_id != nullptr) {
-		CONFIGRET result = CM_Get_Device_Interface_List_Size(&list_size, &class_guid, device_id, CM_GET_DEVICE_INTERFACE_LIST_ALL_DEVICES);
-
-		if (list_size > 0) {
-			std::wcout << list_size << L" device interfaces found." << std::endl;
-		}
-	}
-
-	return interfaces;
-}
-
-
 // Builds a list of driver information in the set
 std::vector<std::shared_ptr<DeviceDriver>> Device::EnumerateDrivers() const
 {
 	// Create a vector to hold the drivers
 	std::vector<std::shared_ptr<DeviceDriver>> drivers;
-	//DWORD member_index = 0;
+	DWORD member_index = 0;
 
-	//SP_DEVINFO_DATA devinfo_data = _device_info_data;
+	//// Create the device info for this device
+	//SP_DEVINFO_DATA devinfo_data;
+	//devinfo_data.cbSize = sizeof(SP_DEVINFO_DATA);
+	//devinfo_data.ClassGuid =
 
-	//SP_DRVINFO_DATA drvinfo_data;
+	//	SP_DRVINFO_DATA drvinfo_data;
 	//drvinfo_data.cbSize = sizeof(SP_DRVINFO_DATA);
 
 	//// Iterate through the available drivers
@@ -126,6 +110,46 @@ std::vector<std::shared_ptr<DeviceDriver>> Device::EnumerateDrivers() const
 
 	return drivers;
 }
+
+
+// Returns the device id of this device
+std::wstring Device::GetDeviceID() const
+{
+	return _device_id;
+}
+
+
+// Get the list of properties for this device
+std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> Device::GetProperties() const
+{
+	return _properties;
+}
+
+
+// Get the list of drivers for this device
+std::vector<std::shared_ptr<DeviceDriver>> Device::GetDrivers() const
+{
+	return _drivers;
+}
+
+
+//// Get the list of interfaces for this device
+//std::vector<std::shared_ptr<DeviceInterface>> Device::EnumerateInterfaces() const {
+//	std::vector<std::shared_ptr<DeviceInterface>> interfaces;
+//
+//	ULONG list_size = 0UL;
+//	GUID class_guid{}; // TODO: Set to class guid
+//	DEVINSTID_W device_id = const_cast<DEVINSTID_W>(_device_id.c_str());
+//	if (device_id != nullptr) {
+//		CONFIGRET result = CM_Get_Device_Interface_List_Size(&list_size, &class_guid, device_id, CM_GET_DEVICE_INTERFACE_LIST_ALL_DEVICES);
+//
+//		if (list_size > 0) {
+//			std::wcout << list_size << L" device interfaces found." << std::endl;
+//		}
+//	}
+//
+//	return interfaces;
+//}
 
 
 // Destructor

@@ -17,8 +17,11 @@ namespace WinScout.Test {
             // Get the list of all devices
             List<Device> devices = de.EnumerateDevices();
 
-            Console.WriteLine($"Found {devices.Count} devices.");
+            sw.Stop();
 
+            // Display the results
+            Console.WriteLine($"Completed in {sw.ElapsedMilliseconds}ms.");
+            Console.WriteLine($"Found {devices.Count} devices.");
 
             foreach (Device device in devices) {
                 Debug.Assert(!string.IsNullOrWhiteSpace(device.DeviceId), "Device ID cannot be blank");
@@ -32,10 +35,16 @@ namespace WinScout.Test {
                 Console.WriteLine($"\tDescription:\t{device.Description}");
                 Console.WriteLine($"\tName:\t\t{device.Name}");
                 Console.WriteLine($"\tType:\t\t{device.Type}");
+
+                // Get the list of drivers for this device
+                List<DeviceDriver> drivers = device.Drivers;
+                Console.WriteLine($"\t\tFound {drivers.Count} drivers.");
+
+                foreach (DeviceDriver driver in drivers) {
+
+                }
             }
 
-            sw.Stop();
-            Console.WriteLine($"Completed in {sw.ElapsedMilliseconds}ms.");
         }
     }
 }
