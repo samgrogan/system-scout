@@ -32,12 +32,15 @@ namespace WinScout::Interop::Managed
 		void PopulateDeviceId(std::shared_ptr<Unmanaged::Device> UMDevice);
 		void PopulateName(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 		void PopulateDescription(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		void PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+
 
 	public:
 		// Properties
 		property String^ DeviceId { String^ get(); }
 		property String^ Name { String^ get(); }
 		property String^ Description { String^ get(); }
+		property List<String^>^ HardwareIds { List<String^>^ get(); }
 
 		// Constructor
 		// Create a managed device class from an unmanaged device class

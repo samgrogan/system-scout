@@ -21,6 +21,7 @@ Device::Device(std::shared_ptr<Unmanaged::Device> UMDevice)
 String^ Device::DeviceId::get() { return _deviceId; }
 String^ Device::Name::get() { return _name; }
 String^ Device::Description::get() { return _description; }
+List<String^>^ Device::HardwareIds::get() { return _hardwareIds; }
 
 
 // Gets the value of a property as a string
@@ -56,8 +57,6 @@ void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 }
 
 
-
-
 // Populate the device ID
 void Device::PopulateDeviceId(std::shared_ptr<Unmanaged::Device> UMDevice)
 {
@@ -70,13 +69,35 @@ void Device::PopulateDeviceId(std::shared_ptr<Unmanaged::Device> UMDevice)
 }
 
 
+// Populate the device name
 void Device::PopulateName(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
 {
 	_name = GetPropertyStringValue(UMProperty);
 }
 
 
+// Populate the device description
 void Device::PopulateDescription(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty)
 {
 	_description = GetPropertyStringValue(UMProperty);
+}
+
+
+// Populate the hardware ids
+void Device::PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty) {
+	_hardwareIds = gcnew List<String^>();
+
+	if (UMProperty != nullptr) {
+		std::vector<std::wstring> _items = UMProperty->GetStringListValue();
+
+		for (auto& value : _values)
+		{
+			const std::wstring _value = UMDevice->GetDeviceID();
+			const wchar_t* value = _value.c_str();
+			if (value != nullptr)
+			{
+				_deviceId = gcnew String(value);
+			}
+		}
+	}
 }

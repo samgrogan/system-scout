@@ -25,7 +25,7 @@ namespace WinScout.Test {
 
                 Console.WriteLine();
                 Console.WriteLine($"\tDevice ID:\t{device.DeviceId}");
-                Console.WriteLine($"\tName:\t{device.Name}");
+                Console.WriteLine($"\tName:\t\t{device.Name}");
                 Console.WriteLine($"\tDescription:\t{device.Description}");
 
             }
