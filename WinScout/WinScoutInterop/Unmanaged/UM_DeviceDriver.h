@@ -7,7 +7,6 @@
 #include <SetupAPI.h>
 #include <psapi.h>
 
-
 namespace WinScout::Interop::Unmanaged
 {
 	class DeviceDriver

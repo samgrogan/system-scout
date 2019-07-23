@@ -60,7 +60,7 @@ std::unordered_map<DEVPROPKEY, std::shared_ptr<DeviceInstanceProperty>> Device::
 			if (result == CR_SUCCESS) {
 				for (ULONG index = 0; index < property_key_count; index++) {
 					DEVPROPKEY property_key = property_keys[index];
-					std::shared_ptr<DeviceInstanceProperty> property = std::make_shared<DeviceInstanceProperty>(DeviceInstanceProperty(_device_instance, property_key));
+					const std::shared_ptr<DeviceInstanceProperty> property = std::make_shared<DeviceInstanceProperty>(DeviceInstanceProperty(_device_instance, property_key));
 
 					properties[property_key] = property;
 				}
@@ -85,28 +85,32 @@ std::vector<std::shared_ptr<DeviceDriver>> Device::EnumerateDrivers() const
 {
 	// Create a vector to hold the drivers
 	std::vector<std::shared_ptr<DeviceDriver>> drivers;
+
+	// Create the device info for this device
+	std::shared_ptr<DeviceInstanceProperty> class_guid_property = _properties.at(DEVPKEY_Device_ClassGuid);
+
+	SP_DEVINFO_DATA devinfo_data{};
+	devinfo_data.cbSize = sizeof(SP_DEVINFO_DATA);
+	devinfo_data.ClassGuid = class_guid_property->GetGuidValue();
+	devinfo_data.DevInst = _device_instance;
+
+	SP_DRVINFO_DATA drvinfo_data{};
+	drvinfo_data.cbSize = sizeof(SP_DRVINFO_DATA);
+
+	HDEVINFO device_info_set = SetupDiCreateDeviceInfoList(&devinfo_data.ClassGuid, nullptr);
+
+	// Iterate through the available drivers
 	DWORD member_index = 0;
+	while (SetupDiEnumDriverInfo(device_info_set, &devinfo_data, SPDIT_COMPATDRIVER, member_index++, &drvinfo_data))
+	{
 
-	//// Create the device info for this device
-	//SP_DEVINFO_DATA devinfo_data;
-	//devinfo_data.cbSize = sizeof(SP_DEVINFO_DATA);
-	//devinfo_data.ClassGuid =
-
-	//	SP_DRVINFO_DATA drvinfo_data;
-	//drvinfo_data.cbSize = sizeof(SP_DRVINFO_DATA);
-
-	//// Iterate through the available drivers
-	//while (SetupDiEnumDriverInfo(_device_info_set, &devinfo_data, SPDIT_COMPATDRIVER, member_index++, &drvinfo_data))
-	//{
-	//	std::shared_ptr<SetupDriver> driver = std::make_shared<SetupDriver>(SetupDriver(drvinfo_data));
-	//	drivers.push_back(driver);
-	//}
-	//// Why did the loop end?
-	//const Error last_error;
-	//if (last_error.GetErrorCode() != ERROR_NO_MORE_ITEMS)
-	//{
-	//	std::wcout << L"SetupDevice::EnumerateDrivers(): " << last_error.GetErrorMessage();
-	//}
+	}
+	// Why did the loop end?
+	const Error last_error;
+	if (last_error.GetErrorCode() != ERROR_NO_MORE_ITEMS)
+	{
+		std::wcout << L"Device::EnumerateDrivers(): " << last_error.GetErrorMessage();
+	}
 
 	return drivers;
 }

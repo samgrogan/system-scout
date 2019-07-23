@@ -8,7 +8,6 @@
 #include <cfgmgr32.h>
 
 #include "UM_DeviceDriver.h"
-#include "UM_DeviceInterface.h"
 #include "UM_DeviceClass.h"
 #include "UM_DeviceInstanceProperty.h"
 #include "UM_Error.h"
