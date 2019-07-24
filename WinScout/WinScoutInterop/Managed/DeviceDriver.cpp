@@ -9,6 +9,9 @@ DeviceDriver::DeviceDriver(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver)
 	{
 		throw gcnew System::Exception("Can't create a managed Driver from a nullptr");
 	}
+
+	// Try to populate the properties of the device
+	PopulateProperties(UMDriver);
 }
 
 
@@ -19,3 +22,10 @@ String^ DeviceDriver::Manufacturer::get() { return _manufacturer; }
 String^ DeviceDriver::Version::get() { return _version; }
 DateTime DeviceDriver::ReleaseDate::get() { return _releaseDate; }
 String^ DeviceDriver::InfFile::get() { return _infFile; }
+
+
+// Populate the properties for this device
+void DeviceDriver::PopulateProperties(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver)
+{
+	_description = gcnew String(UMDriver->GetDescription().c_str());
+}

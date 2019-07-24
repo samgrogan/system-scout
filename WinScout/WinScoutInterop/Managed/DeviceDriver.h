@@ -27,6 +27,10 @@ namespace WinScout::Interop::Managed {
 		// The path to the INF file for this driver
 		String^ _infFile;
 
+		// Populate the properties for this device
+		void PopulateProperties(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
+
+
 	public:
 		// Properties
 		property List<String^>^ HardwareIds { List<String^>^ get(); }
