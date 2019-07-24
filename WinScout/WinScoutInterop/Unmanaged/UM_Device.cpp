@@ -97,20 +97,25 @@ std::vector<std::shared_ptr<DeviceDriver>> Device::EnumerateDrivers() const
 	SP_DRVINFO_DATA drvinfo_data{};
 	drvinfo_data.cbSize = sizeof(SP_DRVINFO_DATA);
 
-	HDEVINFO device_info_set = SetupDiCreateDeviceInfoList(&devinfo_data.ClassGuid, nullptr);
+	HDEVINFO device_info_set = SetupDiCreateDeviceInfoList(nullptr, nullptr);
+	if (SetupDiCreateDeviceInfo(device_info_set, _device_id.c_str(), nullptr, nullptr, nullptr, 0, &devinfo_data)) {
+		// Iterate through the available drivers
+		DWORD member_index = 0;
+		while (SetupDiEnumDriverInfo(device_info_set, &devinfo_data, SPDIT_COMPATDRIVER, member_index++, &drvinfo_data))
+		{
 
-	// Iterate through the available drivers
-	DWORD member_index = 0;
-	while (SetupDiEnumDriverInfo(device_info_set, &devinfo_data, SPDIT_COMPATDRIVER, member_index++, &drvinfo_data))
-	{
-
+		}
 	}
+
 	// Why did the loop end?
 	const Error last_error;
 	if (last_error.GetErrorCode() != ERROR_NO_MORE_ITEMS)
 	{
 		std::wcout << L"Device::EnumerateDrivers(): " << last_error.GetErrorMessage();
 	}
+
+	// Free the device list handle
+	SetupDiDestroyDeviceInfoList(device_info_set);
 
 	return drivers;
 }
