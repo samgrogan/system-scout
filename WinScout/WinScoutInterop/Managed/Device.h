@@ -41,15 +41,15 @@ namespace WinScout::Interop::Managed
 		static List<String^>^ GetPropertyStringListValue(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 
 		// Populate the properties for this device
-		void PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice);
-		void PopulateDeviceId(std::shared_ptr<Unmanaged::Device> UMDevice);
-		void PopulateName(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
-		void PopulateDescription(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
-		void PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
-		void PopulateCompatibleIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
-		void PopulateManufacturer(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
-		void PopulateClassGuid(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
-		void PopulateType(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		inline void PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice);
+		inline void PopulateDeviceId(std::shared_ptr<Unmanaged::Device> UMDevice);
+		inline void PopulateName(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		inline void PopulateDescription(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		inline void PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		inline void PopulateCompatibleIds(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		inline void PopulateManufacturer(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		inline void PopulateClassGuid(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
+		inline void PopulateType(std::shared_ptr<Unmanaged::DeviceInstanceProperty> UMProperty);
 
 		// The list of device drivers associated with this device
 		List<DeviceDriver^>^ _drivers;

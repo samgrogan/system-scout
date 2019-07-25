@@ -101,16 +101,21 @@ std::vector<std::shared_ptr<DeviceDriver>> Device::EnumerateDrivers() const
 	SP_DRVINFO_DATA drvinfo_data{};
 	drvinfo_data.cbSize = sizeof(SP_DRVINFO_DATA);
 
+	// Create a device info list and add this device to it
 	HDEVINFO device_info_set = SetupDiCreateDeviceInfoList(nullptr, nullptr);
 	if (SetupDiOpenDeviceInfo(device_info_set, _device_id.c_str(), nullptr, 0, &devinfo_data))
 	{
-		// Iterate through the available drivers
-		DWORD member_index = 0;
-		while (SetupDiEnumDriverInfo(device_info_set, &devinfo_data, SPDIT_COMPATDRIVER, member_index++, &drvinfo_data))
+		// Build the list of drivers for this device
+		if (SetupDiBuildDriverInfoList(device_info_set, &devinfo_data, SPDIT_COMPATDRIVER))
 		{
-			// Create a new driver object to wrap the returned data
-			std::shared_ptr<DeviceDriver> driver = std::make_shared<DeviceDriver>(DeviceDriver(drvinfo_data));
-			drivers.push_back(driver);
+			// Iterate through the available drivers
+			DWORD member_index = 0;
+			while (SetupDiEnumDriverInfo(device_info_set, &devinfo_data, SPDIT_COMPATDRIVER, member_index++, &drvinfo_data))
+			{
+				// Create a new driver object to wrap the returned data
+				std::shared_ptr<DeviceDriver> driver = std::make_shared<DeviceDriver>(DeviceDriver(_device_id, drvinfo_data));
+				drivers.push_back(driver);
+			}
 		}
 	}
 

@@ -11,35 +11,37 @@ DeviceDriver::DeviceDriver(LPVOID ImageBase) {
 
 
 // Create a new driver class based on the structure data
-DeviceDriver::DeviceDriver(const SP_DRVINFO_DATA& DriverInfoData)
+DeviceDriver::DeviceDriver(const std::wstring& DeviceId, SP_DRVINFO_DATA& DriverInfoData)
 {
+	_device_id = DeviceId;
 	_drvinfo_data = DriverInfoData;
 }
 
 
+// Gets ID of the device this driver is attached to
+const std::wstring DeviceDriver::GetDeviceId() const
+{
+	return _device_id;
+}
+
+
 // Gets the description of the driver/device
-std::wstring DeviceDriver::GetDescription()
+const std::wstring DeviceDriver::GetDescription() const
 {
 	return _drvinfo_data.Description;
 }
 
 
-// Gets the name of the manufacturer
-std::wstring DeviceDriver::GetMfgName()
-{
-	return _drvinfo_data.MfgName;
-}
-
-
 // Get the provider
-std::wstring DeviceDriver::GetProviderName()
+const std::wstring DeviceDriver::GetProviderName() const
 {
 	return _drvinfo_data.ProviderName;
 }
 
 
 // Gets the file name of the driver
-std::wstring DeviceDriver::GetFileName() {
+const std::wstring DeviceDriver::GetFileName() const
+{
 	std::wstring filename{};
 	
 	// Gets the size of the file name

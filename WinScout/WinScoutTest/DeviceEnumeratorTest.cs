@@ -41,6 +41,7 @@ namespace WinScout.Test {
                 Console.WriteLine($"\t\tFound {drivers.Count} drivers.");
 
                 foreach (DeviceDriver driver in drivers) {
+                    Console.WriteLine();
                     Console.WriteLine($"\t\t\tHardware Ids:\t{String.Join(",", driver.HardwareIds)}");
                     Console.WriteLine($"\t\t\tDescription:\t{driver.Description}");
                     Console.WriteLine($"\t\t\tManufacturer:\t{driver.Manufacturer}");

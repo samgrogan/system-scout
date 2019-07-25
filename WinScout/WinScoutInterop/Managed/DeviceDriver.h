@@ -22,14 +22,19 @@ namespace WinScout::Interop::Managed {
 		String^ _version;
 
 		// The release date of the driver
-		DateTime _releaseDate;
+		Nullable<DateTime> _releaseDate;
 
 		// The path to the INF file for this driver
 		String^ _infFile;
 
 		// Populate the properties for this device
-		void PopulateProperties(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
-
+		inline void PopulateProperties(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
+		inline void PopulateHardwareIds(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
+		inline void PopulateDescription(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
+		inline void PopulateManufacturer(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
+		inline void PopulateVersion(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
+		inline void PopulateReleaseDate(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
+		inline void PopulateInfFile(std::shared_ptr<Unmanaged::DeviceDriver> UMDriver);
 
 	public:
 		// Properties
@@ -37,8 +42,9 @@ namespace WinScout::Interop::Managed {
 		property String^ Description { String^ get(); }
 		property String^ Manufacturer { String^ get(); }
 		property String^ Version { String^ get(); }
-		property DateTime ReleaseDate { DateTime get(); }
+		property Nullable<DateTime> ReleaseDate { Nullable<DateTime> get(); }
 		property String^ InfFile { String^ get(); }
+
 
 		// Constructor
 		// Create a managed driver class from an unmanaged device class

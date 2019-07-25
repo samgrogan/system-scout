@@ -40,8 +40,7 @@ String^ Device::GetPropertyStringValue(std::shared_ptr<Unmanaged::DeviceInstance
 
 	if (UMProperty != nullptr)
 	{
-		const std::wstring _value = UMProperty->GetStringValue();
-		const wchar_t* value = _value.c_str();
+		const wchar_t* value = UMProperty->GetStringValue().c_str();
 		if (value != nullptr)
 		{
 			result = gcnew String(value);
@@ -58,11 +57,11 @@ List<String^>^ Device::GetPropertyStringListValue(std::shared_ptr<Unmanaged::Dev
 	List<String^>^ result = gcnew List<String^>();
 
 	if (UMProperty != nullptr) {
-		std::vector<std::wstring> _items = UMProperty->GetStringListValue();
+		std::vector<std::wstring> items = UMProperty->GetStringListValue();
 
-		for (auto& _item : _items)
+		for (auto& item : items)
 		{
-			const wchar_t* value = _item.c_str();
+			const wchar_t* value = item.c_str();
 			if (value != nullptr)
 			{
 				String^ _value = gcnew String(value);
@@ -100,8 +99,7 @@ void Device::PopulateProperties(std::shared_ptr<Unmanaged::Device> UMDevice)
 // Populate the device ID
 void Device::PopulateDeviceId(std::shared_ptr<Unmanaged::Device> UMDevice)
 {
-	const std::wstring _value = UMDevice->GetDeviceID();
-	const wchar_t* value = _value.c_str();
+	const wchar_t* value = UMDevice->GetDeviceID().c_str();
 	if (value != nullptr)
 	{
 		_deviceId = gcnew String(value);
@@ -154,8 +152,7 @@ void Device::PopulateClassGuid(std::shared_ptr<Unmanaged::DeviceInstanceProperty
 		}
 
 		REFGUID guid = UMProperty->GetGuidValue();
-		const std::wstring _value = std::to_wstring(guid);
-		const wchar_t* value = _value.c_str();
+		const wchar_t* value = std::to_wstring(guid).c_str();
 		if (value != nullptr)
 		{
 			_classGuid = gcnew String(value);
